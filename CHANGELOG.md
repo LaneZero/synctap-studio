@@ -1,22 +1,21 @@
 # Changelog
 
+## 4.2.0 - 2026-11-01
+- Add an installable PWA manifest and original lightweight PNG app icons.
+- Add a limited, versioned service worker cache for the static app shell, with offline fallback; never cache user audio.
+- Use relative paths for GitHub Pages project hosting.
+- Link the developer name **LaneZero** in the footer directly to the project GitHub repository.
+- Expand README with usage, output compatibility, mobile installation, privacy, architecture, and release guidance.
+- Preserve V4.1 timing logic, local autosave, waveform behavior, and original V2 JSON serialization.
+
 ## 4.1.0 - 2026-11-01
 - Add optional waveform extraction using native Web Audio API and Canvas.
-- Add accessible timeline seek by touch, mouse, and arrow keys.
-- Show timestamp markers and playback cursor on waveform.
-- Bound waveform decoding to 24 MiB / 15 minutes for mobile responsiveness.
-- Keep core recording, autosave, timestamp editing, quality checks, and V2 JSON contract unchanged.
-- No new dependencies.
-
-# Changelog
+- Add touch/mouse/keyboard timeline seeking, markers and playback cursor.
+- Limit optional waveform analysis to 24 MiB / 15 minutes.
 
 ## 4.0.0 - 2026-11-01
-- Added debounced local-only autosave and restore (text, applied lines, marks, position, theme).
-- Added per-sentence timestamp editing with 0.01-second precision.
-- Added non-blocking warnings for duplicate, descending, out-of-audio-range and pending timestamps.
-- Added confirmation before replacing an in-progress timing session.
-- Kept JSON output data shape and serialization exactly compatible with V2/V3.
-- No external dependencies and no audio data storage or upload.
+- Add local autosave, timestamp editing and non-blocking quality checks.
+- Preserve original V2 JSON contract.
 
 ## 3.2.0
-- Mobile-first timing controls and persistent touch dock.
+- Add mobile timing controls and persistent touch dock.
