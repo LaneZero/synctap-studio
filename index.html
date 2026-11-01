@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SyncTap Studio | LaneZero</title>
+<meta name="description" content="ابزار رایگان و بدون نیاز به نصب برای ثبت دستی زمان شروع جملات نریشن و دریافت JSON همگام‌سازی متن و صدا.">
+<meta name="theme-color" content="#090f1e">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root{color-scheme:dark;--bg:#090f1e;--surface:#121d32;--surface2:#192741;--border:#2c3b58;--text:#f0f4fc;--muted:#9aabc6;--accent:#9da9ff;--accentText:#11172a;--green:#4cdbad;--amber:#f6bd67;--radius:17px}
+:root[data-theme="light"]{color-scheme:light;--bg:#f1f4f9;--surface:#fff;--surface2:#f4f6fb;--border:#d9e0ed;--text:#142238;--muted:#5d6c85;--accent:#5d64d8;--accentText:#fff;--green:#087c57;--amber:#95620f}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Vazirmatn,Tahoma,system-ui,sans-serif;line-height:1.7}button,input,textarea{font:inherit}button{cursor:pointer;transition:background .15s,transform .15s}button:active{transform:scale(.985)}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}button:disabled{opacity:.45;cursor:not-allowed}.wrap{max-width:1450px;margin:auto;padding:24px 26px 40px}.top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:13px}.logo{width:50px;height:50px;background:linear-gradient(135deg,#747deb,#a6b8ff);color:#10162a;border-radius:15px;display:grid;place-items:center;font-size:27px;font-weight:900}.brand h1{font-size:22px;line-height:1.3;margin:0}.sub{color:var(--muted);font-size:13px;margin:2px 0 0}.top-actions{display:flex;gap:8px;align-items:center}.pill{font-size:12px;border:1px solid var(--border);border-radius:999px;padding:5px 12px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(320px,0.9fr) minmax(450px,1.25fr);gap:18px;align-items:start}.stack{display:grid;gap:18px;min-width:0}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;min-width:0}.card-header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px}.card h2{font-size:16px;margin:0;font-weight:800}.hint{font-size:13px;color:var(--muted);margin:7px 0 14px}.tiny{font-size:12px;color:var(--muted)}.row{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.space{justify-content:space-between}.btn{border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:11px;padding:10px 14px;font-weight:650}.btn.primary{background:var(--accent);color:var(--accentText);border-color:transparent}.btn:hover{filter:brightness(1.1)}.btn.small{padding:6px 11px;font-size:13px}textarea{width:100%;resize:vertical;min-height:160px;border-radius:12px;background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:14px;line-height:2;font-size:14px}#txt{height:360px}#out{height:150px;min-height:110px;direction:ltr;text-align:left;font:12px/1.7 Consolas,monospace;white-space:pre}.upload{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:15px}.file-label{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--surface2);border:1px dashed var(--border);border-radius:11px;padding:10px 15px;cursor:pointer;font-size:13px;font-weight:700}.file-label:hover{border-color:var(--accent)}#f{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}#f:focus-visible+.file-label{outline:3px solid var(--accent)}.audio-box{padding:14px;border:1px solid var(--border);border-radius:13px;background:var(--surface2)}audio{display:block;width:100%;height:42px;max-width:100%}#clock{font-size:32px;font-weight:800;direction:ltr;text-align:center;letter-spacing:1px;font-variant-numeric:tabular-nums;margin:8px 0}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.stat{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px}.stat strong{display:block;font-size:22px;line-height:1.4;font-variant-numeric:tabular-nums}.progress{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden;margin:14px 0}.progress>div{height:100%;width:0%;background:var(--accent);transition:width .2s}.current{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:19px;margin:12px 0 14px;min-height:150px;display:flex;flex-direction:column;justify-content:center}.eyebrow{font-size:12px;color:var(--accent);font-weight:700}#cur{font-size:21px;font-weight:700;line-height:2.05;margin:9px 0 0;overflow-wrap:anywhere}#big{display:block;width:100%;font-size:18px;padding:20px;border-radius:13px;background:var(--accent);color:var(--accentText);border:0;font-weight:800}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.actions button{width:100%}.list{max-height:370px;overflow-y:auto;scrollbar-color:var(--border) transparent}.item{display:flex;gap:12px;align-items:center;padding:10px 8px;border-bottom:1px solid var(--border);font-size:13px}.item:last-child{border-bottom:0}.item.current-item{background:var(--surface2);border-radius:9px}.item .number{min-width:29px;text-align:center;border-radius:8px;background:var(--surface2);color:var(--muted);padding:2px}.item .sentence{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.item .time{flex:none;direction:ltr;color:var(--muted);font-variant-numeric:tabular-nums}.item.done .time{color:var(--green)}.item.skipped .time{color:var(--amber)}.footer{padding:24px 0 0;text-align:center;color:var(--muted);font-size:12px}.footer b{color:var(--accent)}.toast{position:fixed;bottom:24px;left:24px;padding:11px 18px;border-radius:11px;background:var(--accent);color:var(--accentText);box-shadow:0 5px 30px #0004;font-weight:700;font-size:13px;z-index:4}.hidden{display:none!important}@media(max-width:980px){.layout{grid-template-columns:1fr}.wrap{padding:16px}.stack{gap:13px}.card{padding:16px}}@media(max-width:480px){.brand h1{font-size:18px}.logo{width:42px;height:42px}.pill{display:none}.top{gap:8px}#cur{font-size:18px}.btn{padding:9px 10px;font-size:12px}.stats{gap:6px}.stat{padding:9px}.stat strong{font-size:18px}#big{font-size:16px}.actions{gap:7px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Public-release refinements: readable hierarchy, clear keyboard hints, responsive spacing. */
+:root{--shadow:0 12px 32px rgba(0,0,0,.09)}
+.card{box-shadow:var(--shadow)}
+.logo{box-shadow:0 10px 25px #7884f42a}
+.brand h1{letter-spacing:-.4px}
+.btn[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.current{border-inline-start:4px solid var(--accent)}
+.item.current-item{outline:1px solid var(--accent);outline-offset:-1px}
+.item .sentence{direction:rtl;text-align:right}
+.guide{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
+.guide span{background:var(--surface2);border:1px solid var(--border);padding:5px 10px;border-radius:9px;font-size:12px;color:var(--muted)}
+kbd{background:var(--surface);padding:1px 7px;border:1px solid var(--border);border-radius:5px;color:var(--text);direction:ltr;display:inline-block;font:600 12px Consolas,monospace}
+.note{margin-top:14px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface2);font-size:12px;color:var(--muted)}
+.summary-tip{font-size:12px;color:var(--muted);margin:0 0 12px}
+@media(min-width:981px){.stack:nth-child(2) .card:nth-child(2){border-color:color-mix(in srgb,var(--accent) 45%,var(--border))}}
+@media(max-width:480px){.guide{gap:6px}.guide span{font-size:11px}.top-actions .btn{font-size:11px}.wrap{padding:12px}.card{padding:14px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 3.0</span><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
+<p class="summary-tip">متن را آماده کنید، صدا را پخش کنید و شروع هر جمله را با یک ضربه ثبت کنید. بدون نصب، حساب کاربری یا ارسال فایل به سرور.</p>
+<div class="layout">
+<section class="stack" aria-label="ورودی و خروجی">
+<div class="card"><div class="card-header"><h2>۱. متن نریشن</h2><span class="tiny" id="lineCount">۰ خط</span></div><p class="hint">متن واقعی ارسال‌شده به TTS را وارد کنید. هر جمله یا بخش باید در یک خط جدا باشد.</p><label class="tiny" for="txt">متن قابل ویرایش</label><textarea id="txt" spellcheck="false">اگه فکر می‌کنی مشکلت کمبود انگیزه‌ست، شاید دنبال جواب اشتباهی می‌گردی.
+پیام این پادکست ساده‌ست: به انگیزه‌ی بیشتر نیاز نداری؛ به عادت‌هایی نیاز داری که زندگیت رو بهتر کنن.
+این پنج عادت رو از پادکستِ د مایندست منتور برداشتم و امروز با هم مرورشون می‌کنیم.
+عادت اول: آماده‌سازی ذهن در صبح.
+ایده اینه که ده دقیقه‌ی اول صبح رو برای آماده کردن ذهنت کنار بذاری.
+این ده دقیقه سه بخش داره. بخش اول، نفس عمیق.
+بخش دوم، باورهات. به جای «می‌خوام بهتر بشم»، به خودت بگو «من بهتر هستم».
+و بخش سوم، تجسم رفتارهای امروزت؛ اینکه می‌خوای چطور رفتار کنی رو توی ذهنت ببینی.
+عادت دوم: مالکیت رادیکال.
+یعنی مثل مدیرعامل زندگی خودت رفتار کنی.
+گوینده می‌گه مسئولیتِ همه‌چیز، چه خوب و چه بد، صد در صد با خودته.
+این یعنی نقش قربانی رو کنار بذاری.
+عادت سوم: قانون «همین الان انجامش بده».
+قاعده ساده‌ست: اگه کاری کمتر از پنج دقیقه طول می‌کشه، عقب نندازش؛ همون لحظه انجامش بده.
+اینجوری اون کار از ذهنت بیرون میره و دیگه یه لوپِ بازِ شناختی نیست.
+عادت چهارم: مرزهای سخت با تکنولوژی.
+اعلان‌های غیرضروری رو خاموش کن تا پینگ‌های پس‌زمینه کمتر حواست رو پرت کنن.
+توی ساعت‌های استراحت یا کار عمیق، گوشی رو از خودت دور نگه دار.
+و برای شبکه‌های اجتماعی هم یه سقفِ سی‌دقیقه‌ای بذار.
+عادت پنجم: کلامت رو جدی بگیر.
+گوینده می‌گه کلمه‌هایی که به کار می‌بری، تعیین می‌کنن حواست به چی باشه.
+برای همین، تمرین کن از جایی بالاتر از شرایط فعلی‌ت حرف بزنی.
+و یه حالت موقت رو به هویت همیشگی‌ت تبدیل نکن. به جای «من اضطراب دارم»، بگو «در گذشته اضطراب داشتم».
+و آخرش، واژه‌ی ابراکادابرا. طبق چیزی که گوینده می‌گه، یعنی «همون‌طور که می‌گم، خلق می‌کنم».
+پس این پنج عادت: ذهنِ آماده در صبح، مسئولیتِ صددرصدی، کارهای زیر پنج دقیقه، مرز با گوشی، و کلامِ آگاهانه.
+پس به جای منتظر موندن برای انگیزه‌ی بیشتر، از همین امروز یکی از این عادت‌ها رو شروع کن.</textarea><div class="row space" style="margin-top:12px"><span class="tiny">اعمال مجدد متن، زمان‌های فعلی را پاک می‌کند.</span><button class="btn primary" onclick="applyText()" type="button">اعمال متن</button></div></div>
+<div class="card"><div class="card-header"><h2>خروجی JSON</h2><span class="pill">سازگار با V2</span></div><p class="hint">ساختار و نام فیلدهای خروجی بدون تغییر حفظ شده است.</p><textarea id="out" readonly aria-label="خروجی JSON"></textarea><div class="row" style="margin-top:10px"><button class="btn primary" onclick="copyOut()" type="button">⧉ کپی خروجی</button><span class="tiny" id="outputInfo">خروجی آماده کپی است.</span></div></div>
+</section>
+<section class="stack" aria-label="پخش و زمان‌بندی">
+<div class="card"><div class="card-header"><h2>۲. فایل و کنترل صدا</h2><span class="tiny">WAV / MP3 / سایر فایل‌های صوتی مرورگر</span></div><div class="upload"><input type="file" id="f" accept="audio/*"><label class="file-label" for="f">♫ انتخاب فایل صوتی</label><span class="tiny" id="fileName">فایلی انتخاب نشده</span></div><div class="audio-box"><audio id="a" controls preload="metadata" aria-label="پخش نریشن"></audio><div id="clock" aria-live="off">0.00</div><div class="row" style="justify-content:center"><button class="btn small" onclick="seek(-3)">۳ ثانیه عقب</button><button class="btn small" onclick="seek(3)">۳ ثانیه جلو</button><button class="btn small" id="slow" onclick="rate(0.75)">سرعت ۰٫۷۵</button><button class="btn small" id="normal" onclick="rate(1)">سرعت ۱</button></div></div></div>
+<div class="card"><div class="card-header"><h2>۳. ثبت زمان جملات</h2><span class="tiny" id="progressLabel">۰٪ تکمیل</span></div><div class="stats"><div class="stat"><span class="tiny">کل جملات</span><strong id="totalCount">۰</strong></div><div class="stat"><span class="tiny">ثبت‌شده</span><strong id="doneCount">۰</strong></div><div class="stat"><span class="tiny">باقی‌مانده</span><strong id="remainingCount">۰</strong></div></div><div class="progress" role="progressbar" aria-label="پیشرفت زمان‌بندی" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div id="progressFill"></div></div><div class="current"><span class="eyebrow" id="hdr"></span><div id="cur"></div></div><button id="big" onclick="mark()">✓ همین‌جا شروع شد (Space)</button><div class="actions"><button class="btn" onclick="undo()" id="undoBtn">↶ برگرد و اصلاح (Backspace)</button><button class="btn" onclick="skip()" id="skipBtn">↷ این خط در صدا نیست</button></div><div class="guide" aria-label="کلیدهای میانبر"><span>ثبت زمان <kbd>Space</kbd></span><span>بازگشت <kbd>Backspace</kbd></span><span>جابه‌جایی صدا <kbd>±3s</kbd></span></div><p class="hint" style="margin-bottom:0">کلیدهای میانبر هنگام تایپ در کادرها و هنگام فوکوس روی دکمه‌ها غیرفعال هستند.</p></div>
+<div class="card"><div class="card-header"><h2>فهرست زمان‌بندی</h2><span class="tiny" id="listSummary">۰ جمله</span></div><div id="list" class="list" aria-label="وضعیت ثبت جملات"></div><div class="note">سبز: زمان ثبت‌شده · نارنجی: جمله در صدا نیست · قاب مشخص: جمله فعلی</div></div>
+</section>
+</div><footer class="footer">Designed & Developed by <b>LaneZero</b> · SyncTap Studio · <span lang="en">Local-first / No upload</span></footer>
+</main><div role="status" id="toast" class="toast hidden"></div>
+<script>
+'use strict';
+let LINES=[];let i=0;const T=[];const a=document.getElementById('a');let audioUrl=null;
+const $=id=>document.getElementById(id);
+$('f').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(audioUrl)URL.revokeObjectURL(audioUrl);audioUrl=URL.createObjectURL(f);a.src=audioUrl;$('fileName').textContent=f.name;});
+$('txt').addEventListener('input',()=>{$('lineCount').textContent=$('txt').value.split('\n').map(s=>s.trim()).filter(Boolean).length+' خط';});
+function applyText(){LINES=$('txt').value.split('\n').map(s=>s.trim()).filter(Boolean);i=0;T.length=0;show();}
+function seek(d){if(!Number.isFinite(a.duration))return;a.currentTime=Math.max(0,Math.min(a.duration,a.currentTime+d));}
+function rate(r){a.playbackRate=r;$('slow').setAttribute('aria-pressed',String(r===0.75));$('normal').setAttribute('aria-pressed',String(r===1));}
+function show(){const done=i>=LINES.length;
+$('hdr').textContent=!LINES.length?'اول متن را اعمال کنید':(done?'همه‌ی خط‌ها ثبت شد ✔':`خط ${i+1} از ${LINES.length} — وقتی این جمله شروع شد بزنید:`);
+$('cur').textContent=done||!LINES.length?'':LINES[i];
+// Render each user-supplied line as text, never as HTML.
+const list=$('list');list.replaceChildren();const fragment=document.createDocumentFragment();
+LINES.forEach((t,k)=>{const item=document.createElement('div');item.className='item'+(k===i?' current-item':'')+(k<T.length?(T[k]===null?' skipped':' done'):'');const number=document.createElement('span');number.className='number';number.textContent=String(k+1);const sentence=document.createElement('span');sentence.className='sentence';sentence.textContent=t;sentence.title=t;const time=document.createElement('span');time.className='time';time.textContent=k>=T.length?'—':(T[k]===null?'در صدا نیست':T[k].toFixed(2));item.append(number,sentence,time);fragment.append(item);});list.append(fragment);
+// IMPORTANT: This serialization is byte-for-byte equivalent to V2's data shape.
+$('out').value=JSON.stringify(LINES.map((t,k)=>({n:k+1,start:k<T.length?T[k]:undefined,text:t})),null,0);
+$('lineCount').textContent=LINES.length+' خط';$('totalCount').textContent=LINES.length;$('doneCount').textContent=i;$('remainingCount').textContent=LINES.length-i;const pct=LINES.length?Math.round(i/LINES.length*100):0;$('progressLabel').textContent=pct+'٪ تکمیل';$('progressFill').style.width=pct+'%';$('progress').setAttribute('aria-valuenow',pct);$('listSummary').textContent=i+' از '+LINES.length+' پردازش‌شده';$('big').disabled=done||!LINES.length;$('skipBtn').disabled=done||!LINES.length;$('undoBtn').disabled=i===0;}
+function mark(){if(i>=LINES.length)return;T[i]=Math.round(a.currentTime*100)/100;i++;show();}
+function skip(){if(i>=LINES.length)return;T[i]=null;i++;show();}
+function undo(){if(i===0)return;i--;T.length=i;a.currentTime=Math.max(0,a.currentTime-2);show();}
+async function copyOut(){const value=$('out').value;try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(value);}else{$('out').focus();$('out').select();if(!document.execCommand('copy'))throw Error('Clipboard failed');}notify('خروجی JSON کپی شد');}catch(e){$('out').focus();$('out').select();notify('خروجی انتخاب شد؛ با Ctrl+C کپی کنید');}}
+function notify(message){const el=$('toast');el.textContent=message;el.classList.remove('hidden');clearTimeout(notify.timer);notify.timer=setTimeout(()=>el.classList.add('hidden'),2600);}
+function toggleTheme(){const light=document.documentElement.dataset.theme==='light';document.documentElement.dataset.theme=light?'dark':'light';$('themeButton').textContent=light?'☀ تغییر تم':'☾ تغییر تم';}
+document.addEventListener('keydown',e=>{if(e.ctrlKey||e.metaKey||e.altKey||e.repeat)return;const target=e.target;if(target?.isContentEditable||['TEXTAREA','INPUT','SELECT','BUTTON'].includes(target?.tagName))return;if(e.code==='Space'){e.preventDefault();mark();}if(e.code==='Backspace'){e.preventDefault();undo();}});
+setInterval(()=>{$('clock').textContent=a.currentTime.toFixed(2);},50);
+applyText();rate(1);
+</script>
+</body></html>
