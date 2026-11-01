@@ -1,129 +1,87 @@
-<div align="center">
+# SyncTap Studio
 
-# 🎙️ SyncTap Studio
+**A lightweight, bilingual, privacy-first narration timing tool by [LaneZero](https://github.com/LaneZero/synctap-studio).**
 
-**Lightweight narration-to-text timestamping, built by [LaneZero](https://github.com/LaneZero)**
+[![Version](https://img.shields.io/badge/version-4.3.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
 
-[![Version](https://img.shields.io/badge/version-4.2.0-6366f1)](https://github.com/LaneZero/synctap-studio)
-[![Pure JavaScript](https://img.shields.io/badge/stack-HTML%20%7C%20CSS%20%7C%20JavaScript-0ea5e9)](index.html)
-[![PWA](https://img.shields.io/badge/PWA-offline--ready-10b981)](manifest.webmanifest)
+**Live application:** https://lanezero.github.io/synctap-studio/ (after GitHub Pages deployment)
 
-[**Open the web app**](https://lanezero.github.io/synctap-studio/) · [Repository](https://github.com/LaneZero/synctap-studio) · [Changelog](CHANGELOG.md)
+## What it does
 
-</div>
-
-> SyncTap Studio is a **manual** audio/text alignment tool. It does not transcribe audio, perform forced alignment, or generate sentence boundaries automatically.
-
-## Overview
-
-SyncTap Studio helps video editors, motion-graphics creators, and TTS workflows record the **start time** of each narration line as audio plays. Users supply the exact narration script, place one sentence or segment on each line, and tap when a line begins. The app exports a compact JSON array for downstream timeline and animation workflows.
-
-The app is **local-first**, written in plain HTML, CSS, and JavaScript. It runs without a backend, external libraries, account, or upload service. V4.2 adds a small installable Progressive Web App (PWA) shell so browsers with support can cache the interface for offline use.
+SyncTap Studio lets editors and motion-graphics creators manually record when each line of a narration begins. It exports compact JSON compatible with the original V2 output. No backend, account, or external JavaScript dependency is needed.
 
 ## Features
 
-| Area | Capability |
-| --- | --- |
-| Alignment | Mark sentence start times manually using **Space** or the on-screen button |
-| Corrections | Undo the last action with **Backspace**; edit any recorded timestamp to **0.01 s** precision |
-| Missing audio | Skip a line and record `start: null` |
-| Player | Native audio controls, seek back/forward 3 seconds, 0.75× / 1× speed |
-| Waveform | Optional waveform from the selected audio, touch/click seek, playback cursor, recorded markers |
-| Quality checks | Non-blocking warnings for duplicate times, out-of-order times, values beyond audio duration, and unfinished lines |
-| Progress | Counters, currently active line, and per-line status |
-| Resilience | Local automatic save and recovery of script, recorded times, position, and theme |
-| PWA | Installable where supported; static application shell cached for offline reopening after one successful online visit |
-| Interface | Persian RTL, dark/light themes, responsive desktop and mobile controls |
-| Export | Copy compact JSON compatible with the original V2 output schema |
+- Persian (RTL) and English (LTR) interface with persistent language preference.
+- Tap or press **Space** to mark a line's starting timestamp.
+- **Backspace** to undo, or skip lines absent from the audio.
+- Seek ±3 seconds, switch between 0.75× and 1× playback.
+- Optional real waveform and touch/click audio seeking. Audio decoding is explicitly requested, never automatic.
+- Autosave script and recorded timestamps in browser local storage (audio files are **not** stored).
+- Edit existing timestamps and check for missing, duplicated or out-of-order times.
+- Mobile layout with a bottom action dock, optional PWA installation and an offline-cached app shell.
+- About dialog and optional Donate dialog with one-tap address copying.
 
 ## Quick start
 
-1. Open **[SyncTap Studio](https://lanezero.github.io/synctap-studio/)** in a browser, or open `index.html` locally for the basic app.
-2. Paste the **exact** narration text provided to your TTS tool into the script editor, using **one line per segment**.
-3. Select the narration audio (`.wav`, `.mp3`, or another format supported by the browser).
-4. Press **Apply text** to build the segment list. Reapplying text discards existing timing marks after confirmation if work is in progress.
-5. Play the audio and press **Space** (desktop) or **Mark start** (touch) at the **beginning** of each displayed segment.
-6. Use **Undo**, **Skip**, and timestamp editing to correct the results. Optionally render the waveform for visual navigation.
-7. Review quality warnings, then **Copy JSON** and provide it to the motion-graphics pipeline.
+1. Open **index.html** locally or use the published GitHub Pages URL.
+2. Choose **English** or **فارسی** from the header.
+3. Paste the *exact* narration script; place one sentence/segment per line and click **Apply script** / **اعمال متن**.
+4. Select an audio file. Press play and mark the beginning of each line using Space or the large mobile button.
+5. Use Undo/Skip or edit individual timestamps if necessary.
+6. Check timing quality and copy the JSON to your downstream video/motion workflow.
 
-**Keyboard:** `Space` = mark; `Backspace` = undo. These hotkeys are ignored while entering text or focusing buttons. The waveform also supports arrow-key navigation when focused.
-
-## Output contract (unchanged since V2)
-
-Each output item preserves the keys and sequence `n`, `start`, `text`. The app uses the original compact `JSON.stringify` representation (not a new export schema).
+## Output contract: unchanged from V2
 
 ```json
-[{"n":1,"start":1.25,"text":"جمله اول"},{"n":2,"start":null,"text":"جمله دوم"},{"n":3,"text":"جمله سوم"}]
+[{"n":1,"start":0.75,"text":"Example line"},{"n":2,"start":null,"text":"Skipped line"},{"n":3,"text":"Pending line"}]
 ```
 
-- `n`: 1-based segment number in script order.
-- `start`: number of **seconds** from the beginning of the audio, rounded to two decimal places when marked.
-- `start: null`: line explicitly skipped because it is absent from the audio.
-- **Missing `start` key:** line not yet processed. This is different from `null`.
-- `text`: exact applied segment text after trimming leading and trailing whitespace on each line.
-- The app records **start timestamps only**. It does **not** infer end timestamps or clip boundaries.
+- `n`: 1-based line number; `start`: timestamp rounded to two decimals when recorded.
+- `start: null` means a line was skipped.
+- `start` is **omitted** for lines not yet processed.
+- The JSON is a compact **array**, with keys in the order `n`, `start`, `text` when `start` exists.
+- Switching languages changes the interface only, never your narration script or the JSON field names.
 
-> Important: quality checks only report potential problems. They do not silently modify timestamps or change JSON generation.
+## Privacy and storage
 
-## Privacy, storage and offline behavior
+Audio files are played/decoded locally in the browser and are not transmitted by the application. Draft text and recorded timestamps are stored using localStorage on that browser origin. Clearing site data can remove them; the audio file must be selected again on reopening. The PWA service worker caches only the public static app shell (HTML, manifest and icons), not audio, scripts or wallet details from users. GitHub Pages itself handles normal website requests.
 
-- The chosen audio is loaded into the browser as an object URL. It is **not uploaded, cached by the app's service worker, or saved in localStorage**.
-- The current script, marks, progress, and theme are stored in the browser's **localStorage** under `synctap-studio-v4` when storage is available.
-- After reopening, choose the audio file again. The browser cannot automatically restore local-file permissions or the selected audio.
-- **Autosave is not cross-device sync or a guaranteed backup.** Browser cleanup, private mode, and storage restrictions can erase or prevent it. Copy the JSON somewhere safe.
-- The PWA service worker caches **only static app files** (`index.html`, manifest, icons). The app continues working offline **after the initial successful online install/cache**, provided the browser keeps that cache.
-- GitHub Pages hosts the public static app; normal hosting/network metadata may be logged by GitHub. The application itself contains no analytics or audio-upload endpoint.
-- The optional waveform uses native Web Audio API and Canvas, with conservative **24 MiB / 15-minute limits**, and only runs on demand. Audio playback works even when waveform extraction is unavailable.
+Waveform decoding is optional, limited to 24 MiB of source audio and 15 minutes, and can still consume memory on low-end phones. Standard playback and timing are available without creating a waveform.
 
-## Install on mobile (PWA)
+## About & donations
 
-1. Open the **HTTPS** site using a compatible browser.
-2. On supported Android browsers, use **Install app** / **Add to Home screen** if shown.
-3. On iOS/iPadOS, use the browser's **Share → Add to Home Screen** flow where supported.
-4. Open SyncTap from the home screen. The interface can reopen offline after caching, but audio still needs to be reselected.
+Open **About** for version, developer and privacy details. **Donate** lists optional cryptocurrency addresses, with network labels and copy controls:
 
-Installation prompts and standalone behavior vary by browser and operating system. Opening `index.html` with a `file://` address works for the core application but **does not enable service workers or offline PWA caching**.
+| Asset | Network | Address |
+| --- | --- | --- |
+| Bitcoin | Bitcoin | `bc1q5tl36qpk27hf7upl8l753xa0gcm57adrvmwgkz` |
+| Tether (USDT) | TRON / TRC20 | `TA5pibChqS7CeHiDvfP7V3uQVMynk6SxLq` |
+| EVM | Ethereum / BNB Smart Chain / Polygon | `0x6634E26BA0e323182B7A9a89278E9a7BbCa9aF70` |
+| Solana | Solana | `91kuBFEZAnRk8ixsuzAQnAVvtzLAsQpPFRsfe285ZKUC` |
 
-## Development and deployment
+**Donations are voluntary. Verify the network and destination address before sending; blockchain transfers are typically irreversible.** The application does not connect to wallets or process payments.
 
-The project is static and requires **no build step** or package manager:
+## Deploy to GitHub Pages
 
-```text
-synctap-studio/
-├── index.html              # UI, player, timing logic, styling
-├── manifest.webmanifest    # PWA metadata
-├── sw.js                   # static-only offline cache
-├── favicon.svg             # browser tab icon
-├── icons/
-│   ├── icon-192.png
-│   └── icon-512.png
-├── README.md
-├── CHANGELOG.md
-├── RELEASE_COMMANDS.md
-├── .nojekyll
-└── .gitignore
-```
+1. Place the files from the release ZIP at the **root** of the public `LaneZero/synctap-studio` repository.
+2. In **Settings → Pages**, select **Deploy from a branch → main → /(root)** and save.
+3. Visit https://lanezero.github.io/synctap-studio/ once deployment finishes.
+4. For PWA installation, use the browser's **Install app** or **Add to Home Screen** option where supported. HTTPS is required for service workers.
+5. After an update, reload once while online to refresh the cached app shell.
 
-To test locally with PWA features, serve the directory over localhost, e.g. `python -m http.server 8000`, and open `http://localhost:8000/`. The direct HTML file works for ordinary timing, but not service-worker registration.
+## Keyboard shortcuts
 
-**GitHub Pages:** Push these files to the repository root and select **Settings → Pages → Deploy from a branch → `main` → `/(root)`**. The site URL for this repository is expected to be `https://lanezero.github.io/synctap-studio/` once Pages is enabled and deployment succeeds.
+| Key | Action |
+| --- | --- |
+| `Space` | Mark start of current line |
+| `Backspace` | Undo previous line |
+| Audio controls | Play/pause and seek |
 
-For release commands, see [RELEASE_COMMANDS.md](RELEASE_COMMANDS.md). Always verify the deployed page and offline reopen before announcing PWA support as tested for a particular device.
+Shortcuts are disabled when typing or focusing an interactive control.
 
-## Limitations
+## Development
 
-- Timing is based on human marking, not automatic speech recognition or forced alignment.
-- Waveform peaks are visual aids; they are not a guarantee of exact word alignment.
-- Browser format support and decoding limits vary by device.
-- The app stores only one working session per browser origin; applying a new script may replace its marks.
-- PWA installability, storage persistence, and offline support depend on browser settings and cache retention.
+The app uses native HTML, CSS, JavaScript, Canvas, Web Audio API, localStorage, and an optional service worker. There is no build step. Open `index.html` for basic use; for testing offline/PWA functionality, serve the folder with localhost or GitHub Pages.
 
-## Contributing and license
-
-Bug reports and feature suggestions: [GitHub Issues](https://github.com/LaneZero/synctap-studio/issues).
-
-**License:** No license file is included yet; public source access does not automatically grant rights to redistribute or modify it. Add an explicit license before accepting outside contributions.
-
----
-
-Made with care by **[LaneZero](https://github.com/LaneZero/synctap-studio)**.
+Developer: **[LaneZero](https://github.com/LaneZero/synctap-studio)**.

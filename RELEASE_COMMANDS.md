@@ -1,12 +1,12 @@
-# Release V4.2.0
+# Release v4.3.0
 
-From the root of an existing local clone (`git status` should show the expected repository):
+Review changes and run inside the Git repository root:
 
 ```powershell
 git status
-git add index.html manifest.webmanifest sw.js icons/icon-192.png icons/icon-512.png README.md CHANGELOG.md RELEASE_COMMANDS.md
-git commit -m "feat(pwa): add offline app shell and GitHub-linked LaneZero footer (v4.2.0)"
+git add index.html favicon.svg manifest.webmanifest sw.js icons/ README.md CHANGELOG.md RELEASE_COMMANDS.md
+git commit -m "feat(i18n): add bilingual About and Donate dialogs (v4.3.0)"
 git push origin main
 ```
 
-No push or release has been performed by this generated package. After deploying, verify GitHub Pages, mobile installation, offline reopen, and the JSON contract. A fresh Git clone may have no local files yet; copy the release package contents into the repository root first.
+Verify the site, language switch, wallet copy, JSON schema and PWA refresh after deployment.

@@ -1,21 +1,18 @@
 # Changelog
 
-## 4.2.0 - 2026-11-01
-- Add an installable PWA manifest and original lightweight PNG app icons.
-- Add a limited, versioned service worker cache for the static app shell, with offline fallback; never cache user audio.
-- Use relative paths for GitHub Pages project hosting.
-- Link the developer name **LaneZero** in the footer directly to the project GitHub repository.
-- Expand README with usage, output compatibility, mobile installation, privacy, architecture, and release guidance.
-- Preserve V4.1 timing logic, local autosave, waveform behavior, and original V2 JSON serialization.
+## 4.3.0 — Bilingual About & Donate
+- Added full-page UI language switching (Persian RTL / English LTR), remembered locally.
+- Added About dialog: features, privacy information, version, developer and project link.
+- Added opt-in Donate dialog with four exact cryptocurrency addresses and copy buttons.
+- Kept the V2 JSON output expression and timing logic intact.
+- Preserved lightweight PWA support and optional waveform analysis.
+- Updated application-shell service-worker cache.
 
-## 4.1.0 - 2026-11-01
-- Add optional waveform extraction using native Web Audio API and Canvas.
-- Add touch/mouse/keyboard timeline seeking, markers and playback cursor.
-- Limit optional waveform analysis to 24 MiB / 15 minutes.
+## 4.2.0
+- PWA support, offline app shell, GitHub footer and updated docs.
 
-## 4.0.0 - 2026-11-01
-- Add local autosave, timestamp editing and non-blocking quality checks.
-- Preserve original V2 JSON contract.
+## 4.1.0
+- Optional waveform display and interactive audio seeking.
 
-## 3.2.0
-- Add mobile timing controls and persistent touch dock.
+## 4.0.0
+- Autosave, timestamp editing and quality checks.

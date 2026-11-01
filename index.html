@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SyncTap Studio V4.2 | LaneZero</title>
+<title>SyncTap Studio V4.3 | LaneZero</title>
 <meta name="description" content="ابزار رایگان و بدون نیاز به نصب برای ثبت دستی زمان شروع جملات نریشن و دریافت JSON همگام‌سازی متن و صدا.">
 <meta name="theme-color" content="#090f1e">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -77,11 +77,27 @@ kbd{background:var(--surface);padding:1px 7px;border:1px solid var(--border);bor
 #waveCanvas{width:100%;height:100px;display:block;cursor:crosshair;touch-action:pan-y;outline-offset:-3px}
 .wave-legend{font-size:11px;color:var(--muted);gap:8px;margin-top:7px}
 @media(max-width:600px){.wave-panel{padding:9px}.wave-head{gap:8px}.wave-head button{min-height:44px}.wave-wrap,#waveCanvas{height:88px}}
+
+/* V4.3 compact bilingual dialogs and touch-friendly header. */
+.top-actions{flex-wrap:wrap;justify-content:flex-end}.top-actions .btn{min-height:40px}
+.footer-link{background:none;border:0;color:var(--accent);text-decoration:underline;font-size:inherit;padding:0 3px}
+.info-dialog{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:20px;padding:24px;width:min(600px,calc(100% - 24px));max-height:min(85dvh,740px);overflow:auto;box-shadow:0 28px 90px #0008;line-height:1.8}
+.info-dialog::backdrop{background:#050c1bd6;backdrop-filter:blur(3px)}
+.dialog-heading{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:12px}.dialog-heading h2{font-size:22px;margin:0}.dialog-kicker{font:600 11px system-ui;letter-spacing:1px;color:var(--accent)}
+.dialog-close{width:42px;height:42px;min-width:42px;background:var(--surface2);color:var(--text);font-size:24px;border-radius:12px;border:1px solid var(--border)}
+.info-dialog p{font-size:14px;color:var(--muted);margin:12px 0}.info-dialog h3{font-size:15px;margin:18px 0 5px}.info-dialog ul{padding-inline-start:22px;font-size:14px;margin-top:5px}.info-dialog li{margin:5px 0}
+.info-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.info-grid>div{background:var(--surface2);padding:10px 12px;border-radius:11px;border:1px solid var(--border);min-width:0}.info-grid span{display:block;color:var(--muted);font-size:12px}.info-grid strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.privacy-note{border:1px solid var(--border);padding:10px;border-radius:10px;background:var(--surface2)}.dialog-link{display:inline-block;color:var(--accent);font-weight:700}
+.wallet-list{display:grid;gap:10px}.wallet{border:1px solid var(--border);border-radius:13px;background:var(--surface2);padding:12px;min-width:0}.wallet-meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:7px}.wallet-meta strong{font-size:14px}.wallet-meta span{font-size:11px;color:var(--muted);direction:ltr}
+.wallet code{display:block;direction:ltr;text-align:left;unicode-bidi:isolate;font:12px/1.6 ui-monospace,Consolas,monospace;color:var(--text);overflow-wrap:anywhere;word-break:break-all;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--surface)}.wallet-copy{margin-top:8px;min-height:40px}
+html[lang=en] .item .sentence{direction:ltr;text-align:left}
+html[lang=en] .brand h1{letter-spacing:0}
+@media(max-width:600px){.top{flex-wrap:wrap}.top-actions{width:100%;justify-content:space-between;gap:6px}.top-actions .btn{font-size:12px;flex:1;padding:7px 5px}.top-actions .pill{display:none}.info-dialog{padding:16px;max-height:88dvh}.wallet code{font-size:11px}.dialog-heading h2{font-size:19px}}
 </style>
 </head>
 <body>
 <main class="wrap">
-<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 4.2</span><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
+<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 4.3</span><button class="btn small" id="langButton" type="button" onclick="toggleLanguage()" aria-label="Change language">English</button><button class="btn small" id="aboutButton" type="button" onclick="openModal('aboutDialog')">درباره</button><button class="btn small" id="donateButton" type="button" onclick="openModal('donateDialog')">حمایت مالی</button><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
 <p class="summary-tip">متن را آماده کنید، صدا را پخش کنید و شروع هر جمله را با یک ضربه ثبت کنید. بدون نصب، حساب کاربری یا ارسال فایل به سرور.</p>
 <div class="layout">
 <section class="stack" aria-label="ورودی و خروجی">
@@ -121,13 +137,35 @@ kbd{background:var(--surface);padding:1px 7px;border:1px solid var(--border);bor
 </div>
 <div class="card quality-card"><div class="card-header"><h2>بررسی کیفیت زمان‌بندی</h2><span class="tiny">بدون تغییر خودکار</span></div><div id="qualitySummary" class="tiny" role="status"></div><ul id="qualityList" class="quality-list"></ul></div>
 </section>
-</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V4.2 · <span lang="en">Local-first / No upload</span></footer>
+</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V4.3 · <span lang="en">Local-first / No upload</span> · <button type="button" class="footer-link" onclick="openModal('aboutDialog')">About</button> · <button type="button" class="footer-link" onclick="openModal('donateDialog')">Donate ♡</button></footer>
 </main>
 <nav class="mobile-dock" aria-label="کنترل‌های سریع ثبت زمان">
   <button type="button" class="dock-side" id="dockUndo" onclick="undo()" aria-label="بازگشت به جمله قبل">↶ <span>اصلاح</span></button>
   <button type="button" class="dock-mark" id="dockMark" onclick="mark()">✓ <span>ثبت زمان</span></button>
   <button type="button" class="dock-side" id="dockSkip" onclick="skip()" aria-label="ردکردن جمله فعلی">↷ <span>ردکردن</span></button>
 </nav>
+
+<dialog id="aboutDialog" class="info-dialog" aria-labelledby="aboutTitle">
+ <div class="dialog-heading"><div><span class="dialog-kicker">SYNC TAP STUDIO · V4.3</span><h2 id="aboutTitle" data-t="aboutTitle">درباره SyncTap Studio</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('aboutDialog')">×</button></div>
+ <p data-t="aboutLead">یک ابزار سبک و رایگان برای هماهنگ‌سازی دستی جملات متن با زمان شروع آن‌ها در فایل نریشن؛ مناسب تدوین و موشن‌گرافیک.</p>
+ <div class="info-grid"><div><span data-t="version">نسخه</span><strong>4.3.0</strong></div><div><span data-t="developer">توسعه‌دهنده</span><strong>LaneZero</strong></div><div><span data-t="technology">فناوری</span><strong>HTML · CSS · JavaScript</strong></div><div><span data-t="privacy">حریم خصوصی</span><strong data-t="local">پردازش محلی</strong></div></div>
+ <h3 data-t="featuresTitle">قابلیت‌ها</h3>
+ <ul><li data-t="aboutFeat1">ثبت زمان با لمس یا Space و امکان ویرایش دستی زمان‌ها</li><li data-t="aboutFeat2">نمایش اختیاری شکل موج واقعی و کنترل سرعت پخش</li><li data-t="aboutFeat3">ذخیره خودکار پروژه در همان مرورگر و بازیابی پیشرفت</li><li data-t="aboutFeat4">کنترل کیفیت زمان‌بندی و خروجی JSON سازگار با نسخه‌های پیشین</li><li data-t="aboutFeat5">پشتیبانی از فارسی و انگلیسی، طراحی موبایل و نصب PWA</li></ul>
+ <p class="privacy-note" data-t="privacyDetail">متن و زمان‌بندی در حافظه محلی مرورگر ذخیره می‌شوند. فایل صوتی به سرور برنامه ارسال نمی‌شود و برای حفظ حریم خصوصی یا محدودیت فضای ذخیره‌سازی به‌طور خودکار ذخیره نمی‌شود.</p>
+ <a class="dialog-link" target="_blank" rel="noopener noreferrer" href="https://github.com/LaneZero/synctap-studio">GitHub · LaneZero ↗</a>
+</dialog>
+<dialog id="donateDialog" class="info-dialog" aria-labelledby="donateTitle">
+ <div class="dialog-heading"><div><span class="dialog-kicker">SUPPORT OPEN SOURCE</span><h2 id="donateTitle" data-t="donateTitle">حمایت از توسعه</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('donateDialog')">×</button></div>
+ <p data-t="donateLead">اگر SyncTap Studio برایتان مفید بوده، می‌توانید با کمک داوطلبانه از توسعه و نگهداری آن حمایت کنید. استفاده از برنامه کاملاً رایگان است.</p>
+ <div class="wallet-list">
+ <div class="wallet"><div class="wallet-meta"><strong>Bitcoin</strong><span>Bitcoin Network (BTC)</span></div><code dir="ltr" id="btcAddress">bc1q5tl36qpk27hf7upl8l753xa0gcm57adrvmwgkz</code><button type="button" class="btn small wallet-copy" data-copy="btcAddress" data-t="copyAddress">کپی آدرس</button></div>
+ <div class="wallet"><div class="wallet-meta"><strong>Tether (USDT)</strong><span>TRON · TRC20</span></div><code dir="ltr" id="tronAddress">TA5pibChqS7CeHiDvfP7V3uQVMynk6SxLq</code><button type="button" class="btn small wallet-copy" data-copy="tronAddress" data-t="copyAddress">کپی آدرس</button></div>
+ <div class="wallet"><div class="wallet-meta"><strong>EVM</strong><span>Ethereum · BNB Smart Chain · Polygon</span></div><code dir="ltr" id="evmAddress">0x6634E26BA0e323182B7A9a89278E9a7BbCa9aF70</code><button type="button" class="btn small wallet-copy" data-copy="evmAddress" data-t="copyAddress">کپی آدرس</button></div>
+ <div class="wallet"><div class="wallet-meta"><strong>Solana</strong><span>Solana Network</span></div><code dir="ltr" id="solAddress">91kuBFEZAnRk8ixsuzAQnAVvtzLAsQpPFRsfe285ZKUC</code><button type="button" class="btn small wallet-copy" data-copy="solAddress" data-t="copyAddress">کپی آدرس</button></div>
+ </div>
+ <p class="privacy-note" data-t="networkWarning">پیش از ارسال، شبکه و آدرس مقصد را دوباره بررسی کنید. تراکنش‌های بلاک‌چین معمولاً برگشت‌پذیر نیستند. هیچ کیف پولی به برنامه متصل نمی‌شود.</p>
+</dialog>
+
 <div role="status" id="toast" class="toast hidden"></div>
 <script>
 'use strict';
@@ -250,5 +288,67 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
     });
   });
 }
+
+// i18n remains presentation-only; the alignment and JSON serializer are unchanged.
+const LANGUAGE_KEY='synctap-studio-language';
+let uiLanguage='fa';
+const UI_TEXT={"همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero": "Precise narration alignment · by LaneZero", "☀ تغییر تم": "☀ Theme", "☾ تغییر تم": "☾ Theme", "درباره": "About", "حمایت مالی": "Donate", "متن را آماده کنید، صدا را پخش کنید و شروع هر جمله را با یک ضربه ثبت کنید. بدون نصب، حساب کاربری یا ارسال فایل به سرور.": "Prepare the script, play the narration and mark each line as it starts. No account, installation or audio upload.", "۱. متن نریشن": "1. Narration script", "متن واقعی ارسال‌شده به TTS را وارد کنید. هر جمله یا بخش باید در یک خط جدا باشد.": "Paste the exact text used for TTS. Put each sentence or segment on its own line.", "متن قابل ویرایش": "Editable script", "ذخیره محلی فعال است": "Local autosave enabled", "اعمال مجدد متن، زمان‌های فعلی را پاک می‌کند.": "Reapplying the script clears current timestamps.", "اعمال متن": "Apply script", "خروجی JSON": "JSON output", "سازگار با V2": "V2 compatible", "ساختار و نام فیلدهای خروجی بدون تغییر حفظ شده است.": "Output field names and structure remain unchanged.", "⧉ کپی خروجی": "⧉ Copy JSON", "خروجی آماده کپی است.": "Output ready to copy.", "۲. فایل و کنترل صدا": "2. Audio & playback", "WAV / MP3 / سایر فایل‌های صوتی مرورگر": "WAV / MP3 / browser-supported audio", "♫ انتخاب فایل صوتی": "♫ Choose audio", "فایلی انتخاب نشده": "No audio selected", "موج صوتی": "Waveform", "نمایش موج واقعی": "Build waveform", "ابتدا فایل صوتی را انتخاب کنید. برای حفظ سرعت موبایل، تحلیل موج اختیاری است.": "Choose an audio file first. Waveform analysis is optional to save memory.", "● نشانگر پخش": "● Playhead", "│ زمان‌های ثبت‌شده": "│ Saved timestamps", "۳ ثانیه عقب": "Back 3 seconds", "۳ ثانیه جلو": "Forward 3 seconds", "سرعت ۰٫۷۵": "0.75× speed", "سرعت ۱": "1× speed", "۳. ثبت زمان جملات": "3. Mark line starts", "کل جملات": "Total lines", "ثبت‌شده": "Processed", "باقی‌مانده": "Remaining", "✓ همین‌جا شروع شد (Space)": "✓ Mark start (Space)", "↶ برگرد و اصلاح (Backspace)": "↶ Undo (Backspace)", "↷ این خط در صدا نیست": "↷ Skip line", "ثبت زمان": "Mark", "بازگشت": "Undo", "جابه‌جایی صدا": "Seek", "کلیدهای میانبر هنگام تایپ در کادرها و هنگام فوکوس روی دکمه‌ها غیرفعال هستند.": "Keyboard shortcuts are disabled while editing text or focusing buttons.", "فهرست زمان‌بندی": "Timing list", "سبز: زمان ثبت‌شده · نارنجی: جمله در صدا نیست · قاب مشخص: جمله فعلی": "Green: recorded · Orange: skipped · Highlight: current line", "اصلاح زمان جمله ": "Edit timestamp for line ", "ذخیره": "Save", "انصراف": "Cancel", "اصلاح زمان ترتیب جملات یا قالب خروجی را تغییر نمی‌دهد.": "Editing a timestamp does not change line order or JSON format.", "بررسی کیفیت زمان‌بندی": "Timing quality check", "بدون تغییر خودکار": "No auto changes", "↶ ": "↶ ", "↷ ": "↷ ", "اصلاح": "Undo", "ردکردن": "Skip", "ردکردن جمله فعلی": "Skip current line", "بازگشت به جمله قبل": "Return to previous line", "کپی آدرس": "Copy address", "Local-first / No upload": "Local-first / No upload"};
+const INFO_TEXT={"aboutTitle": {"fa": "درباره SyncTap Studio", "en": "About SyncTap Studio"}, "aboutLead": {"fa": "یک ابزار سبک و رایگان برای هماهنگ‌سازی دستی جملات متن با زمان شروع آن‌ها در فایل نریشن؛ مناسب تدوین و موشن‌گرافیک.", "en": "A lightweight, free tool for manually aligning script lines with narration timestamps, built for video editing and motion graphics."}, "version": {"fa": "نسخه", "en": "Version"}, "developer": {"fa": "توسعه‌دهنده", "en": "Developer"}, "technology": {"fa": "فناوری", "en": "Technology"}, "privacy": {"fa": "حریم خصوصی", "en": "Privacy"}, "local": {"fa": "پردازش محلی", "en": "Local processing"}, "featuresTitle": {"fa": "قابلیت‌ها", "en": "Features"}, "aboutFeat1": {"fa": "ثبت زمان با لمس یا Space و امکان ویرایش دستی زمان‌ها", "en": "Mark with a tap or Space, and edit timestamps precisely"}, "aboutFeat2": {"fa": "نمایش اختیاری شکل موج واقعی و کنترل سرعت پخش", "en": "Optional real waveform and playback speed controls"}, "aboutFeat3": {"fa": "ذخیره خودکار پروژه در همان مرورگر و بازیابی پیشرفت", "en": "Local autosave and progress recovery in the same browser"}, "aboutFeat4": {"fa": "کنترل کیفیت زمان‌بندی و خروجی JSON سازگار با نسخه‌های پیشین", "en": "Timing validation and backward-compatible JSON export"}, "aboutFeat5": {"fa": "پشتیبانی از فارسی و انگلیسی، طراحی موبایل و نصب PWA", "en": "Persian and English, mobile-first layout and PWA install support"}, "privacyDetail": {"fa": "متن و زمان‌بندی در حافظه محلی مرورگر ذخیره می‌شوند. فایل صوتی به سرور برنامه ارسال نمی‌شود و برای حفظ حریم خصوصی یا محدودیت فضای ذخیره‌سازی به‌طور خودکار ذخیره نمی‌شود.", "en": "Script and timing data are saved in local browser storage. Audio is not uploaded or automatically saved, protecting privacy and device storage."}, "donateTitle": {"fa": "حمایت از توسعه", "en": "Support development"}, "donateLead": {"fa": "اگر SyncTap Studio برایتان مفید بوده، می‌توانید با کمک داوطلبانه از توسعه و نگهداری آن حمایت کنید. استفاده از برنامه کاملاً رایگان است.", "en": "If SyncTap Studio helps your workflow, you can voluntarily support its development and maintenance. The tool remains free for everyone."}, "copyAddress": {"fa": "کپی آدرس", "en": "Copy address"}, "networkWarning": {"fa": "پیش از ارسال، شبکه و آدرس مقصد را دوباره بررسی کنید. تراکنش‌های بلاک‌چین معمولاً برگشت‌پذیر نیستند. هیچ کیف پولی به برنامه متصل نمی‌شود.", "en": "Double-check the destination address and network before sending. Blockchain transfers are generally irreversible. No wallet connects to this app."}, "close": {"fa": "بستن", "en": "Close"}};
+const originals=new WeakMap();
+function translateString(fa){
+ if(uiLanguage==='fa')return fa;
+ if(Object.prototype.hasOwnProperty.call(UI_TEXT,fa))return UI_TEXT[fa];
+ let m;
+ if((m=/^خط (\d+) از (\d+) — وقتی این جمله شروع شد بزنید:$/.exec(fa)))return `Line ${m[1]} of ${m[2]} — tap when this line starts:`;
+ if((m=/^(\d+) خط$/.exec(fa)))return `${m[1]} lines`;
+ if((m=/^(\d+) از (\d+) پردازش‌شده$/.exec(fa)))return `${m[1]} / ${m[2]} processed`;
+ if((m=/^(\d+) جمله هنوز زمان‌بندی نشده است$/.exec(fa)))return `${m[1]} lines have not been timed`;
+ if((m=/^(\d+) مورد نیازمند بررسی$/.exec(fa)))return `${m[1]} issues to review`;
+ if((m=/^جمله (\d+): زمان (.+)$/.exec(fa)))return `Line ${m[1]}: ${m[2]}`;
+ if((m=/^(\d+)٪ تکمیل$/.exec(fa)))return `${m[1]}% complete`;
+ if((m=/^اصلاح زمان جمله (\d+)$/.exec(fa)))return `Edit timestamp for line ${m[1]}`;
+ return ({'اول متن را اعمال کنید':'Apply the script first','همه‌ی خط‌ها ثبت شد ✔':'All lines processed ✔','در صدا نیست':'Skipped','ویرایش':'Edit','برای نمایش شکل موج واقعی، «نمایش موج واقعی» را بزنید. پخش صوت نیازی به تحلیل موج ندارد.':'Press Build waveform to analyze audio. Playback works without analysis.','✓ ذخیره خودکار انجام شد':'✓ Autosaved','✓ پروژه قبلی بازیابی شد؛ فایل صوتی را دوباره انتخاب کنید':'✓ Project restored. Please select your audio again.','ذخیره محلی در این مرورگر ممکن نیست؛ خروجی را کپی کنید':'Local saving unavailable. Please copy your JSON.','✓ مورد مشکوکی در زمان‌های ثبت‌شده مشاهده نشد.':'✓ No suspicious timestamps found.','زمان معتبر و غیرمنفی وارد کنید':'Enter a valid, non-negative time.','زمان از طول فایل صوتی بیشتر است':'Time exceeds audio duration.','زمان جمله اصلاح شد':'Timestamp updated.','خروجی JSON کپی شد':'JSON copied.','خروجی انتخاب شد؛ با Ctrl+C کپی کنید':'Output selected. Press Ctrl+C to copy.','در حال تحلیل موج صدا روی همین دستگاه…':'Analyzing audio locally…','موج واقعی آماده است. با لمس یا کلیک روی آن، به همان زمان بروید.':'Waveform ready. Tap or click to seek.','فایل طولانی است؛ موج رسم نشد، اما پخش صدا فعال است.':'Audio too long for waveform analysis. Playback still works.','تحلیل این فایل در مرورگر ممکن نشد؛ کنترل‌های پخش و ثبت زمان همچنان فعال هستند.':'Unable to analyze waveform. Playback and marking still work.','برای حفظ سرعت موبایل، تحلیل فایل‌های طولانی‌تر از ۱۵ دقیقه غیرفعال است.':'To protect mobile performance, waveform analysis is limited to 15 minutes.','برای حفظ حافظه موبایل، تحلیل فایل‌های بالای ۲۴ مگابایت غیرفعال است؛ پخش و ثبت زمان همچنان کار می‌کند.':'Waveform analysis is limited to 24 MB to save memory. Playback and marking still work.','فایل صوتی انتخاب نشده':'No audio file selected','اصلاح':'Undo','ردکردن':'Skip','ثبت زمان':'Mark time'})[fa]||fa;
+}
+function translateUI(){
+ document.documentElement.lang=uiLanguage;
+ document.documentElement.dir=uiLanguage==='fa'?'rtl':'ltr';
+ $('langButton').textContent=uiLanguage==='fa'?'English':'فارسی';
+ document.title='SyncTap Studio V4.3 | LaneZero';
+ document.querySelectorAll('[data-t]').forEach(el=>{const entry=INFO_TEXT[el.dataset.t];if(entry)el.textContent=entry[uiLanguage];});
+ document.querySelectorAll('[data-t-aria]').forEach(el=>{const entry=INFO_TEXT[el.dataset.tAria];if(entry)el.setAttribute('aria-label',entry[uiLanguage]);});
+ const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+ while(walker.nextNode()){
+  const node=walker.currentNode;const parent=node.parentElement;
+  if(!parent||parent.closest('script,style,code,textarea,[data-t],[data-t-aria],.wallet-meta,.dialog-kicker,.dialog-link'))continue;
+  const val=node.nodeValue;const trimmed=val.trim();if(!trimmed)continue;
+  const original=originals.get(node);
+  if(!original||val!==original.fa&&val!==original.en){
+   originals.set(node,{fa:val,en:translateString(trimmed)!==trimmed?val.replace(trimmed,UI_TEXT[trimmed]||translateString(trimmed)):val});
+  }
+  const pair=originals.get(node);if(pair)node.nodeValue=pair[uiLanguage];
+ }
+ // Dynamic accessibility labels and input placeholders should match the active language.
+ $('waveCanvas').setAttribute('aria-label',uiLanguage==='fa'?'جابه‌جایی در فایل صوتی':'Seek in audio');
+ $('txt').setAttribute('aria-label',uiLanguage==='fa'?'متن نریشن':'Narration script');
+ $('out').setAttribute('aria-label',uiLanguage==='fa'?'خروجی JSON':'JSON output');
+}
+function setLanguage(lang){uiLanguage=lang==='en'?'en':'fa';try{localStorage.setItem(LANGUAGE_KEY,uiLanguage);}catch(e){}translateUI();}
+function toggleLanguage(){setLanguage(uiLanguage==='fa'?'en':'fa');}
+function openModal(id){const modal=$(id);if(!modal)return;translateUI();if(!modal.open)modal.showModal();}
+function closeModal(id){$(id)?.close();}
+for(const modal of document.querySelectorAll('.info-dialog')){
+ modal.addEventListener('click',e=>{if(e.target===modal)modal.close();});
+}
+async function copyWalletAddress(id){const value=$(id)?.textContent.trim();if(!value)return;
+ try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(value);}else{const input=document.createElement('textarea');input.value=value;input.style.position='fixed';input.style.opacity='0';document.body.append(input);input.select();if(!document.execCommand('copy'))throw new Error('Clipboard unsupported');input.remove();}notify(uiLanguage==='fa'?'آدرس کیف پول کپی شد':'Wallet address copied');}
+ catch(e){notify(uiLanguage==='fa'?'کپی خودکار ممکن نیست؛ آدرس را دستی انتخاب کنید':'Copy unavailable. Select the address manually.');}
+}
+document.querySelectorAll('.wallet-copy').forEach(btn=>btn.addEventListener('click',()=>copyWalletAddress(btn.dataset.copy)));
+// Wrap presentation refresh only. Do not alter internal timing operations or serialization.
+const previousShow=show;show=function(...args){const result=previousShow(...args);translateUI();return result;};
+const previousTheme=toggleTheme;toggleTheme=function(...args){const result=previousTheme(...args);translateUI();return result;};
+const previousNotify=notify;notify=function(message){return previousNotify(uiLanguage==='en'?translateString(message):message);};
+try{setLanguage(localStorage.getItem(LANGUAGE_KEY)||'fa');}catch(e){setLanguage('fa');}
+
 </script>
 </body></html>
