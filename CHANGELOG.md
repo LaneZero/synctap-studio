@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.1.0 - 2026-11-01
+- Add optional waveform extraction using native Web Audio API and Canvas.
+- Add accessible timeline seek by touch, mouse, and arrow keys.
+- Show timestamp markers and playback cursor on waveform.
+- Bound waveform decoding to 24 MiB / 15 minutes for mobile responsiveness.
+- Keep core recording, autosave, timestamp editing, quality checks, and V2 JSON contract unchanged.
+- No new dependencies.
+
+# Changelog
+
 ## 4.0.0 - 2026-11-01
 - Added debounced local-only autosave and restore (text, applied lines, marks, position, theme).
 - Added per-sentence timestamp editing with 0.01-second precision.

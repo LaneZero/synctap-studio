@@ -1,8 +1,12 @@
-# SyncTap Studio V4.0 · LaneZero
+# SyncTap Studio V4.1 · LaneZero
 
 Lightweight browser-based Persian narration alignment tool, designed for desktop and mobile.
 
 ## Features
+- Optional real audio waveform rendering on Canvas, click/touch-to-seek and keyboard-accessible timeline
+- Visual markers for recorded sentence start times
+- Mobile safeguard: waveform generation requires a tap, with 24 MiB and 15-minute limits
+- Normal playback and JSON output continue even when waveform cannot be decoded
 - Manual timestamp marking with Space and touch controls
 - Skip and undo, playback seeking and speed controls
 - Autosave of text, timing marks, progress and theme to this browser's `localStorage`
