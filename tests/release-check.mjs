@@ -23,6 +23,10 @@ for(const [id,value] of Object.entries({
  assert.ok(html.includes(`id="${id}">${value}</code>`),`${id} changed`);
 }
 assert.ok(html.includes('https://github.com/LaneZero/synctap-studio'));
+assert.ok(html.includes('function downloadTimingJson()'));
+assert.ok(html.includes('function togglePlayback()'));
+assert.ok(html.includes('Version 4.8'));
+assert.ok(html.includes('downloadTimingBtn')); 
 assert.ok(html.includes('listWindowManual') && html.includes('PAGE_SIZE=160'));
 assert.ok(html.includes('applySnapshot(selected.state)'));
 assert.ok(html.includes('const MAX_VISIBLE_WARNINGS=30'));
@@ -32,6 +36,6 @@ assert.equal(manifest.start_url,'./');
 for(const asset of ['sw.js','favicon.svg','icons/icon-192.png','icons/icon-512.png','README.md','CHANGELOG.md'])
  assert.ok(fs.existsSync(path.join(root,asset)),`Missing ${asset}`);
 const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
-assert.ok(sw.includes('synctap-shell-v4.7.0'),'New cache version needed');
+assert.ok(sw.includes('synctap-shell-v4.8.0'),'New cache version needed');
 assert.ok(sw.includes('url.origin !== self.location.origin'),'Cache must stay on origin');
 console.log('PASS: syntax, V2 JSON, wallets, GitHub link, pagination, restoration, PWA assets');

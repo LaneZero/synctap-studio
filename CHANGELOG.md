@@ -1,3 +1,10 @@
+## [4.8.0] - 2026-11-02
+
+- Add direct timing JSON download using the unchanged V2 serializer.
+- Add one-second transport buttons and mobile-friendly play/pause control.
+- Refresh version labels and PWA cache version.
+- Keep storage schemas, project controls, bilingual About/Donate, and wallet addresses unchanged.
+
 ## 4.7.0 — Reliability and mobile performance
 
 - Display truthful failure status when project storage cannot persist.

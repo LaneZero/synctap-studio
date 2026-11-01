@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SyncTap Studio V4.7 | LaneZero</title>
+<title>SyncTap Studio V4.8 | LaneZero</title>
 <meta name="description" content="ابزار رایگان و بدون نیاز به نصب برای ثبت دستی زمان شروع جملات نریشن و دریافت JSON همگام‌سازی متن و صدا.">
 <meta name="theme-color" content="#090f1e">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -104,11 +104,15 @@ html[lang=en] .brand h1{letter-spacing:0}
 .list-pager{display:block;width:100%;min-height:44px;margin:5px 0;font-size:13px}
 @media(max-width:600px){.wrap{padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))}.top-actions .btn{min-height:44px}.wallet-copy{min-height:44px}.info-dialog{overscroll-behavior:contain}.list .item{min-height:46px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* V4.8: compact timeline transport and download action on narrow screens. */
+.transport-precision{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.transport-precision .btn{min-height:44px}
+@media(max-width:600px){.transport-precision .btn{flex:1 1 28%;min-width:0}.output-actions .btn{min-height:44px}}
 </style>
 </head>
 <body>
 <main class="wrap">
-<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 4.6</span><button class="btn small" id="langButton" type="button" onclick="toggleLanguage()" aria-label="Change language">English</button><button class="btn small" id="projectsButton" type="button" onclick="openProjects()">پروژه‌ها</button><button class="btn small" id="aboutButton" type="button" onclick="openModal('aboutDialog')">درباره</button><button class="btn small" id="donateButton" type="button" onclick="openModal('donateDialog')">حمایت مالی</button><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
+<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 4.8</span><button class="btn small" id="langButton" type="button" onclick="toggleLanguage()" aria-label="Change language">English</button><button class="btn small" id="projectsButton" type="button" onclick="openProjects()">پروژه‌ها</button><button class="btn small" id="aboutButton" type="button" onclick="openModal('aboutDialog')">درباره</button><button class="btn small" id="donateButton" type="button" onclick="openModal('donateDialog')">حمایت مالی</button><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
 <p class="summary-tip">متن را آماده کنید، صدا را پخش کنید و شروع هر جمله را با یک ضربه ثبت کنید. بدون نصب، حساب کاربری یا ارسال فایل به سرور.</p>
 <div class="layout">
 <section class="stack" aria-label="ورودی و خروجی">
@@ -138,17 +142,17 @@ html[lang=en] .brand h1{letter-spacing:0}
 و آخرش، واژه‌ی ابراکادابرا. طبق چیزی که گوینده می‌گه، یعنی «همون‌طور که می‌گم، خلق می‌کنم».
 پس این پنج عادت: ذهنِ آماده در صبح، مسئولیتِ صددرصدی، کارهای زیر پنج دقیقه، مرز با گوشی، و کلامِ آگاهانه.
 پس به جای منتظر موندن برای انگیزه‌ی بیشتر، از همین امروز یکی از این عادت‌ها رو شروع کن.</textarea><div class="row space" style="margin-top:12px"><span class="tiny" id="saveStatus" role="status">ذخیره محلی فعال است</span><span class="tiny">اعمال مجدد متن، زمان‌های فعلی را پاک می‌کند.</span><button class="btn primary" onclick="applyText()" type="button">اعمال متن</button></div></div>
-<div class="card output-card"><div class="card-header"><h2>خروجی JSON</h2><span class="pill">سازگار با V2</span></div><p class="hint">ساختار و نام فیلدهای خروجی بدون تغییر حفظ شده است.</p><textarea id="out" readonly aria-label="خروجی JSON"></textarea><div class="row" style="margin-top:10px"><button class="btn primary" onclick="copyOut()" type="button">⧉ کپی خروجی</button><span class="tiny" id="outputInfo">خروجی آماده کپی است.</span></div></div>
+<div class="card output-card"><div class="card-header"><h2>خروجی JSON</h2><span class="pill">سازگار با V2</span></div><p class="hint">ساختار و نام فیلدهای خروجی بدون تغییر حفظ شده است.</p><textarea id="out" readonly aria-label="خروجی JSON"></textarea><div class="row" style="margin-top:10px"><button class="btn primary" onclick="copyOut()" type="button">⧉ کپی خروجی</button><button class="btn" id="downloadTimingBtn" type="button" onclick="downloadTimingJson()">↓ دانلود JSON</button><span class="tiny" id="outputInfo">خروجی آماده کپی است.</span></div></div>
 </section>
 <section class="stack" aria-label="پخش و زمان‌بندی">
-<div class="card player-card"><div class="card-header"><h2>۲. فایل و کنترل صدا</h2><span class="tiny">WAV / MP3 / سایر فایل‌های صوتی مرورگر</span></div><div class="upload"><input type="file" id="f" accept="audio/*"><label class="file-label" for="f">♫ انتخاب فایل صوتی</label><span class="tiny" id="fileName">فایلی انتخاب نشده</span></div><div class="audio-box"><audio id="a" controls preload="metadata" aria-label="پخش نریشن"></audio><div class="wave-panel"><div class="row space wave-head"><strong>موج صوتی</strong><button type="button" class="btn small" id="waveBuild" disabled>نمایش موج واقعی</button></div><p id="waveStatus" class="tiny" role="status">ابتدا فایل صوتی را انتخاب کنید. برای حفظ سرعت موبایل، تحلیل موج اختیاری است.</p><div class="wave-wrap" id="waveWrap"><canvas id="waveCanvas" height="100" tabindex="0" role="slider" aria-label="جابه‌جایی در فایل صوتی" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="فایل صوتی انتخاب نشده" aria-disabled="true"></canvas></div><div class="row space wave-legend"><span>● نشانگر پخش</span><span>│ زمان‌های ثبت‌شده</span></div></div><div id="clock" aria-live="off">0.00</div><div class="row" style="justify-content:center"><button class="btn small" onclick="seek(-3)">۳ ثانیه عقب</button><button class="btn small" onclick="seek(3)">۳ ثانیه جلو</button><button class="btn small" id="slow" onclick="rate(0.75)">سرعت ۰٫۷۵</button><button class="btn small" id="normal" onclick="rate(1)">سرعت ۱</button></div></div></div>
+<div class="card player-card"><div class="card-header"><h2>۲. فایل و کنترل صدا</h2><span class="tiny">WAV / MP3 / سایر فایل‌های صوتی مرورگر</span></div><div class="upload"><input type="file" id="f" accept="audio/*"><label class="file-label" for="f">♫ انتخاب فایل صوتی</label><span class="tiny" id="fileName">فایلی انتخاب نشده</span></div><div class="audio-box"><audio id="a" controls preload="metadata" aria-label="پخش نریشن"></audio><div class="wave-panel"><div class="row space wave-head"><strong>موج صوتی</strong><button type="button" class="btn small" id="waveBuild" disabled>نمایش موج واقعی</button></div><p id="waveStatus" class="tiny" role="status">ابتدا فایل صوتی را انتخاب کنید. برای حفظ سرعت موبایل، تحلیل موج اختیاری است.</p><div class="wave-wrap" id="waveWrap"><canvas id="waveCanvas" height="100" tabindex="0" role="slider" aria-label="جابه‌جایی در فایل صوتی" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="فایل صوتی انتخاب نشده" aria-disabled="true"></canvas></div><div class="row space wave-legend"><span>● نشانگر پخش</span><span>│ زمان‌های ثبت‌شده</span></div></div><div id="clock" aria-live="off">0.00</div><div class="transport-precision"><button class="btn small" type="button" id="backOne" onclick="seek(-1)">−۱ ثانیه</button><button class="btn small" type="button" id="playPause" onclick="togglePlayback()">▶ پخش / توقف</button><button class="btn small" type="button" id="forwardOne" onclick="seek(1)">+۱ ثانیه</button></div><div class="row" style="justify-content:center"><button class="btn small" onclick="seek(-3)">۳ ثانیه عقب</button><button class="btn small" onclick="seek(3)">۳ ثانیه جلو</button><button class="btn small" id="slow" onclick="rate(0.75)">سرعت ۰٫۷۵</button><button class="btn small" id="normal" onclick="rate(1)">سرعت ۱</button></div></div></div>
 <div class="card sync-card"><div class="card-header"><h2>۳. ثبت زمان جملات</h2><span class="tiny" id="progressLabel">۰٪ تکمیل</span></div><div class="stats"><div class="stat"><span class="tiny">کل جملات</span><strong id="totalCount">۰</strong></div><div class="stat"><span class="tiny">ثبت‌شده</span><strong id="doneCount">۰</strong></div><div class="stat"><span class="tiny">باقی‌مانده</span><strong id="remainingCount">۰</strong></div></div><div class="progress" role="progressbar" aria-label="پیشرفت زمان‌بندی" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div id="progressFill"></div></div><div class="current"><span class="eyebrow" id="hdr"></span><div id="cur"></div></div><button id="big" onclick="mark()">✓ همین‌جا شروع شد (Space)</button><div class="actions"><button class="btn" onclick="undo()" id="undoBtn">↶ برگرد و اصلاح (Backspace)</button><button class="btn" onclick="skip()" id="skipBtn">↷ این خط در صدا نیست</button></div><div class="guide" aria-label="کلیدهای میانبر"><span>ثبت زمان <kbd>Space</kbd></span><span>بازگشت <kbd>Backspace</kbd></span><span>جابه‌جایی صدا <kbd>±3s</kbd></span></div><p class="hint" style="margin-bottom:0">کلیدهای میانبر هنگام تایپ در کادرها و هنگام فوکوس روی دکمه‌ها غیرفعال هستند.</p></div>
 <div class="card timeline-card"><div class="card-header"><h2>فهرست زمان‌بندی</h2><span class="tiny" id="listSummary">۰ جمله</span></div><div id="list" class="list" aria-label="وضعیت ثبت جملات"></div><div class="note">سبز: زمان ثبت‌شده · نارنجی: جمله در صدا نیست · قاب مشخص: جمله فعلی</div>
 <div id="editPanel" class="note hidden" aria-label="اصلاح زمان"><label for="editTime">اصلاح زمان جمله <b id="editNumber"></b> (ثانیه، مانند 42.35)</label><div class="edit-row"><input type="number" id="editTime" min="0" step="0.01" inputmode="decimal" aria-label="زمان جدید برحسب ثانیه"><button type="button" class="btn primary" id="editSave">ذخیره</button><button type="button" class="btn" id="editCancel">انصراف</button></div><p class="tiny">اصلاح زمان ترتیب جملات یا قالب خروجی را تغییر نمی‌دهد.</p></div>
 </div>
 <div class="card quality-card"><div class="card-header"><h2>بررسی کیفیت زمان‌بندی</h2><span class="tiny">بدون تغییر خودکار</span></div><div id="qualitySummary" class="tiny" role="status"></div><ul id="qualityList" class="quality-list"></ul></div>
 </section>
-</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V4.7 · <span lang="en">Local-first / No upload</span> · <button type="button" class="footer-link" onclick="openModal('aboutDialog')">About</button> · <button type="button" class="footer-link" onclick="openModal('donateDialog')">Donate ♡</button></footer>
+</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V4.8 · <span lang="en">Local-first / No upload</span> · <button type="button" class="footer-link" onclick="openModal('aboutDialog')">About</button> · <button type="button" class="footer-link" onclick="openModal('donateDialog')">Donate ♡</button></footer>
 </main>
 <nav class="mobile-dock" aria-label="کنترل‌های سریع ثبت زمان">
   <button type="button" class="dock-side" id="dockUndo" onclick="undo()" aria-label="بازگشت به جمله قبل">↶ <span>اصلاح</span></button>
@@ -157,9 +161,9 @@ html[lang=en] .brand h1{letter-spacing:0}
 </nav>
 
 <dialog id="aboutDialog" class="info-dialog" aria-labelledby="aboutTitle">
- <div class="dialog-heading"><div><span class="dialog-kicker">SYNC TAP STUDIO · V4.7</span><h2 id="aboutTitle" data-t="aboutTitle">درباره SyncTap Studio</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('aboutDialog')">×</button></div>
+ <div class="dialog-heading"><div><span class="dialog-kicker">SYNC TAP STUDIO · V4.8</span><h2 id="aboutTitle" data-t="aboutTitle">درباره SyncTap Studio</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('aboutDialog')">×</button></div>
  <p data-t="aboutLead">یک ابزار سبک و رایگان برای هماهنگ‌سازی دستی جملات متن با زمان شروع آن‌ها در فایل نریشن؛ مناسب تدوین و موشن‌گرافیک.</p>
- <div class="info-grid"><div><span data-t="version">نسخه</span><strong>4.7.0</strong></div><div><span data-t="developer">توسعه‌دهنده</span><strong>LaneZero</strong></div><div><span data-t="technology">فناوری</span><strong>HTML · CSS · JavaScript</strong></div><div><span data-t="privacy">حریم خصوصی</span><strong data-t="local">پردازش محلی</strong></div></div>
+ <div class="info-grid"><div><span data-t="version">نسخه</span><strong>4.8.0</strong></div><div><span data-t="developer">توسعه‌دهنده</span><strong>LaneZero</strong></div><div><span data-t="technology">فناوری</span><strong>HTML · CSS · JavaScript</strong></div><div><span data-t="privacy">حریم خصوصی</span><strong data-t="local">پردازش محلی</strong></div></div>
  <h3 data-t="featuresTitle">قابلیت‌ها</h3>
  <ul><li data-t="aboutFeat1">ثبت زمان با لمس یا Space و امکان ویرایش دستی زمان‌ها</li><li data-t="aboutFeat2">نمایش اختیاری شکل موج واقعی و کنترل سرعت پخش</li><li data-t="aboutFeat3">ذخیره خودکار پروژه در همان مرورگر و بازیابی پیشرفت</li><li data-t="aboutFeat4">کنترل کیفیت زمان‌بندی و خروجی JSON سازگار با نسخه‌های پیشین</li><li data-t="aboutFeat5">پشتیبانی از فارسی و انگلیسی، طراحی موبایل و نصب PWA</li></ul>
  <p class="privacy-note" data-t="privacyDetail">متن و زمان‌بندی در حافظه محلی مرورگر ذخیره می‌شوند. فایل صوتی به سرور برنامه ارسال نمی‌شود و برای حفظ حریم خصوصی یا محدودیت فضای ذخیره‌سازی به‌طور خودکار ذخیره نمی‌شود.</p>
@@ -197,6 +201,21 @@ const $=id=>document.getElementById(id);
 $('f').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(audioUrl)URL.revokeObjectURL(audioUrl);audioUrl=URL.createObjectURL(f);a.src=audioUrl;$('fileName').textContent=f.name;resetWave();$('waveBuild').disabled=false;$('waveStatus').textContent='برای نمایش شکل موج واقعی، «نمایش موج واقعی» را بزنید. پخش صوت نیازی به تحلیل موج ندارد.';});
 $('txt').addEventListener('input',()=>{$('lineCount').textContent=$('txt').value.split('\n').map(s=>s.trim()).filter(Boolean).length+' خط';scheduleSave();});
 function applyText(){listWindowManual=false;if(i>0&&!confirm('با اعمال مجدد متن، زمان‌بندی ثبت‌شده پاک می‌شود. ادامه می‌دهید؟'))return;LINES=$('txt').value.split('\n').map(s=>s.trim()).filter(Boolean);i=0;T.length=0;closeEdit();show();}
+// Playback helper never modifies any recorded timestamps.
+async function togglePlayback(){
+ if(!a.src){notify(languageText('ابتدا یک فایل صوتی انتخاب کنید','Select an audio file first'));return;}
+ if(a.paused){try{await a.play();}catch(e){notify(languageText('پخش صدا ممکن نشد','Audio playback was blocked'));}}
+ else a.pause();
+}
+function downloadTimingJson(){
+ // Use the exact same serialized output as the Copy action; do not modify the V2 format.
+ const data=$('out').value;
+ const url=URL.createObjectURL(new Blob([data],{type:'application/json;charset=utf-8'}));
+ const link=document.createElement('a');
+ link.href=url;link.download='synctap-timing.json';document.body.append(link);link.click();link.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+ notify(languageText('فایل JSON دریافت شد','JSON download started'));
+}
 function seek(d){if(!Number.isFinite(a.duration))return;a.currentTime=Math.max(0,Math.min(a.duration,a.currentTime+d));}
 function rate(r){a.playbackRate=r;$('slow').setAttribute('aria-pressed',String(r===0.75));$('normal').setAttribute('aria-pressed',String(r===1));}
 let listWindowStart=0, listWindowManual=false;
@@ -355,7 +374,7 @@ function translateUI(){
  document.documentElement.lang=uiLanguage;
  document.documentElement.dir=uiLanguage==='fa'?'rtl':'ltr';
  $('langButton').textContent=uiLanguage==='fa'?'English':'فارسی';
- document.title='SyncTap Studio V4.7 | LaneZero';
+ document.title='SyncTap Studio V4.8 | LaneZero';
  document.querySelectorAll('[data-t]').forEach(el=>{const entry=INFO_TEXT[el.dataset.t];if(entry)el.textContent=entry[uiLanguage];});
  document.querySelectorAll('[data-t-aria]').forEach(el=>{const entry=INFO_TEXT[el.dataset.tAria];if(entry)el.setAttribute('aria-label',entry[uiLanguage]);});
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
@@ -460,7 +479,7 @@ function downloadProjectJson(data,filename){
 function exportAllProjects(){
  flushProjectSave();const projects=getProjects();
  if(!projects.length){notify(languageText('پروژه‌ای برای پشتیبان‌گیری وجود ندارد','No projects to back up'));return;}
- const data={format:'synctap-project-collection',schemaVersion:1,appVersion:'4.7.0',exportedAt:new Date().toISOString(),projects:projects.map(p=>({name:p.name,state:p.state}))};
+ const data={format:'synctap-project-collection',schemaVersion:1,appVersion:'4.8.0',exportedAt:new Date().toISOString(),projects:projects.map(p=>({name:p.name,state:p.state}))};
  downloadProjectJson(data,'synctap-all-projects-'+new Date().toISOString().slice(0,10)+'.json');
  notify(languageText('نسخه پشتیبان همه پروژه‌ها دانلود شد','All projects backup downloaded'));
 }
@@ -498,7 +517,7 @@ function removeProject(id){
  try{storeProjects(remaining);if(id===activeProjectId)switchToProject(remaining[0]);else renderProjects();}catch(e){notify(languageText('حذف پروژه انجام نشد','Could not delete project'));}
 }
 function exportProject(){
- saveState();const name=projectLabel();const data={format:'synctap-project',schemaVersion:1,appVersion:'4.7.0',name,exportedAt:new Date().toISOString(),state:projectSnapshot()};
+ saveState();const name=projectLabel();const data={format:'synctap-project',schemaVersion:1,appVersion:'4.8.0',name,exportedAt:new Date().toISOString(),state:projectSnapshot()};
  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);
  const link=document.createElement('a');link.href=url;link.download='synctap-project-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
  notify(languageText('فایل پشتیبان پروژه آماده شد','Project backup exported'));
@@ -527,6 +546,17 @@ translateUI=function(){previousTranslateUI();
  for(const [id,pair] of Object.entries(labels))$(id).textContent=pair[english?1:0];
  if($('projectsDialog').open)renderProjects();
 };
+// Keep newly added transport buttons localized without changing the legacy translator.
+const translateBefore48=translateUI;
+translateUI=function(){
+ translateBefore48();
+ const en=uiLanguage==='en';
+ $('downloadTimingBtn').textContent=en?'↓ Download JSON':'↓ دانلود JSON';
+ $('backOne').textContent=en?'−1 sec':'−۱ ثانیه';
+ $('forwardOne').textContent=en?'+1 sec':'+۱ ثانیه';
+ $('playPause').textContent=en?'▶ Play / Pause':'▶ پخش / توقف';
+};
+translateUI();
 // Flush pending changes when the page becomes hidden; this is critical on mobile.
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&!restoring)flushProjectSave();});
 // Upgrade migration: the V4.3 active autosave is imported as the first V4.5 project.
