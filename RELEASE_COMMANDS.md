@@ -1,15 +1,12 @@
-# SyncTap Studio v4.8.0 release (single main branch)
-
-From the repository root after copying these files:
+## v4.9.0
 
 ```powershell
 node tests/release-check.mjs
-git status
 git add .
-git commit -m "feat: add precision playback and timing JSON download (v4.8.0)"
+git commit -m "feat: add precision replay search and quality dashboard (v4.9.0)"
 git push origin main
-git tag -a v4.8.0 -m "SyncTap Studio v4.8.0"
-git push origin v4.8.0
+git tag -a v4.9.0 -m "SyncTap Studio v4.9.0"
+git push origin v4.9.0
 ```
 
-The previously tagged v4.7.0 remains recoverable, no develop branch is needed.
+Tag only after validating on a real mobile browser.

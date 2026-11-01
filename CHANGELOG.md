@@ -1,3 +1,12 @@
+## v4.9.0
+
+- Precision timestamp editing via ±0.10s and ±0.01s controls (save explicitly).
+- Replay audio around a selected marked line.
+- Search within narration, navigate without changing the timing order.
+- Compact quality metrics and first-issue navigation.
+- Bilingual keyboard shortcut dialog.
+- Maintains all V4.8 capabilities, local-only PWA and original V2 timing JSON serializer.
+
 ## [4.8.0] - 2026-11-02
 
 - Add direct timing JSON download using the unchanged V2 serializer.

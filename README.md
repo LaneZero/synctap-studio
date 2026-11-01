@@ -2,7 +2,7 @@
 
 **A lightweight, bilingual, privacy-first narration timing tool by [LaneZero](https://github.com/LaneZero/synctap-studio).**
 
-[![Version](https://img.shields.io/badge/version-4.8.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
+[![Version](https://img.shields.io/badge/version-4.9.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
 
 **Live application:** https://lanezero.github.io/synctap-studio/ (after GitHub Pages deployment)
 
@@ -103,7 +103,7 @@ Developer: **[LaneZero](https://github.com/LaneZero/synctap-studio)**.
 
 The all-project bundle uses `format: "synctap-project-collection"` and `schemaVersion: 1`. Its `projects` array contains project names and snapshots only. No audio is included. Import does not overwrite existing projects, and refuses a bundle that would exceed 12 saved projects. Save backups outside the browser before clearing website data. The timing export remains the original compact V2 JSON array.
 
-## V4.8 finalization and performance
+## V4.9 finalization and performance
 
 - The timing list uses bounded rendering: for long scripts, only a window of up to 160 lines is drawn at once. Use **Previous / Next** to browse older or later groups; the complete script and JSON are unaffected.
 - On app startup, the selected project's saved snapshot is restored (instead of relying on a possibly stale legacy autosave key). This prevents the last-opened project from displaying a different project's text after reload.
@@ -120,25 +120,36 @@ Keys and behavior remain exactly as in V2: `start` is omitted for unprocessed li
 
 Run `node tests/release-check.mjs` and verify the basic workflow in Chrome Android, Firefox Android and a desktop browser before treating this release as production-validated. Automated static tests do not replace browser interaction tests.
 
-## V4.8 reliability changes
+## V4.9 reliability changes
 
 - **Honest save status:** an active-project localStorage failure is surfaced instead of being reported as saved. Export a project backup if storage is blocked or full.
 - **Mobile-friendly validation:** all timing issues are counted but only the first 30 warnings are rendered to avoid excessive DOM work.
 - **Backward compatibility:** the V2 timing JSON stays unchanged, and project backup schema remains version 1.
-- **PWA update:** service-worker shell cache increments to v4.8.0.
+- **PWA update:** service-worker shell cache increments to v4.9.0.
 
 ### Release checks
 
 Run `node tests/release-check.mjs` from the repository root. Also manually test autosave with browser storage disabled, project switching, import/export, offline reload, and a long script on a real phone. Browser-specific testing is still required.
 
 
-## What's new in v4.8.0
+## What's new in v4.9.0
 
 - **Download timing JSON:** Export the exact same data shown in the output textarea as a `.json` file. The format stays `[{"n": 1, "start": 0.0, "text": "..."}]` and maintains the original V2 rules for `null` and omitted timestamps.
 - **Precision playback controls:** Jump backward/forward by one second or toggle playback with a dedicated mobile-friendly button. Existing 3-second and speed controls remain.
-- **Version consistency:** Header, About, footer, service-worker cache and release metadata now indicate v4.8.0.
+- **Version consistency:** Header, About, footer, service-worker cache and release metadata now indicate v4.9.0.
 - **Privacy/performance:** The download is made locally through a Blob URL. No server, new dependency, or audio upload.
 
 ### Upgrade
 
 Replace repository files with this release and publish GitHub Pages from `main`. The v4.7 local project data is preserved because existing storage keys and project schemas are unchanged. Audio files remain local and must be selected again after reopening.
+
+
+### V4.9 timing tools
+
+- **Precision:** Select a recorded row, choose a 0.10s or 0.01s step, tap ±, then **Save**.
+- **Replay:** While editing a recorded timestamp, replay from two seconds before to three seconds after the original mark (subject to audio boundaries).
+- **Search:** Enter a fragment to locate a sentence, without modifying recorded timings or JSON line order. Up to 40 results render at once for mobile performance.
+- **Quality:** Timed / skipped / pending / temporal issues at a glance. Jump to the first detectable issue.
+- **Shortcuts:** A bilingual, on-demand shortcut reference.
+
+No external dependencies. Audio stays local. Project backup JSON remains separate from timing JSON.
