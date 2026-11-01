@@ -1,3 +1,11 @@
+## v4.4.0 — Local project management
+
+- Added separate local project slots (up to 12), with create/open/rename/delete.
+- Added portable project backup import/export with schema validation.
+- Preserved v4 autosave and legacy V2 JSON output serializer.
+- Preserved Persian/English UI, About, Donate, PWA, and mobile controls.
+- Audio is not included in backups or cached.
+
 # Changelog
 
 ## 4.3.0 — Bilingual About & Donate

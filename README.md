@@ -2,7 +2,7 @@
 
 **A lightweight, bilingual, privacy-first narration timing tool by [LaneZero](https://github.com/LaneZero/synctap-studio).**
 
-[![Version](https://img.shields.io/badge/version-4.3.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
+[![Version](https://img.shields.io/badge/version-4.4.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
 
 **Live application:** https://lanezero.github.io/synctap-studio/ (after GitHub Pages deployment)
 
@@ -21,6 +21,16 @@ SyncTap Studio lets editors and motion-graphics creators manually record when ea
 - Edit existing timestamps and check for missing, duplicated or out-of-order times.
 - Mobile layout with a bottom action dock, optional PWA installation and an offline-cached app shell.
 - About dialog and optional Donate dialog with one-tap address copying.
+
+## Multi-project workflow (V4.4)
+
+- **Projects:** click **Projects / پروژه‌ها** to view locally saved projects, rename the active project, open an older project, or start a new one.
+- **Autosave:** project script, recorded markers, cursor position and theme are saved after edits. Existing V4.3 autosave is adopted as the first project.
+- **Backup:** **Export project** saves a standalone JSON file using `format: "synctap-project"` and `schemaVersion: 1`. This is **not** the downstream timing JSON.
+- **Import:** **Import project** loads that backup from your device, validating its schema and timestamps before accepting it.
+- **Safety:** the current project is saved before switching; deleting a project requires confirmation. Maximum 12 local projects; backup import is limited to 1 MB.
+- **Audio:** for privacy and performance, audio is never stored in backups or browser storage. You must reselect the source audio after loading a project.
+- **Storage:** projects remain in that browser profile only, and may be lost if browser site data is cleared. Export backups to protect important work.
 
 ## Quick start
 

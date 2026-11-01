@@ -1,12 +1,14 @@
-# Release v4.3.0
+# Release V4.4.0
 
-Review changes and run inside the Git repository root:
+1. Copy package contents to your repository root.
+2. Verify timing, autosave migration, switching, export/import, Persian/English, PWA offline, and mobile interactions.
+3. Review: `git diff --check` and `git status`.
+4. Commit/push:
 
-```powershell
-git status
-git add index.html favicon.svg manifest.webmanifest sw.js icons/ README.md CHANGELOG.md RELEASE_COMMANDS.md
-git commit -m "feat(i18n): add bilingual About and Donate dialogs (v4.3.0)"
+```bash
+git add index.html README.md CHANGELOG.md RELEASE_COMMANDS.md manifest.webmanifest sw.js
+git commit -m "feat(projects): add local project management and portable backups (v4.4.0)"
 git push origin main
 ```
 
-Verify the site, language switch, wallet copy, JSON schema and PWA refresh after deployment.
+GitHub repo: https://github.com/LaneZero/synctap-studio

@@ -2,7 +2,7 @@
   "id": "./",
   "name": "SyncTap Studio by LaneZero",
   "short_name": "SyncTap",
-  "description": "Lightweight bilingual narration alignment, local autosave and JSON export / همگام‌سازی سبک متن و نریشن",
+  "description": "Lightweight bilingual narration alignment, multi-project backups and JSON export / همگام‌سازی سبک متن و نریشن",
   "lang": "en",
   "dir": "auto",
   "start_url": "./",
