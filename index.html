@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SyncTap Studio V4.6 | LaneZero</title>
+<title>SyncTap Studio V4.7 | LaneZero</title>
 <meta name="description" content="ابزار رایگان و بدون نیاز به نصب برای ثبت دستی زمان شروع جملات نریشن و دریافت JSON همگام‌سازی متن و صدا.">
 <meta name="theme-color" content="#090f1e">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -148,7 +148,7 @@ html[lang=en] .brand h1{letter-spacing:0}
 </div>
 <div class="card quality-card"><div class="card-header"><h2>بررسی کیفیت زمان‌بندی</h2><span class="tiny">بدون تغییر خودکار</span></div><div id="qualitySummary" class="tiny" role="status"></div><ul id="qualityList" class="quality-list"></ul></div>
 </section>
-</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V4.6 · <span lang="en">Local-first / No upload</span> · <button type="button" class="footer-link" onclick="openModal('aboutDialog')">About</button> · <button type="button" class="footer-link" onclick="openModal('donateDialog')">Donate ♡</button></footer>
+</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V4.7 · <span lang="en">Local-first / No upload</span> · <button type="button" class="footer-link" onclick="openModal('aboutDialog')">About</button> · <button type="button" class="footer-link" onclick="openModal('donateDialog')">Donate ♡</button></footer>
 </main>
 <nav class="mobile-dock" aria-label="کنترل‌های سریع ثبت زمان">
   <button type="button" class="dock-side" id="dockUndo" onclick="undo()" aria-label="بازگشت به جمله قبل">↶ <span>اصلاح</span></button>
@@ -157,9 +157,9 @@ html[lang=en] .brand h1{letter-spacing:0}
 </nav>
 
 <dialog id="aboutDialog" class="info-dialog" aria-labelledby="aboutTitle">
- <div class="dialog-heading"><div><span class="dialog-kicker">SYNC TAP STUDIO · V4.6</span><h2 id="aboutTitle" data-t="aboutTitle">درباره SyncTap Studio</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('aboutDialog')">×</button></div>
+ <div class="dialog-heading"><div><span class="dialog-kicker">SYNC TAP STUDIO · V4.7</span><h2 id="aboutTitle" data-t="aboutTitle">درباره SyncTap Studio</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('aboutDialog')">×</button></div>
  <p data-t="aboutLead">یک ابزار سبک و رایگان برای هماهنگ‌سازی دستی جملات متن با زمان شروع آن‌ها در فایل نریشن؛ مناسب تدوین و موشن‌گرافیک.</p>
- <div class="info-grid"><div><span data-t="version">نسخه</span><strong>4.6.0</strong></div><div><span data-t="developer">توسعه‌دهنده</span><strong>LaneZero</strong></div><div><span data-t="technology">فناوری</span><strong>HTML · CSS · JavaScript</strong></div><div><span data-t="privacy">حریم خصوصی</span><strong data-t="local">پردازش محلی</strong></div></div>
+ <div class="info-grid"><div><span data-t="version">نسخه</span><strong>4.7.0</strong></div><div><span data-t="developer">توسعه‌دهنده</span><strong>LaneZero</strong></div><div><span data-t="technology">فناوری</span><strong>HTML · CSS · JavaScript</strong></div><div><span data-t="privacy">حریم خصوصی</span><strong data-t="local">پردازش محلی</strong></div></div>
  <h3 data-t="featuresTitle">قابلیت‌ها</h3>
  <ul><li data-t="aboutFeat1">ثبت زمان با لمس یا Space و امکان ویرایش دستی زمان‌ها</li><li data-t="aboutFeat2">نمایش اختیاری شکل موج واقعی و کنترل سرعت پخش</li><li data-t="aboutFeat3">ذخیره خودکار پروژه در همان مرورگر و بازیابی پیشرفت</li><li data-t="aboutFeat4">کنترل کیفیت زمان‌بندی و خروجی JSON سازگار با نسخه‌های پیشین</li><li data-t="aboutFeat5">پشتیبانی از فارسی و انگلیسی، طراحی موبایل و نصب PWA</li></ul>
  <p class="privacy-note" data-t="privacyDetail">متن و زمان‌بندی در حافظه محلی مرورگر ذخیره می‌شوند. فایل صوتی به سرور برنامه ارسال نمی‌شود و برای حفظ حریم خصوصی یا محدودیت فضای ذخیره‌سازی به‌طور خودکار ذخیره نمی‌شود.</p>
@@ -235,8 +235,18 @@ function openEdit(k){if(k>=T.length||T[k]===null)return;editingIndex=k;$('editNu
 function closeEdit(){editingIndex=-1;$('editPanel').classList.add('hidden');}
 $('editCancel').addEventListener('click',closeEdit);
 $('editSave').addEventListener('click',()=>{if(editingIndex<0)return;const value=$('editTime').value.trim();const parsed=Number(value);if(value===''||!Number.isFinite(parsed)||parsed<0){notify('زمان معتبر و غیرمنفی وارد کنید');return;}if(Number.isFinite(a.duration)&&parsed>a.duration){notify('زمان از طول فایل صوتی بیشتر است');return;}T[editingIndex]=Math.round(parsed*100)/100;closeEdit();show();notify('زمان جمله اصلاح شد');});
-function checkQuality(){const warnings=[];for(let k=0;k<T.length;k++){const t=T[k];if(t===null)continue;if(Number.isFinite(a.duration)&&t>a.duration)warnings.push('جمله '+(k+1)+': زمان خارج از طول فایل صوتی است');if(k>0&&T[k-1]!==null){if(t===T[k-1])warnings.push('جمله '+(k+1)+': زمان با جمله قبل برابر است');else if(t<T[k-1])warnings.push('جمله '+(k+1)+': زمان از جمله قبل زودتر است');}}
-const missing=LINES.length-i;if(missing)warnings.push(missing+' جمله هنوز زمان‌بندی نشده است');const list=$('qualityList');list.replaceChildren();const summary=$('qualitySummary');if(!warnings.length){summary.textContent='✓ مورد مشکوکی در زمان‌های ثبت‌شده مشاهده نشد.';summary.className='tiny quality-ok';}else{summary.textContent=warnings.length+' مورد نیازمند بررسی';summary.className='tiny quality-warn';warnings.forEach(msg=>{const li=document.createElement('li');li.textContent=msg;list.append(li);});}}
+// Limit warning DOM nodes on low-memory mobile devices, but count every issue.
+function checkQuality(){const MAX_VISIBLE_WARNINGS=30;const warnings=[];let total=0;
+ const warn=message=>{total++;if(warnings.length<MAX_VISIBLE_WARNINGS)warnings.push(message);};
+ for(let k=0;k<T.length;k++){const t=T[k];if(t===null)continue;
+ if(Number.isFinite(a.duration)&&t>a.duration)warn('جمله '+(k+1)+': زمان خارج از طول فایل صوتی است');
+ if(k>0&&T[k-1]!==null){if(t===T[k-1])warn('جمله '+(k+1)+': زمان با جمله قبل برابر است');else if(t<T[k-1])warn('جمله '+(k+1)+': زمان از جمله قبل زودتر است');}}
+ const missing=LINES.length-i;if(missing)warn(missing+' جمله هنوز زمان‌بندی نشده است');
+ const list=$('qualityList');list.replaceChildren();const summary=$('qualitySummary');
+ if(!total){summary.textContent=languageLabel('✓ مورد مشکوکی در زمان‌های ثبت‌شده مشاهده نشد.','✓ No suspicious timestamps found.');summary.className='tiny quality-ok';}
+ else{summary.textContent=languageLabel(total+' مورد نیازمند بررسی',total+' issues to review');summary.className='tiny quality-warn';
+ const fragment=document.createDocumentFragment();warnings.forEach(msg=>{const li=document.createElement('li');li.textContent=msg;fragment.append(li);});
+ if(total>warnings.length){const li=document.createElement('li');li.textContent=languageLabel('نمایش '+warnings.length+' مورد اول از '+total+' هشدار','Showing first '+warnings.length+' of '+total+' warnings');fragment.append(li);}list.append(fragment);}}
 a.addEventListener('loadedmetadata',checkQuality);
 function toggleTheme(){const light=document.documentElement.dataset.theme==='light';document.documentElement.dataset.theme=light?'dark':'light';$('themeButton').textContent=light?'☀ تغییر تم':'☾ تغییر تم';drawWave();scheduleSave();}
 
@@ -345,7 +355,7 @@ function translateUI(){
  document.documentElement.lang=uiLanguage;
  document.documentElement.dir=uiLanguage==='fa'?'rtl':'ltr';
  $('langButton').textContent=uiLanguage==='fa'?'English':'فارسی';
- document.title='SyncTap Studio V4.6 | LaneZero';
+ document.title='SyncTap Studio V4.7 | LaneZero';
  document.querySelectorAll('[data-t]').forEach(el=>{const entry=INFO_TEXT[el.dataset.t];if(entry)el.textContent=entry[uiLanguage];});
  document.querySelectorAll('[data-t-aria]').forEach(el=>{const entry=INFO_TEXT[el.dataset.tAria];if(entry)el.setAttribute('aria-label',entry[uiLanguage]);});
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
@@ -397,15 +407,22 @@ function flushProjectSave(){clearTimeout(saveTimer);saveState();}
 function projectLabel(){return $('projectName').value.trim().slice(0,80)||'Untitled project';}
 function setProjectLabel(name){$('projectName').value=name;}
 function persistActive(){
- if(!activeProjectId)return;
+ if(!activeProjectId)return false;
  const projects=getProjects(), idx=projects.findIndex(p=>p.id===activeProjectId);
- if(idx<0)return;
+ if(idx<0)return false;
  projects[idx]={...projects[idx],state:projectSnapshot(),updatedAt:new Date().toISOString()};
- try{storeProjects(projects);}catch(e){$('saveStatus').textContent=languageText('فضای ذخیره‌سازی پر است؛ فایل پروژه را دانلود کنید','Storage is full; export a project backup');$('saveStatus').dataset.status='error';}
+ try{storeProjects(projects);return true;}catch(e){return false;}
 }
-// Keep the legacy autosave key active to preserve upgrades and rollback to V4.3.
+// Keep the V4 legacy autosave key for backward compatibility. A partial save
+// must never be reported as success when the active project failed to persist.
 const v43SaveState=saveState;
-saveState=function(){v43SaveState();persistActive();};
+saveState=function(){
+ v43SaveState();
+ if(!persistActive()){
+   $('saveStatus').textContent=languageText('پروژه ذخیره نشد؛ از فایل پشتیبان خروجی بگیرید','Project not saved; export a backup file');
+   $('saveStatus').dataset.status='error';
+ }
+};
 function initializeProjects(){
  const projects=getProjects();let id=null;try{id=localStorage.getItem(ACTIVE_PROJECT_KEY);}catch(e){}
  if(projects.some(p=>p.id===id)){const selected=projects.find(p=>p.id===id);activeProjectId=id;setProjectLabel(selected.name);applySnapshot(selected.state);return;}
@@ -443,7 +460,7 @@ function downloadProjectJson(data,filename){
 function exportAllProjects(){
  flushProjectSave();const projects=getProjects();
  if(!projects.length){notify(languageText('پروژه‌ای برای پشتیبان‌گیری وجود ندارد','No projects to back up'));return;}
- const data={format:'synctap-project-collection',schemaVersion:1,appVersion:'4.6.0',exportedAt:new Date().toISOString(),projects:projects.map(p=>({name:p.name,state:p.state}))};
+ const data={format:'synctap-project-collection',schemaVersion:1,appVersion:'4.7.0',exportedAt:new Date().toISOString(),projects:projects.map(p=>({name:p.name,state:p.state}))};
  downloadProjectJson(data,'synctap-all-projects-'+new Date().toISOString().slice(0,10)+'.json');
  notify(languageText('نسخه پشتیبان همه پروژه‌ها دانلود شد','All projects backup downloaded'));
 }
@@ -481,7 +498,7 @@ function removeProject(id){
  try{storeProjects(remaining);if(id===activeProjectId)switchToProject(remaining[0]);else renderProjects();}catch(e){notify(languageText('حذف پروژه انجام نشد','Could not delete project'));}
 }
 function exportProject(){
- saveState();const name=projectLabel();const data={format:'synctap-project',schemaVersion:1,appVersion:'4.6.0',name,exportedAt:new Date().toISOString(),state:projectSnapshot()};
+ saveState();const name=projectLabel();const data={format:'synctap-project',schemaVersion:1,appVersion:'4.7.0',name,exportedAt:new Date().toISOString(),state:projectSnapshot()};
  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);
  const link=document.createElement('a');link.href=url;link.download='synctap-project-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
  notify(languageText('فایل پشتیبان پروژه آماده شد','Project backup exported'));

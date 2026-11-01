@@ -2,7 +2,7 @@
 
 **A lightweight, bilingual, privacy-first narration timing tool by [LaneZero](https://github.com/LaneZero/synctap-studio).**
 
-[![Version](https://img.shields.io/badge/version-4.6.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
+[![Version](https://img.shields.io/badge/version-4.7.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
 
 **Live application:** https://lanezero.github.io/synctap-studio/ (after GitHub Pages deployment)
 
@@ -103,7 +103,7 @@ Developer: **[LaneZero](https://github.com/LaneZero/synctap-studio)**.
 
 The all-project bundle uses `format: "synctap-project-collection"` and `schemaVersion: 1`. Its `projects` array contains project names and snapshots only. No audio is included. Import does not overwrite existing projects, and refuses a bundle that would exceed 12 saved projects. Save backups outside the browser before clearing website data. The timing export remains the original compact V2 JSON array.
 
-## V4.6 finalization and performance
+## V4.7 finalization and performance
 
 - The timing list uses bounded rendering: for long scripts, only a window of up to 160 lines is drawn at once. Use **Previous / Next** to browse older or later groups; the complete script and JSON are unaffected.
 - On app startup, the selected project's saved snapshot is restored (instead of relying on a possibly stale legacy autosave key). This prevents the last-opened project from displaying a different project's text after reload.
@@ -119,3 +119,14 @@ Keys and behavior remain exactly as in V2: `start` is omitted for unprocessed li
 ### Release checks
 
 Run `node tests/release-check.mjs` and verify the basic workflow in Chrome Android, Firefox Android and a desktop browser before treating this release as production-validated. Automated static tests do not replace browser interaction tests.
+
+## V4.7 reliability changes
+
+- **Honest save status:** an active-project localStorage failure is surfaced instead of being reported as saved. Export a project backup if storage is blocked or full.
+- **Mobile-friendly validation:** all timing issues are counted but only the first 30 warnings are rendered to avoid excessive DOM work.
+- **Backward compatibility:** the V2 timing JSON stays unchanged, and project backup schema remains version 1.
+- **PWA update:** service-worker shell cache increments to v4.7.0.
+
+### Release checks
+
+Run `node tests/release-check.mjs` from the repository root. Also manually test autosave with browser storage disabled, project switching, import/export, offline reload, and a long script on a real phone. Browser-specific testing is still required.

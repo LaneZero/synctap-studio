@@ -25,11 +25,13 @@ for(const [id,value] of Object.entries({
 assert.ok(html.includes('https://github.com/LaneZero/synctap-studio'));
 assert.ok(html.includes('listWindowManual') && html.includes('PAGE_SIZE=160'));
 assert.ok(html.includes('applySnapshot(selected.state)'));
+assert.ok(html.includes('const MAX_VISIBLE_WARNINGS=30'));
+assert.ok(html.includes('if(!persistActive())'),'Project save errors must be reported');
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.webmanifest')));
 assert.equal(manifest.start_url,'./');
 for(const asset of ['sw.js','favicon.svg','icons/icon-192.png','icons/icon-512.png','README.md','CHANGELOG.md'])
  assert.ok(fs.existsSync(path.join(root,asset)),`Missing ${asset}`);
 const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
-assert.ok(sw.includes('synctap-shell-v4.6.0'),'New cache version needed');
+assert.ok(sw.includes('synctap-shell-v4.7.0'),'New cache version needed');
 assert.ok(sw.includes('url.origin !== self.location.origin'),'Cache must stay on origin');
 console.log('PASS: syntax, V2 JSON, wallets, GitHub link, pagination, restoration, PWA assets');

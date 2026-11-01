@@ -1,3 +1,10 @@
+## 4.7.0 — Reliability and mobile performance
+
+- Display truthful failure status when project storage cannot persist.
+- Cap visible validation warnings at 30 while preserving total issue counts.
+- Refresh PWA shell cache and documentation.
+- Preserve V2 timing JSON, project backup schema, bilingual UI and wallet addresses.
+
 ## V4.6.0 — Finalization and mobile performance
 
 - Bound the timing list to 160 visible rows; previous/next navigation for long scripts.

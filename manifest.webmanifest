@@ -2,7 +2,7 @@
   "id": "./",
   "name": "SyncTap Studio by LaneZero",
   "short_name": "SyncTap",
-  "description": "Lightweight bilingual narration alignment, offline PWA and local project backups",
+  "description": "Lightweight bilingual narration timing, waveform and offline project management",
   "lang": "en",
   "dir": "auto",
   "start_url": "./",
