@@ -1,3 +1,11 @@
+## V4.6.0 — Finalization and mobile performance
+
+- Bound the timing list to 160 visible rows; previous/next navigation for long scripts.
+- Restore the selected project snapshot on startup to avoid legacy-state mixups.
+- Refine mobile touch targets, safe-area clearance, and reduced-motion support.
+- Preserve timing JSON V2 schema, bilingual UI, Donate addresses and PWA.
+- Add automated release checks; full physical-device testing remains required.
+
 ## 4.5.0
 
 - Duplicate any saved project with independent snapshot data.

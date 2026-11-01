@@ -1,0 +1,1 @@
+JSON.stringify(LINES.map((t,k)=>({n:k+1,start:k<T.length?T[k]:undefined,text:t})),null,0)

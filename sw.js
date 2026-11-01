@@ -1,6 +1,6 @@
-/* SyncTap Studio V4.5: cache only static, same-origin files. Never cache audio or user content. */
+/* SyncTap Studio V4.6: cache only static, same-origin files. Never cache audio or user content. */
 'use strict';
-const CACHE = 'synctap-shell-v4.5.0';
+const CACHE = 'synctap-shell-v4.6.0';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './favicon.svg', './icons/icon-192.png', './icons/icon-512.png'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)));

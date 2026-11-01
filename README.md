@@ -2,7 +2,7 @@
 
 **A lightweight, bilingual, privacy-first narration timing tool by [LaneZero](https://github.com/LaneZero/synctap-studio).**
 
-[![Version](https://img.shields.io/badge/version-4.5.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
+[![Version](https://img.shields.io/badge/version-4.6.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
 
 **Live application:** https://lanezero.github.io/synctap-studio/ (after GitHub Pages deployment)
 
@@ -22,7 +22,7 @@ SyncTap Studio lets editors and motion-graphics creators manually record when ea
 - Mobile layout with a bottom action dock, optional PWA installation and an offline-cached app shell.
 - About dialog and optional Donate dialog with one-tap address copying.
 
-## Multi-project workflow (V4.5)
+## Multi-project workflow (V4.5+)
 
 - **Duplicate:** create a separate copy of a project without changing the original.
 - **Full backup:** download all saved projects in one JSON bundle, then import that bundle in another browser (subject to the 12-project capacity).
@@ -102,3 +102,20 @@ Developer: **[LaneZero](https://github.com/LaneZero/synctap-studio)**.
 ## V4.5 backup safety
 
 The all-project bundle uses `format: "synctap-project-collection"` and `schemaVersion: 1`. Its `projects` array contains project names and snapshots only. No audio is included. Import does not overwrite existing projects, and refuses a bundle that would exceed 12 saved projects. Save backups outside the browser before clearing website data. The timing export remains the original compact V2 JSON array.
+
+## V4.6 finalization and performance
+
+- The timing list uses bounded rendering: for long scripts, only a window of up to 160 lines is drawn at once. Use **Previous / Next** to browse older or later groups; the complete script and JSON are unaffected.
+- On app startup, the selected project's saved snapshot is restored (instead of relying on a possibly stale legacy autosave key). This prevents the last-opened project from displaying a different project's text after reload.
+- Larger touch targets and reduced-motion support improve usability on mobile. No new runtime library or network service is introduced.
+- The browser's storage is not a reliable long-term backup. Regularly export project JSON, especially before clearing site data or changing phones.
+
+### Standard timing JSON compatibility
+
+`[{"n":1,"start":12.34,"text":"Hello"},{"n":2,"start":null,"text":"Skipped"},{"n":3,"text":"Unmarked"}]`
+
+Keys and behavior remain exactly as in V2: `start` is omitted for unprocessed lines, `null` for skipped lines, and numeric for marked lines. Do not confuse the project-backup JSON with the timing output.
+
+### Release checks
+
+Run `node tests/release-check.mjs` and verify the basic workflow in Chrome Android, Firefox Android and a desktop browser before treating this release as production-validated. Automated static tests do not replace browser interaction tests.
