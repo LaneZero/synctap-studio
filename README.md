@@ -57,3 +57,22 @@ Designed & Developed by **LaneZero**.
 ## License
 
 No license has been selected yet. Public GitHub visibility does **not** automatically permit reuse, modification, or redistribution. Add a license if you want others to reuse the source.
+
+## Version 3.2: mobile workflow
+
+- Audio and current narration segment appear first on narrow screens; the script editor and export remain accessible further down.
+- Mobile bottom dock provides large **Mark**, **Undo**, and **Skip** touch targets, with safe-area spacing for phones.
+- Desktop controls, keyboard shortcuts and the V2 JSON serializer remain intact.
+- No waveform analysis, auto-alignment, account, or server component has been introduced.
+
+## Update an existing GitHub repository
+
+After backing up any edits in your current repository, replace the root files with this release and run:
+
+```bash
+git add index.html README.md CHANGELOG.md favicon.svg .nojekyll .gitignore
+git commit -m "feat(ui): optimize mobile narration timing workflow"
+git push origin main
+```
+
+If the project already has an active branch other than `main`, push that branch instead. GitHub Pages deploys from the configured branch.

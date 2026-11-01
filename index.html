@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SyncTap Studio | LaneZero</title>
+<title>SyncTap Studio V3.2 | LaneZero</title>
 <meta name="description" content="ابزار رایگان و بدون نیاز به نصب برای ثبت دستی زمان شروع جملات نریشن و دریافت JSON همگام‌سازی متن و صدا.">
 <meta name="theme-color" content="#090f1e">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -27,15 +27,47 @@ kbd{background:var(--surface);padding:1px 7px;border:1px solid var(--border);bor
 .summary-tip{font-size:12px;color:var(--muted);margin:0 0 12px}
 @media(min-width:981px){.stack:nth-child(2) .card:nth-child(2){border-color:color-mix(in srgb,var(--accent) 45%,var(--border))}}
 @media(max-width:480px){.guide{gap:6px}.guide span{font-size:11px}.top-actions .btn{font-size:11px}.wrap{padding:12px}.card{padding:14px}}
+
+/* v3.2 mobile-first usability layer; the synchronization and JSON functions are unchanged. */
+.mobile-dock{display:none}
+@media(max-width:980px){
+ .layout{display:flex;flex-direction:column;gap:14px}
+ .layout>.stack{display:contents}
+ .player-card{order:1}.sync-card{order:2}.script-card{order:3}.timeline-card{order:4}.output-card{order:5}
+ .layout>.card{width:100%}
+ .top{align-items:flex-start}.brand{min-width:0}.brand .sub{max-width:43ch}
+ .card{scroll-margin-top:12px}
+}
+@media(max-width:600px){
+ html{scroll-padding-bottom:130px}
+ .wrap{padding:12px 12px calc(128px + env(safe-area-inset-bottom))}
+ .top{margin-bottom:12px}.brand{gap:9px}.brand h1{font-size:19px}.brand .sub{font-size:11px;line-height:1.5}
+ .summary-tip{font-size:12px;margin:0 0 12px}
+ .top-actions{align-self:start;flex-shrink:0}.top-actions button{min-height:42px;font-size:12px}
+ .card{padding:15px;border-radius:15px}.card-header{margin-bottom:10px}.card h2{font-size:15px}
+ .audio-box{padding:10px}.upload{gap:7px}.file-label{min-height:44px}.upload .tiny{overflow-wrap:anywhere}
+ #clock{font-size:28px;margin:4px 0}.audio-box .row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .audio-box .row .btn{min-height:44px;font-size:13px}
+ #cur{font-size:19px;line-height:1.9}.current{min-height:125px;padding:14px;margin:10px 0}
+ .stats{gap:7px}.stat{padding:9px 8px}.stat .tiny{font-size:11px}.stat strong{font-size:20px}
+ .sync-card #big,.sync-card .actions{display:none}
+ .mobile-dock{position:fixed;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) minmax(0,1fr);gap:9px;align-items:stretch;bottom:0;left:0;right:0;padding:11px 12px calc(11px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--border);box-shadow:0 -10px 25px #0004;z-index:10}
+ .mobile-dock button{min-height:58px;border-radius:13px;border:1px solid var(--border);font-size:17px;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;line-height:1.25}
+ .mobile-dock button span{font-size:12px}.dock-side{background:var(--surface2);color:var(--text)}.dock-mark{background:var(--accent);color:var(--accentText);border-color:transparent!important}
+ #txt{height:240px;min-height:160px}.list{max-height:300px}.item{padding:12px 5px}.item .sentence{font-size:13px}
+ .toast{bottom:calc(94px + env(safe-area-inset-bottom));left:12px;right:12px;text-align:center}
+ .footer{padding-bottom:10px}
+}
+@media(max-width:360px){.brand h1{font-size:17px}.brand .sub{font-size:10px}.logo{width:37px;height:37px}.card{padding:12px}.top-actions .btn{padding:7px}.mobile-dock{gap:5px;padding-inline:8px}}
 </style>
 </head>
 <body>
 <main class="wrap">
-<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 3.0</span><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
+<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 3.2</span><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
 <p class="summary-tip">متن را آماده کنید، صدا را پخش کنید و شروع هر جمله را با یک ضربه ثبت کنید. بدون نصب، حساب کاربری یا ارسال فایل به سرور.</p>
 <div class="layout">
 <section class="stack" aria-label="ورودی و خروجی">
-<div class="card"><div class="card-header"><h2>۱. متن نریشن</h2><span class="tiny" id="lineCount">۰ خط</span></div><p class="hint">متن واقعی ارسال‌شده به TTS را وارد کنید. هر جمله یا بخش باید در یک خط جدا باشد.</p><label class="tiny" for="txt">متن قابل ویرایش</label><textarea id="txt" spellcheck="false">اگه فکر می‌کنی مشکلت کمبود انگیزه‌ست، شاید دنبال جواب اشتباهی می‌گردی.
+<div class="card script-card" id="scriptCard"><div class="card-header"><h2>۱. متن نریشن</h2><span class="tiny" id="lineCount">۰ خط</span></div><p class="hint">متن واقعی ارسال‌شده به TTS را وارد کنید. هر جمله یا بخش باید در یک خط جدا باشد.</p><label class="tiny" for="txt">متن قابل ویرایش</label><textarea id="txt" spellcheck="false">اگه فکر می‌کنی مشکلت کمبود انگیزه‌ست، شاید دنبال جواب اشتباهی می‌گردی.
 پیام این پادکست ساده‌ست: به انگیزه‌ی بیشتر نیاز نداری؛ به عادت‌هایی نیاز داری که زندگیت رو بهتر کنن.
 این پنج عادت رو از پادکستِ د مایندست منتور برداشتم و امروز با هم مرورشون می‌کنیم.
 عادت اول: آماده‌سازی ذهن در صبح.
@@ -61,15 +93,21 @@ kbd{background:var(--surface);padding:1px 7px;border:1px solid var(--border);bor
 و آخرش، واژه‌ی ابراکادابرا. طبق چیزی که گوینده می‌گه، یعنی «همون‌طور که می‌گم، خلق می‌کنم».
 پس این پنج عادت: ذهنِ آماده در صبح، مسئولیتِ صددرصدی، کارهای زیر پنج دقیقه، مرز با گوشی، و کلامِ آگاهانه.
 پس به جای منتظر موندن برای انگیزه‌ی بیشتر، از همین امروز یکی از این عادت‌ها رو شروع کن.</textarea><div class="row space" style="margin-top:12px"><span class="tiny">اعمال مجدد متن، زمان‌های فعلی را پاک می‌کند.</span><button class="btn primary" onclick="applyText()" type="button">اعمال متن</button></div></div>
-<div class="card"><div class="card-header"><h2>خروجی JSON</h2><span class="pill">سازگار با V2</span></div><p class="hint">ساختار و نام فیلدهای خروجی بدون تغییر حفظ شده است.</p><textarea id="out" readonly aria-label="خروجی JSON"></textarea><div class="row" style="margin-top:10px"><button class="btn primary" onclick="copyOut()" type="button">⧉ کپی خروجی</button><span class="tiny" id="outputInfo">خروجی آماده کپی است.</span></div></div>
+<div class="card output-card"><div class="card-header"><h2>خروجی JSON</h2><span class="pill">سازگار با V2</span></div><p class="hint">ساختار و نام فیلدهای خروجی بدون تغییر حفظ شده است.</p><textarea id="out" readonly aria-label="خروجی JSON"></textarea><div class="row" style="margin-top:10px"><button class="btn primary" onclick="copyOut()" type="button">⧉ کپی خروجی</button><span class="tiny" id="outputInfo">خروجی آماده کپی است.</span></div></div>
 </section>
 <section class="stack" aria-label="پخش و زمان‌بندی">
-<div class="card"><div class="card-header"><h2>۲. فایل و کنترل صدا</h2><span class="tiny">WAV / MP3 / سایر فایل‌های صوتی مرورگر</span></div><div class="upload"><input type="file" id="f" accept="audio/*"><label class="file-label" for="f">♫ انتخاب فایل صوتی</label><span class="tiny" id="fileName">فایلی انتخاب نشده</span></div><div class="audio-box"><audio id="a" controls preload="metadata" aria-label="پخش نریشن"></audio><div id="clock" aria-live="off">0.00</div><div class="row" style="justify-content:center"><button class="btn small" onclick="seek(-3)">۳ ثانیه عقب</button><button class="btn small" onclick="seek(3)">۳ ثانیه جلو</button><button class="btn small" id="slow" onclick="rate(0.75)">سرعت ۰٫۷۵</button><button class="btn small" id="normal" onclick="rate(1)">سرعت ۱</button></div></div></div>
-<div class="card"><div class="card-header"><h2>۳. ثبت زمان جملات</h2><span class="tiny" id="progressLabel">۰٪ تکمیل</span></div><div class="stats"><div class="stat"><span class="tiny">کل جملات</span><strong id="totalCount">۰</strong></div><div class="stat"><span class="tiny">ثبت‌شده</span><strong id="doneCount">۰</strong></div><div class="stat"><span class="tiny">باقی‌مانده</span><strong id="remainingCount">۰</strong></div></div><div class="progress" role="progressbar" aria-label="پیشرفت زمان‌بندی" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div id="progressFill"></div></div><div class="current"><span class="eyebrow" id="hdr"></span><div id="cur"></div></div><button id="big" onclick="mark()">✓ همین‌جا شروع شد (Space)</button><div class="actions"><button class="btn" onclick="undo()" id="undoBtn">↶ برگرد و اصلاح (Backspace)</button><button class="btn" onclick="skip()" id="skipBtn">↷ این خط در صدا نیست</button></div><div class="guide" aria-label="کلیدهای میانبر"><span>ثبت زمان <kbd>Space</kbd></span><span>بازگشت <kbd>Backspace</kbd></span><span>جابه‌جایی صدا <kbd>±3s</kbd></span></div><p class="hint" style="margin-bottom:0">کلیدهای میانبر هنگام تایپ در کادرها و هنگام فوکوس روی دکمه‌ها غیرفعال هستند.</p></div>
-<div class="card"><div class="card-header"><h2>فهرست زمان‌بندی</h2><span class="tiny" id="listSummary">۰ جمله</span></div><div id="list" class="list" aria-label="وضعیت ثبت جملات"></div><div class="note">سبز: زمان ثبت‌شده · نارنجی: جمله در صدا نیست · قاب مشخص: جمله فعلی</div></div>
+<div class="card player-card"><div class="card-header"><h2>۲. فایل و کنترل صدا</h2><span class="tiny">WAV / MP3 / سایر فایل‌های صوتی مرورگر</span></div><div class="upload"><input type="file" id="f" accept="audio/*"><label class="file-label" for="f">♫ انتخاب فایل صوتی</label><span class="tiny" id="fileName">فایلی انتخاب نشده</span></div><div class="audio-box"><audio id="a" controls preload="metadata" aria-label="پخش نریشن"></audio><div id="clock" aria-live="off">0.00</div><div class="row" style="justify-content:center"><button class="btn small" onclick="seek(-3)">۳ ثانیه عقب</button><button class="btn small" onclick="seek(3)">۳ ثانیه جلو</button><button class="btn small" id="slow" onclick="rate(0.75)">سرعت ۰٫۷۵</button><button class="btn small" id="normal" onclick="rate(1)">سرعت ۱</button></div></div></div>
+<div class="card sync-card"><div class="card-header"><h2>۳. ثبت زمان جملات</h2><span class="tiny" id="progressLabel">۰٪ تکمیل</span></div><div class="stats"><div class="stat"><span class="tiny">کل جملات</span><strong id="totalCount">۰</strong></div><div class="stat"><span class="tiny">ثبت‌شده</span><strong id="doneCount">۰</strong></div><div class="stat"><span class="tiny">باقی‌مانده</span><strong id="remainingCount">۰</strong></div></div><div class="progress" role="progressbar" aria-label="پیشرفت زمان‌بندی" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div id="progressFill"></div></div><div class="current"><span class="eyebrow" id="hdr"></span><div id="cur"></div></div><button id="big" onclick="mark()">✓ همین‌جا شروع شد (Space)</button><div class="actions"><button class="btn" onclick="undo()" id="undoBtn">↶ برگرد و اصلاح (Backspace)</button><button class="btn" onclick="skip()" id="skipBtn">↷ این خط در صدا نیست</button></div><div class="guide" aria-label="کلیدهای میانبر"><span>ثبت زمان <kbd>Space</kbd></span><span>بازگشت <kbd>Backspace</kbd></span><span>جابه‌جایی صدا <kbd>±3s</kbd></span></div><p class="hint" style="margin-bottom:0">کلیدهای میانبر هنگام تایپ در کادرها و هنگام فوکوس روی دکمه‌ها غیرفعال هستند.</p></div>
+<div class="card timeline-card"><div class="card-header"><h2>فهرست زمان‌بندی</h2><span class="tiny" id="listSummary">۰ جمله</span></div><div id="list" class="list" aria-label="وضعیت ثبت جملات"></div><div class="note">سبز: زمان ثبت‌شده · نارنجی: جمله در صدا نیست · قاب مشخص: جمله فعلی</div></div>
 </section>
 </div><footer class="footer">Designed & Developed by <b>LaneZero</b> · SyncTap Studio · <span lang="en">Local-first / No upload</span></footer>
-</main><div role="status" id="toast" class="toast hidden"></div>
+</main>
+<nav class="mobile-dock" aria-label="کنترل‌های سریع ثبت زمان">
+  <button type="button" class="dock-side" id="dockUndo" onclick="undo()" aria-label="بازگشت به جمله قبل">↶ <span>اصلاح</span></button>
+  <button type="button" class="dock-mark" id="dockMark" onclick="mark()">✓ <span>ثبت زمان</span></button>
+  <button type="button" class="dock-side" id="dockSkip" onclick="skip()" aria-label="ردکردن جمله فعلی">↷ <span>ردکردن</span></button>
+</nav>
+<div role="status" id="toast" class="toast hidden"></div>
 <script>
 'use strict';
 let LINES=[];let i=0;const T=[];const a=document.getElementById('a');let audioUrl=null;
@@ -87,7 +125,7 @@ const list=$('list');list.replaceChildren();const fragment=document.createDocume
 LINES.forEach((t,k)=>{const item=document.createElement('div');item.className='item'+(k===i?' current-item':'')+(k<T.length?(T[k]===null?' skipped':' done'):'');const number=document.createElement('span');number.className='number';number.textContent=String(k+1);const sentence=document.createElement('span');sentence.className='sentence';sentence.textContent=t;sentence.title=t;const time=document.createElement('span');time.className='time';time.textContent=k>=T.length?'—':(T[k]===null?'در صدا نیست':T[k].toFixed(2));item.append(number,sentence,time);fragment.append(item);});list.append(fragment);
 // IMPORTANT: This serialization is byte-for-byte equivalent to V2's data shape.
 $('out').value=JSON.stringify(LINES.map((t,k)=>({n:k+1,start:k<T.length?T[k]:undefined,text:t})),null,0);
-$('lineCount').textContent=LINES.length+' خط';$('totalCount').textContent=LINES.length;$('doneCount').textContent=i;$('remainingCount').textContent=LINES.length-i;const pct=LINES.length?Math.round(i/LINES.length*100):0;$('progressLabel').textContent=pct+'٪ تکمیل';$('progressFill').style.width=pct+'%';$('progress').setAttribute('aria-valuenow',pct);$('listSummary').textContent=i+' از '+LINES.length+' پردازش‌شده';$('big').disabled=done||!LINES.length;$('skipBtn').disabled=done||!LINES.length;$('undoBtn').disabled=i===0;}
+$('lineCount').textContent=LINES.length+' خط';$('totalCount').textContent=LINES.length;$('doneCount').textContent=i;$('remainingCount').textContent=LINES.length-i;const pct=LINES.length?Math.round(i/LINES.length*100):0;$('progressLabel').textContent=pct+'٪ تکمیل';$('progressFill').style.width=pct+'%';$('progress').setAttribute('aria-valuenow',pct);$('listSummary').textContent=i+' از '+LINES.length+' پردازش‌شده';$('big').disabled=done||!LINES.length;$('skipBtn').disabled=done||!LINES.length;$('undoBtn').disabled=i===0;$('dockMark').disabled=done||!LINES.length;$('dockSkip').disabled=done||!LINES.length;$('dockUndo').disabled=i===0;}
 function mark(){if(i>=LINES.length)return;T[i]=Math.round(a.currentTime*100)/100;i++;show();}
 function skip(){if(i>=LINES.length)return;T[i]=null;i++;show();}
 function undo(){if(i===0)return;i--;T.length=i;a.currentTime=Math.max(0,a.currentTime-2);show();}
