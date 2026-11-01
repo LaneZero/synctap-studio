@@ -1,78 +1,27 @@
-# SyncTap Studio
+# SyncTap Studio V4.0 · LaneZero
 
-**A local-first narration timing tool by LaneZero.**
-
-SyncTap Studio helps creators manually mark the start times of narration lines and export an unchanged V2-compatible JSON array. It runs entirely in your browser with no build step, account, backend, or external dependencies.
+Lightweight browser-based Persian narration alignment tool, designed for desktop and mobile.
 
 ## Features
+- Manual timestamp marking with Space and touch controls
+- Skip and undo, playback seeking and speed controls
+- Autosave of text, timing marks, progress and theme to this browser's `localStorage`
+- Editable recorded timestamps (precision: 0.01 second)
+- Quality warnings for repeated, out-of-order, beyond-duration and unfinished timestamps
+- Identical JSON output contract to V2/V3 (n, start, text)
+- No framework, no network requests, no audio upload
 
-- Persian RTL interface and light/dark themes
-- Edit narration text, one line per segment
-- Load a local audio file (browser-supported audio formats)
-- Mark a line using **Space**, undo using **Backspace**, or skip missing lines
-- Seek backward/forward 3 seconds, play at 0.75× or 1×
-- Monitor progress and copy the JSON output
-- Mobile-friendly layout
+## Run locally
+Open `index.html` in a current browser, select audio, paste narration, and press Apply.
 
-## Quick start
-
-Open `index.html` locally in a modern browser, or deploy these repository files through GitHub Pages.
-
-1. Paste the **exact** narration script (one segment per line), then click **اعمال متن**.
-2. Select an audio file and play it.
-3. Press Space at the beginning of each displayed line. Use Backspace to undo or the skip button when the line does not exist in the audio.
-4. Copy the JSON output.
-
-## JSON compatibility
-
-**The export expression is unchanged from V2:**
-
-```js
-JSON.stringify(LINES.map((t,k)=>({n:k+1,start:k<T.length?T[k]:undefined,text:t})),null,0)
-```
-
-- `n` is the 1-based line number.
-- `start` is a numeric second value for marked lines, `null` for skipped lines, and omitted for unprocessed lines.
-- `text` is the text of the line.
-
-This export is **not a forced-alignment transcription**. Start points are entered manually and accuracy depends on the operator.
+## Publish on GitHub Pages
+Upload files to repository root. Go to Settings → Pages → Deploy from a branch → main → /(root) → Save.
 
 ## Privacy
+Text and progress are stored on the current device and browser origin only. Audio is not saved to storage and must be re-selected when returning. Clearing site data removes work. Private-mode storage may be unavailable. Copy JSON for a portable final result.
 
-The selected audio is loaded with `URL.createObjectURL()` for browser-local playback; it is not uploaded by the app. All narration edits and timing data stay in the current page, except when you choose to copy the JSON. Reloading the page clears session timing data. GitHub Pages can still receive ordinary page-request metadata from visitors.
-
-## Publishing on GitHub Pages
-
-1. Create a public GitHub repository named `synctap-studio`.
-2. Upload all files from this folder to the root of the repository, keeping `index.html` at the top level.
-3. Go to **Settings → Pages**.
-4. Under **Build and deployment**, select **Deploy from a branch**.
-5. Select **main** and **/(root)**, then click **Save**.
-6. After deployment succeeds, open `https://YOUR_USERNAME.github.io/synctap-studio/`.
-
-## Author
-
-Designed & Developed by **LaneZero**.
+## Output compatibility
+The exact V2 serialization is retained. Unrecorded lines omit `start`; skipped lines use `start: null`; marked lines use `start` as a number rounded to two decimals.
 
 ## License
-
-No license has been selected yet. Public GitHub visibility does **not** automatically permit reuse, modification, or redistribution. Add a license if you want others to reuse the source.
-
-## Version 3.2: mobile workflow
-
-- Audio and current narration segment appear first on narrow screens; the script editor and export remain accessible further down.
-- Mobile bottom dock provides large **Mark**, **Undo**, and **Skip** touch targets, with safe-area spacing for phones.
-- Desktop controls, keyboard shortcuts and the V2 JSON serializer remain intact.
-- No waveform analysis, auto-alignment, account, or server component has been introduced.
-
-## Update an existing GitHub repository
-
-After backing up any edits in your current repository, replace the root files with this release and run:
-
-```bash
-git add index.html README.md CHANGELOG.md favicon.svg .nojekyll .gitignore
-git commit -m "feat(ui): optimize mobile narration timing workflow"
-git push origin main
-```
-
-If the project already has an active branch other than `main`, push that branch instead. GitHub Pages deploys from the configured branch.
+There is no license yet. Add one before inviting contributions.

@@ -1,14 +1,12 @@
 # Changelog
 
+## 4.0.0 - 2026-11-01
+- Added debounced local-only autosave and restore (text, applied lines, marks, position, theme).
+- Added per-sentence timestamp editing with 0.01-second precision.
+- Added non-blocking warnings for duplicate, descending, out-of-audio-range and pending timestamps.
+- Added confirmation before replacing an in-progress timing session.
+- Kept JSON output data shape and serialization exactly compatible with V2/V3.
+- No external dependencies and no audio data storage or upload.
+
 ## 3.2.0
-
-- Reordered mobile layout to prioritize playback and timing.
-- Added fixed mobile bottom dock with mark, undo and skip buttons.
-- Improved touch target sizes, safe-area spacing and narrow-screen wrapping.
-- Kept V2 export JSON fields, values, ordering and serialization untouched.
-- Kept desktop keyboard workflow and audio controls.
-
-## 3.1.0
-
-- Prepared static files and README for GitHub Pages publication.
-- Refined dark/light appearance and accessibility hints.
+- Mobile-first timing controls and persistent touch dock.
