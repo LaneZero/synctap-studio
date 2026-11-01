@@ -1,3 +1,10 @@
+## 4.5.0
+
+- Duplicate any saved project with independent snapshot data.
+- Export all projects as one portable JSON backup and import the collection.
+- Flush pending autosave on page visibility change for mobile reliability.
+- Preserve original V2 timing JSON and all V4.4 features.
+
 ## v4.4.0 — Local project management
 
 - Added separate local project slots (up to 12), with create/open/rename/delete.

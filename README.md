@@ -2,7 +2,7 @@
 
 **A lightweight, bilingual, privacy-first narration timing tool by [LaneZero](https://github.com/LaneZero/synctap-studio).**
 
-[![Version](https://img.shields.io/badge/version-4.4.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
+[![Version](https://img.shields.io/badge/version-4.5.0-6366f1)](https://github.com/LaneZero/synctap-studio) ![Vanilla JS](https://img.shields.io/badge/dependencies-zero-16a34a) ![Languages](https://img.shields.io/badge/languages-FA%20%7C%20EN-0ea5e9)
 
 **Live application:** https://lanezero.github.io/synctap-studio/ (after GitHub Pages deployment)
 
@@ -22,12 +22,15 @@ SyncTap Studio lets editors and motion-graphics creators manually record when ea
 - Mobile layout with a bottom action dock, optional PWA installation and an offline-cached app shell.
 - About dialog and optional Donate dialog with one-tap address copying.
 
-## Multi-project workflow (V4.4)
+## Multi-project workflow (V4.5)
 
+- **Duplicate:** create a separate copy of a project without changing the original.
+- **Full backup:** download all saved projects in one JSON bundle, then import that bundle in another browser (subject to the 12-project capacity).
+- **Mobile save reliability:** pending changes are flushed when the app goes into the background.
 - **Projects:** click **Projects / پروژه‌ها** to view locally saved projects, rename the active project, open an older project, or start a new one.
 - **Autosave:** project script, recorded markers, cursor position and theme are saved after edits. Existing V4.3 autosave is adopted as the first project.
 - **Backup:** **Export project** saves a standalone JSON file using `format: "synctap-project"` and `schemaVersion: 1`. This is **not** the downstream timing JSON.
-- **Import:** **Import project** loads that backup from your device, validating its schema and timestamps before accepting it.
+- **Import:** **Import project** accepts one project or an all-projects bundle and loads that backup from your device, validating its schema and timestamps before accepting it.
 - **Safety:** the current project is saved before switching; deleting a project requires confirmation. Maximum 12 local projects; backup import is limited to 1 MB.
 - **Audio:** for privacy and performance, audio is never stored in backups or browser storage. You must reselect the source audio after loading a project.
 - **Storage:** projects remain in that browser profile only, and may be lost if browser site data is cleared. Export backups to protect important work.
@@ -95,3 +98,7 @@ Shortcuts are disabled when typing or focusing an interactive control.
 The app uses native HTML, CSS, JavaScript, Canvas, Web Audio API, localStorage, and an optional service worker. There is no build step. Open `index.html` for basic use; for testing offline/PWA functionality, serve the folder with localhost or GitHub Pages.
 
 Developer: **[LaneZero](https://github.com/LaneZero/synctap-studio)**.
+
+## V4.5 backup safety
+
+The all-project bundle uses `format: "synctap-project-collection"` and `schemaVersion: 1`. Its `projects` array contains project names and snapshots only. No audio is included. Import does not overwrite existing projects, and refuses a bundle that would exceed 12 saved projects. Save backups outside the browser before clearing website data. The timing export remains the original compact V2 JSON array.

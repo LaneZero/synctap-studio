@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SyncTap Studio V4.4 | LaneZero</title>
+<title>SyncTap Studio V4.5 | LaneZero</title>
 <meta name="description" content="ابزار رایگان و بدون نیاز به نصب برای ثبت دستی زمان شروع جملات نریشن و دریافت JSON همگام‌سازی متن و صدا.">
 <meta name="theme-color" content="#090f1e">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -78,7 +78,7 @@ kbd{background:var(--surface);padding:1px 7px;border:1px solid var(--border);bor
 .wave-legend{font-size:11px;color:var(--muted);gap:8px;margin-top:7px}
 @media(max-width:600px){.wave-panel{padding:9px}.wave-head{gap:8px}.wave-head button{min-height:44px}.wave-wrap,#waveCanvas{height:88px}}
 
-/* V4.4 compact bilingual dialogs and touch-friendly header. */
+/* V4.5 compact bilingual dialogs and touch-friendly header. */
 .top-actions{flex-wrap:wrap;justify-content:flex-end}.top-actions .btn{min-height:40px}
 .footer-link{background:none;border:0;color:var(--accent);text-decoration:underline;font-size:inherit;padding:0 3px}
 .info-dialog{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:20px;padding:24px;width:min(600px,calc(100% - 24px));max-height:min(85dvh,740px);overflow:auto;box-shadow:0 28px 90px #0008;line-height:1.8}
@@ -94,7 +94,7 @@ html[lang=en] .item .sentence{direction:ltr;text-align:left}
 html[lang=en] .brand h1{letter-spacing:0}
 @media(max-width:600px){.top{flex-wrap:wrap}.top-actions{width:100%;justify-content:space-between;gap:6px}.top-actions .btn{font-size:12px;flex:1;padding:7px 5px}.top-actions .pill{display:none}.info-dialog{padding:16px;max-height:88dvh}.wallet code{font-size:11px}.dialog-heading h2{font-size:19px}}
 
-/* V4.4: compact local project manager; no external dependencies */
+/* V4.5: compact local project manager; no external dependencies */
 .project-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.project-actions .btn{min-height:42px}
 .project-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
 .project-row:last-child{border-bottom:0}.project-row .project-text{flex:1;min-width:0}.project-row strong{display:block;overflow-wrap:anywhere;font-size:14px}.project-row small{display:block;color:var(--muted);font-size:11px}
@@ -104,7 +104,7 @@ html[lang=en] .brand h1{letter-spacing:0}
 </head>
 <body>
 <main class="wrap">
-<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 4.4</span><button class="btn small" id="langButton" type="button" onclick="toggleLanguage()" aria-label="Change language">English</button><button class="btn small" id="projectsButton" type="button" onclick="openProjects()">پروژه‌ها</button><button class="btn small" id="aboutButton" type="button" onclick="openModal('aboutDialog')">درباره</button><button class="btn small" id="donateButton" type="button" onclick="openModal('donateDialog')">حمایت مالی</button><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
+<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 4.5</span><button class="btn small" id="langButton" type="button" onclick="toggleLanguage()" aria-label="Change language">English</button><button class="btn small" id="projectsButton" type="button" onclick="openProjects()">پروژه‌ها</button><button class="btn small" id="aboutButton" type="button" onclick="openModal('aboutDialog')">درباره</button><button class="btn small" id="donateButton" type="button" onclick="openModal('donateDialog')">حمایت مالی</button><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
 <p class="summary-tip">متن را آماده کنید، صدا را پخش کنید و شروع هر جمله را با یک ضربه ثبت کنید. بدون نصب، حساب کاربری یا ارسال فایل به سرور.</p>
 <div class="layout">
 <section class="stack" aria-label="ورودی و خروجی">
@@ -144,7 +144,7 @@ html[lang=en] .brand h1{letter-spacing:0}
 </div>
 <div class="card quality-card"><div class="card-header"><h2>بررسی کیفیت زمان‌بندی</h2><span class="tiny">بدون تغییر خودکار</span></div><div id="qualitySummary" class="tiny" role="status"></div><ul id="qualityList" class="quality-list"></ul></div>
 </section>
-</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V4.4 · <span lang="en">Local-first / No upload</span> · <button type="button" class="footer-link" onclick="openModal('aboutDialog')">About</button> · <button type="button" class="footer-link" onclick="openModal('donateDialog')">Donate ♡</button></footer>
+</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V4.5 · <span lang="en">Local-first / No upload</span> · <button type="button" class="footer-link" onclick="openModal('aboutDialog')">About</button> · <button type="button" class="footer-link" onclick="openModal('donateDialog')">Donate ♡</button></footer>
 </main>
 <nav class="mobile-dock" aria-label="کنترل‌های سریع ثبت زمان">
   <button type="button" class="dock-side" id="dockUndo" onclick="undo()" aria-label="بازگشت به جمله قبل">↶ <span>اصلاح</span></button>
@@ -153,9 +153,9 @@ html[lang=en] .brand h1{letter-spacing:0}
 </nav>
 
 <dialog id="aboutDialog" class="info-dialog" aria-labelledby="aboutTitle">
- <div class="dialog-heading"><div><span class="dialog-kicker">SYNC TAP STUDIO · V4.4</span><h2 id="aboutTitle" data-t="aboutTitle">درباره SyncTap Studio</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('aboutDialog')">×</button></div>
+ <div class="dialog-heading"><div><span class="dialog-kicker">SYNC TAP STUDIO · V4.5</span><h2 id="aboutTitle" data-t="aboutTitle">درباره SyncTap Studio</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('aboutDialog')">×</button></div>
  <p data-t="aboutLead">یک ابزار سبک و رایگان برای هماهنگ‌سازی دستی جملات متن با زمان شروع آن‌ها در فایل نریشن؛ مناسب تدوین و موشن‌گرافیک.</p>
- <div class="info-grid"><div><span data-t="version">نسخه</span><strong>4.4.0</strong></div><div><span data-t="developer">توسعه‌دهنده</span><strong>LaneZero</strong></div><div><span data-t="technology">فناوری</span><strong>HTML · CSS · JavaScript</strong></div><div><span data-t="privacy">حریم خصوصی</span><strong data-t="local">پردازش محلی</strong></div></div>
+ <div class="info-grid"><div><span data-t="version">نسخه</span><strong>4.5.0</strong></div><div><span data-t="developer">توسعه‌دهنده</span><strong>LaneZero</strong></div><div><span data-t="technology">فناوری</span><strong>HTML · CSS · JavaScript</strong></div><div><span data-t="privacy">حریم خصوصی</span><strong data-t="local">پردازش محلی</strong></div></div>
  <h3 data-t="featuresTitle">قابلیت‌ها</h3>
  <ul><li data-t="aboutFeat1">ثبت زمان با لمس یا Space و امکان ویرایش دستی زمان‌ها</li><li data-t="aboutFeat2">نمایش اختیاری شکل موج واقعی و کنترل سرعت پخش</li><li data-t="aboutFeat3">ذخیره خودکار پروژه در همان مرورگر و بازیابی پیشرفت</li><li data-t="aboutFeat4">کنترل کیفیت زمان‌بندی و خروجی JSON سازگار با نسخه‌های پیشین</li><li data-t="aboutFeat5">پشتیبانی از فارسی و انگلیسی، طراحی موبایل و نصب PWA</li></ul>
  <p class="privacy-note" data-t="privacyDetail">متن و زمان‌بندی در حافظه محلی مرورگر ذخیره می‌شوند. فایل صوتی به سرور برنامه ارسال نمی‌شود و برای حفظ حریم خصوصی یا محدودیت فضای ذخیره‌سازی به‌طور خودکار ذخیره نمی‌شود.</p>
@@ -178,7 +178,7 @@ html[lang=en] .brand h1{letter-spacing:0}
  <div class="dialog-heading"><div><span class="dialog-kicker">SYNC / PROJECTS</span><h2 id="projectsTitle">پروژه‌های من</h2></div><button class="dialog-close" type="button" onclick="closeModal('projectsDialog')" aria-label="Close">×</button></div>
  <p id="projectsLead">پروژه‌ها فقط در همین مرورگر ذخیره می‌شوند. فایل صوتی ذخیره نمی‌شود؛ برای ادامه کار باید آن را دوباره انتخاب کنید.</p>
  <label for="projectName" id="projectNameLabel" class="tiny">نام پروژه فعال</label><input class="project-name" id="projectName" maxlength="80" autocomplete="off" value="Untitled project"/>
- <div class="project-actions"><button class="btn primary" id="saveProjectBtn" type="button" onclick="saveNamedProject()">ذخیره نام پروژه</button><button class="btn" id="newProjectBtn" type="button" onclick="newProject()">پروژه جدید</button><button class="btn" id="exportProjectBtn" type="button" onclick="exportProject()">دریافت فایل پروژه</button><button class="btn" type="button" id="importProjectBtn" onclick="document.getElementById('importProjectFile').click()">ورود فایل پروژه</button></div>
+ <div class="project-actions"><button class="btn primary" id="saveProjectBtn" type="button" onclick="saveNamedProject()">ذخیره نام پروژه</button><button class="btn" id="newProjectBtn" type="button" onclick="newProject()">پروژه جدید</button><button class="btn" id="exportProjectBtn" type="button" onclick="exportProject()">دریافت فایل پروژه</button><button class="btn" type="button" id="importProjectBtn" onclick="document.getElementById('importProjectFile').click()">ورود فایل پروژه</button><button class="btn" type="button" id="backupAllBtn" onclick="exportAllProjects()">پشتیبان همه پروژه‌ها</button></div>
  <input type="file" id="importProjectFile" accept=".json,application/json" hidden/>
  <p class="tiny" id="projectImportHelp">فایل پروژه با خروجی JSON مخصوص موشن‌گرافیک فرق دارد. خروجی استاندارد بدون تغییر باقی می‌ماند.</p>
  <div id="projectsList" aria-live="polite"></div>
@@ -331,7 +331,7 @@ function translateUI(){
  document.documentElement.lang=uiLanguage;
  document.documentElement.dir=uiLanguage==='fa'?'rtl':'ltr';
  $('langButton').textContent=uiLanguage==='fa'?'English':'فارسی';
- document.title='SyncTap Studio V4.4 | LaneZero';
+ document.title='SyncTap Studio V4.5 | LaneZero';
  document.querySelectorAll('[data-t]').forEach(el=>{const entry=INFO_TEXT[el.dataset.t];if(entry)el.textContent=entry[uiLanguage];});
  document.querySelectorAll('[data-t-aria]').forEach(el=>{const entry=INFO_TEXT[el.dataset.tAria];if(entry)el.setAttribute('aria-label',entry[uiLanguage]);});
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
@@ -369,7 +369,7 @@ const previousNotify=notify;notify=function(message){return previousNotify(uiLan
 try{setLanguage(localStorage.getItem(LANGUAGE_KEY)||'fa');}catch(e){setLanguage('fa');}
 
 
-// V4.4 project manager: separate project backups from the unchanged V2 JSON export.
+// V4.5 project manager: separate project backups from the unchanged V2 JSON export.
 const PROJECTS_KEY='synctap-projects-v1', ACTIVE_PROJECT_KEY='synctap-active-project-v1';
 const MAX_PROJECTS=12, MAX_IMPORT_BYTES=1024*1024;
 const languageText=(fa,en)=>uiLanguage==='fa'?fa:en;
@@ -379,6 +379,7 @@ function projectSnapshot(){return {version:1,draft:$('txt').value,lines:[...LINE
 function validSnapshot(s){return s&&s.version===1&&typeof s.draft==='string'&&s.draft.length<=350000&&Array.isArray(s.lines)&&s.lines.length<=10000&&s.lines.every(v=>typeof v==='string')&&Array.isArray(s.marks)&&s.marks.length<=s.lines.length&&s.marks.every(v=>v===null||(typeof v==='number'&&Number.isFinite(v)&&v>=0))&&Number.isInteger(s.position)&&s.position===s.marks.length;}
 function getProjects(){try{const v=JSON.parse(localStorage.getItem(PROJECTS_KEY)||'[]');return Array.isArray(v)?v.filter(x=>x&&typeof x.id==='string'&&typeof x.name==='string'&&validSnapshot(x.state)).slice(0,MAX_PROJECTS):[];}catch(e){return [];}}
 function storeProjects(v){localStorage.setItem(PROJECTS_KEY,JSON.stringify(v));}
+function flushProjectSave(){clearTimeout(saveTimer);saveState();}
 function projectLabel(){return $('projectName').value.trim().slice(0,80)||'Untitled project';}
 function setProjectLabel(name){$('projectName').value=name;}
 function persistActive(){
@@ -407,8 +408,30 @@ function renderProjects(){
   detail.append(title,sub);
   const load=document.createElement('button');load.className='btn small';load.type='button';load.textContent=languageText('بازکردن','Open');load.disabled=p.id===activeProjectId;load.addEventListener('click',()=>loadProject(p.id));
   const del=document.createElement('button');del.className='btn small';del.type='button';del.textContent=languageText('حذف','Delete');del.addEventListener('click',()=>removeProject(p.id));
-  row.append(detail,load,del);list.append(row);
+  const duplicate=document.createElement('button');duplicate.className='btn small';duplicate.type='button';duplicate.textContent=languageText('تکثیر','Duplicate');duplicate.disabled=projects.length>=MAX_PROJECTS;duplicate.addEventListener('click',()=>duplicateProject(p.id));
+  row.append(detail,load,duplicate,del);list.append(row);
  });
+}
+function duplicateProject(id){
+ // Duplicate the persisted snapshot, preserving the active project's latest edits.
+ flushProjectSave();const projects=getProjects(),source=projects.find(p=>p.id===id);
+ if(!source||projects.length>=MAX_PROJECTS){notify(languageText('حداکثر ۱۲ پروژه قابل ذخیره است','Maximum 12 projects'));return;}
+ const copy={id:projectId(),name:(source.name.slice(0,65)+languageText(' (کپی)',' (copy)')).slice(0,80),updatedAt:new Date().toISOString(),state:structuredCloneSafe(source.state)};
+ try{storeProjects([...projects,copy]);renderProjects();notify(languageText('نسخه کپی پروژه ساخته شد','Project duplicated'));}catch(e){notify(languageText('ذخیره نسخه کپی ناموفق بود','Could not duplicate project'));}
+}
+function structuredCloneSafe(value){return JSON.parse(JSON.stringify(value));}
+function downloadProjectJson(data,filename){
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob),link=document.createElement('a');
+ link.href=url;link.download=filename;document.body.append(link);link.click();link.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),2000);
+}
+function exportAllProjects(){
+ flushProjectSave();const projects=getProjects();
+ if(!projects.length){notify(languageText('پروژه‌ای برای پشتیبان‌گیری وجود ندارد','No projects to back up'));return;}
+ const data={format:'synctap-project-collection',schemaVersion:1,appVersion:'4.5.0',exportedAt:new Date().toISOString(),projects:projects.map(p=>({name:p.name,state:p.state}))};
+ downloadProjectJson(data,'synctap-all-projects-'+new Date().toISOString().slice(0,10)+'.json');
+ notify(languageText('نسخه پشتیبان همه پروژه‌ها دانلود شد','All projects backup downloaded'));
 }
 function openProjects(){renderProjects();openModal('projectsDialog');}
 function saveNamedProject(){
@@ -427,22 +450,23 @@ function applySnapshot(s){
 function switchToProject(record){
  const oldId=activeProjectId;try{activeProjectId=record.id;applySnapshot(record.state);localStorage.setItem(ACTIVE_PROJECT_KEY,record.id);setProjectLabel(record.name);renderProjects();notify(languageText('پروژه باز شد؛ فایل صوتی را دوباره انتخاب کنید','Project loaded; select audio again'));}catch(e){activeProjectId=oldId;restoring=false;notify(languageText('بارگذاری پروژه ممکن نشد','Could not load project'));}
 }
-function loadProject(id){if(id===activeProjectId)return;const p=getProjects().find(x=>x.id===id);if(!p)return;saveState();switchToProject(p);}
+function loadProject(id){if(id===activeProjectId)return;const p=getProjects().find(x=>x.id===id);if(!p)return;flushProjectSave();switchToProject(p);}
 function newProject(){
  const projects=getProjects();if(projects.length>=MAX_PROJECTS){notify(languageText('حداکثر ۱۲ پروژه محلی؛ ابتدا یک پروژه را خروجی بگیرید و حذف کنید','12-project limit: export and delete an old project'));return;}
  if(!confirm(languageText('پروژه جدید ساخته شود؟ پروژه فعلی ذخیره خواهد شد.','Create a new project? Your current project will be saved.')))return;
- saveState();const empty={version:1,draft:'',lines:[],marks:[],position:0,theme:document.documentElement.dataset.theme||'dark'};
+ flushProjectSave();const empty={version:1,draft:'',lines:[],marks:[],position:0,theme:document.documentElement.dataset.theme||'dark'};
  const p={id:projectId(),name:languageText('پروژه جدید','New project'),updatedAt:new Date().toISOString(),state:empty};
  try{storeProjects([...getProjects(),p]);switchToProject(p);}catch(e){notify(languageText('ذخیره پروژه جدید ممکن نشد','Could not save new project'));}
 }
 function removeProject(id){
  const projects=getProjects();if(projects.length<=1){notify(languageText('حداقل یک پروژه باید باقی بماند','At least one project must remain'));return;}
  if(!confirm(languageText('این پروژه از حافظه مرورگر حذف شود؟ این عمل قابل بازگشت نیست.','Delete this project from browser storage? This cannot be undone.')))return;
+ flushProjectSave();
  const remaining=projects.filter(p=>p.id!==id);
  try{storeProjects(remaining);if(id===activeProjectId)switchToProject(remaining[0]);else renderProjects();}catch(e){notify(languageText('حذف پروژه انجام نشد','Could not delete project'));}
 }
 function exportProject(){
- saveState();const name=projectLabel();const data={format:'synctap-project',schemaVersion:1,appVersion:'4.4.0',name,exportedAt:new Date().toISOString(),state:projectSnapshot()};
+ saveState();const name=projectLabel();const data={format:'synctap-project',schemaVersion:1,appVersion:'4.5.0',name,exportedAt:new Date().toISOString(),state:projectSnapshot()};
  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);
  const link=document.createElement('a');link.href=url;link.download='synctap-project-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
  notify(languageText('فایل پشتیبان پروژه آماده شد','Project backup exported'));
@@ -451,21 +475,29 @@ $('importProjectFile').addEventListener('change',async e=>{
  const file=e.target.files?.[0];e.target.value='';if(!file)return;
  if(file.size>MAX_IMPORT_BYTES){notify(languageText('فایل پروژه باید کمتر از ۱ مگابایت باشد','Project file must be under 1 MB'));return;}
  try{
-  const data=JSON.parse(await file.text());if(data?.format!=='synctap-project'||data.schemaVersion!==1||!validSnapshot(data.state)||typeof data.name!=='string')throw Error('Invalid format');
-  const projects=getProjects();if(projects.length>=MAX_PROJECTS)throw Error('Limit reached');
-  if(!confirm(languageText('پروژه وارد شود؟ پروژه فعلی ذخیره خواهد شد.','Import project? Your current project will be saved.')))return;
-  saveState();const record={id:projectId(),name:data.name.trim().slice(0,80)||'Imported project',updatedAt:new Date().toISOString(),state:data.state};
-  storeProjects([...getProjects(),record]);switchToProject(record);
+  const data=JSON.parse(await file.text());
+  if(data?.schemaVersion!==1)throw Error('Invalid schema');
+  const incoming=data.format==='synctap-project'
+   ? [{name:data.name,state:data.state}]
+   : data.format==='synctap-project-collection' ? data.projects : null;
+  if(!Array.isArray(incoming)||!incoming.length||incoming.length>MAX_PROJECTS||incoming.some(p=>!p||typeof p.name!=='string'||!validSnapshot(p.state)))throw Error('Invalid format');
+  const existing=getProjects();if(existing.length+incoming.length>MAX_PROJECTS){notify(languageText('برای ورود فایل، ابتدا فضای پروژه‌ها را خالی کنید','Free project slots before importing'));return;}
+  if(!confirm(languageText('تعداد '+incoming.length+' پروژه وارد شود؟ پروژه فعلی ذخیره خواهد شد.','Import '+incoming.length+' project(s)? The current project will be saved.')))return;
+  flushProjectSave();
+  const records=incoming.map(p=>({id:projectId(),name:p.name.trim().slice(0,80)||'Imported project',updatedAt:new Date().toISOString(),state:structuredCloneSafe(p.state)}));
+  storeProjects([...getProjects(),...records]);switchToProject(records[0]);
  }catch(err){notify(languageText('فایل معتبر نیست یا فضای ذخیره‌سازی کافی نیست','Invalid project file or insufficient storage'));}
 });
 const previousTranslateUI=translateUI;
 translateUI=function(){previousTranslateUI();
  const english=uiLanguage==='en';$('projectsButton').textContent=english?'Projects':'پروژه‌ها';
- const labels={projectsTitle:['پروژه‌های من','My projects'],projectsLead:['پروژه‌ها فقط در همین مرورگر ذخیره می‌شوند. فایل صوتی ذخیره نمی‌شود؛ برای ادامه کار باید آن را دوباره انتخاب کنید.','Projects are saved only in this browser. Audio is not stored; reselect it when resuming.'],projectNameLabel:['نام پروژه فعال','Active project name'],saveProjectBtn:['ذخیره نام پروژه','Save project'],newProjectBtn:['پروژه جدید','New project'],exportProjectBtn:['دریافت فایل پروژه','Export project'],importProjectBtn:['ورود فایل پروژه','Import project'],projectImportHelp:['فایل پروژه با خروجی JSON مخصوص موشن‌گرافیک فرق دارد. خروجی استاندارد بدون تغییر باقی می‌ماند.','Project backups are separate from motion-graphics JSON exports. The standard JSON output remains unchanged.']};
+ const labels={projectsTitle:['پروژه‌های من','My projects'],projectsLead:['پروژه‌ها فقط در همین مرورگر ذخیره می‌شوند. فایل صوتی ذخیره نمی‌شود؛ برای ادامه کار باید آن را دوباره انتخاب کنید.','Projects are saved only in this browser. Audio is not stored; reselect it when resuming.'],projectNameLabel:['نام پروژه فعال','Active project name'],saveProjectBtn:['ذخیره نام پروژه','Save project'],newProjectBtn:['پروژه جدید','New project'],exportProjectBtn:['دریافت فایل پروژه','Export project'],importProjectBtn:['ورود فایل پروژه','Import project'],projectImportHelp:['فایل پشتیبان تکی یا همه پروژه‌ها قابل ورود است. خروجی استاندارد JSON تغییر نمی‌کند.','Import individual or all-project backups. The standard timing JSON stays unchanged.'],backupAllBtn:['پشتیبان همه پروژه‌ها','Back up all projects']};
  for(const [id,pair] of Object.entries(labels))$(id).textContent=pair[english?1:0];
  if($('projectsDialog').open)renderProjects();
 };
-// Upgrade migration: the V4.3 active autosave is imported as the first V4.4 project.
+// Flush pending changes when the page becomes hidden; this is critical on mobile.
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&!restoring)flushProjectSave();});
+// Upgrade migration: the V4.3 active autosave is imported as the first V4.5 project.
 initializeProjects();
 
 </script>
