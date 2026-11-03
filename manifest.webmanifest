@@ -2,7 +2,7 @@
   "id": "./",
   "name": "SyncTap Studio by LaneZero",
   "short_name": "SyncTap",
-  "description": "Lightweight bilingual narration timing, waveform and offline project management and timing JSON download",
+  "description": "Bilingual, local-first audio narration timing with iPhone Files support, precision editing and offline PWA",
   "lang": "en",
   "dir": "auto",
   "start_url": "./",

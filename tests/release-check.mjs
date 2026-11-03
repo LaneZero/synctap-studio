@@ -25,7 +25,7 @@ for(const [id,value] of Object.entries({
 assert.ok(html.includes('https://github.com/LaneZero/synctap-studio'));
 assert.ok(html.includes('function downloadTimingJson()'));
 assert.ok(html.includes('function togglePlayback()'));
-assert.ok(html.includes('Version 4.9'));
+assert.ok(html.includes('Version 5.0.0'));
 assert.ok(html.includes('downloadTimingBtn')); 
 assert.ok(html.includes('listWindowManual') && html.includes('PAGE_SIZE=160'));
 assert.ok(html.includes('applySnapshot(selected.state)'));
@@ -36,8 +36,18 @@ assert.equal(manifest.start_url,'./');
 for(const asset of ['sw.js','favicon.svg','icons/icon-192.png','icons/icon-512.png','README.md','CHANGELOG.md'])
  assert.ok(fs.existsSync(path.join(root,asset)),`Missing ${asset}`);
 const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
-assert.ok(sw.includes('synctap-shell-v4.9.0'),'New cache version needed');
+assert.ok(sw.includes('synctap-shell-v5.0.0'),'New cache version needed');
 assert.ok(sw.includes('url.origin !== self.location.origin'),'Cache must stay on origin');
 console.log('PASS: syntax, V2 JSON, wallets, GitHub link, pagination, restoration, PWA assets');
 
 for (const feature of ["v49Adjust", "v49Replay", "v49Search", "v49Quality", "shortcutDialog"]) assert.ok(html.includes(feature),`Missing ${feature}`);
+
+// V5 iOS regression: unrestricted *primary* picker. Filtering is optional.
+assert.match(html, /<input type="file" id="f">/);
+assert.ok(html.includes("$('f').removeAttribute('accept')"));
+assert.ok(html.includes("$('f').setAttribute('accept',AUDIO_ACCEPT)"));
+assert.ok(html.includes('AUDIO_EXTENSIONS.has(ext)'));
+assert.ok(html.includes('audioLoadState'));
+for(const id of ['quickPlayer','quickSync','quickScript','quickOutput','scriptToggle','dockPlay','dockLineStatus','dockAudioStatus'])
+ assert.ok(html.includes(`id="${id}"`),`Missing mobile control ${id}`);
+console.log('PASS: unrestricted iOS picker, optional filter, mobile navigation and controls');

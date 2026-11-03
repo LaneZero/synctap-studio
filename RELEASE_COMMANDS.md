@@ -1,12 +1,16 @@
-## v4.9.0
+# Release v5.0.0
+
+Run from the extracted project directory or your repository root:
 
 ```powershell
 node tests/release-check.mjs
+git status
 git add .
-git commit -m "feat: add precision replay search and quality dashboard (v4.9.0)"
+git commit -m "fix(ios): unrestricted audio files picker and mobile UX (v5.0.0)"
 git push origin main
-git tag -a v4.9.0 -m "SyncTap Studio v4.9.0"
-git push origin v4.9.0
+# After testing on real iPhone:
+git tag -a v5.0.0 -m "SyncTap Studio v5.0.0"
+git push origin v5.0.0
 ```
 
-Tag only after validating on a real mobile browser.
+GitHub Pages cache may need refresh after deploy. No remote push is performed by this package.

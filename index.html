@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SyncTap Studio V4.9 | LaneZero</title>
+<title>SyncTap Studio V5.0.0 | LaneZero</title>
 <meta name="description" content="ابزار رایگان و بدون نیاز به نصب برای ثبت دستی زمان شروع جملات نریشن و دریافت JSON همگام‌سازی متن و صدا.">
 <meta name="theme-color" content="#090f1e">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -123,15 +123,61 @@ html[lang=en] .brand h1{letter-spacing:0}
 .quality-metric strong{display:block;font-size:19px;color:var(--text)}.quality-metric span{font-size:11px;color:var(--muted)}
 #shortcutDialog table{width:100%;border-collapse:collapse}#shortcutDialog td{padding:9px;border-bottom:1px solid var(--border)}
 @media(max-width:600px){.quality-dashboard{grid-template-columns:repeat(2,minmax(0,1fr))}.precise-controls .btn{flex:1}.search-hit{min-height:48px}}
+
+/* Small-screen file selection fallback remains reachable without layout overflow. */
+.upload{flex-wrap:wrap}.audio-help{flex-basis:100%;line-height:1.65}#audioFileError:not(:empty){display:block;flex-basis:100%;color:#fb7185}#allAudioFilesBtn{white-space:normal;min-height:44px}
+
+/* V5 mobile-first navigation, compact script and single-hand timing controls. */
+.quick-nav{display:none}
+#scriptContents[hidden]{display:none!important}
+@media(max-width:980px){
+ .player-card{order:1}.sync-card{order:2}.script-card{order:3}.search-card{order:4}.timeline-card{order:5}.quality-card{order:6}.output-card{order:7}
+ .quick-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 0 12px}
+ .quick-nav a{display:flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);text-decoration:none;font-size:12px;font-weight:700;text-align:center}
+ .card{scroll-margin-top:12px}
+}
+@media(max-width:600px){
+ html{-webkit-text-size-adjust:100%}
+ body{overscroll-behavior-y:contain}
+ .wrap{padding:12px 12px calc(160px + env(safe-area-inset-bottom,0px))}
+ .top-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ .top-actions .btn{font-size:12px;min-height:44px}
+ .summary-tip{font-size:12px;margin:6px 0 12px}
+ .file-label{min-height:50px;flex:1 1 100%;font-size:15px}
+ #allAudioFilesBtn{flex:1 1 100%;min-height:44px}
+ .audio-help{font-size:12px}
+ #audioLoadState:not(:empty){flex-basis:100%;color:var(--green)}
+ .card-header{flex-wrap:wrap}
+ #scriptToggle{min-height:44px}
+ #txt{height:225px;font-size:16px}
+ #editTime,.search-input{font-size:16px}
+ .mobile-dock{grid-template-columns:minmax(0,.85fr) minmax(0,1fr) minmax(0,1.4fr) minmax(0,1fr);padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));gap:6px}
+ .dock-status{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:1px 6px 3px;color:var(--muted);font-size:12px;font-weight:700;direction:inherit}
+ #dockAudioStatus{direction:ltr;font-variant-numeric:tabular-nums;color:var(--accent)}
+ .mobile-dock button{min-height:56px;font-size:16px;touch-action:manipulation}
+ .dock-play{background:var(--surface2);color:var(--text)}
+ .mobile-dock button span{font-size:11px}
+ .toast{bottom:calc(137px + env(safe-area-inset-bottom,0px));left:12px;right:12px;text-align:center}
+ #big{min-height:68px}
+ .transport-precision .btn{min-height:48px}
+ .footer{padding-bottom:10px}
+}
+@media(max-width:360px){.quick-nav a{font-size:11px}.mobile-dock{gap:4px}.mobile-dock button span{font-size:10px}}
 </style>
 </head>
 <body>
 <main class="wrap">
-<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 4.9</span><button class="btn small" id="langButton" type="button" onclick="toggleLanguage()" aria-label="Change language">English</button><button class="btn small" id="projectsButton" type="button" onclick="openProjects()">پروژه‌ها</button><button class="btn small" id="aboutButton" type="button" onclick="openModal('aboutDialog')">درباره</button><button class="btn small" id="donateButton" type="button" onclick="openModal('donateDialog')">حمایت مالی</button><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
+<header class="top"><div class="brand"><div class="logo" aria-hidden="true">≋</div><div><h1>SyncTap Studio</h1><p class="sub">همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero</p></div></div><div class="top-actions"><span class="pill">Version 5.0.0</span><button class="btn small" id="langButton" type="button" onclick="toggleLanguage()" aria-label="Change language">English</button><button class="btn small" id="projectsButton" type="button" onclick="openProjects()">پروژه‌ها</button><button class="btn small" id="aboutButton" type="button" onclick="openModal('aboutDialog')">درباره</button><button class="btn small" id="donateButton" type="button" onclick="openModal('donateDialog')">حمایت مالی</button><button class="btn small" id="themeButton" type="button" onclick="toggleTheme()">☀ تغییر تم</button></div></header>
+<nav class="quick-nav" aria-label="دسترسی سریع به بخش‌ها">
+ <a href="#playerCard" id="quickPlayer">◉ صدا</a>
+ <a href="#syncCard" id="quickSync">✓ ثبت زمان</a>
+ <a href="#scriptCard" id="quickScript">✎ متن</a>
+ <a href="#outputCard" id="quickOutput">↓ خروجی</a>
+</nav>
 <p class="summary-tip">متن را آماده کنید، صدا را پخش کنید و شروع هر جمله را با یک ضربه ثبت کنید. بدون نصب، حساب کاربری یا ارسال فایل به سرور.</p>
 <div class="layout">
 <section class="stack" aria-label="ورودی و خروجی">
-<div class="card script-card" id="scriptCard"><div class="card-header"><h2>۱. متن نریشن</h2><span class="tiny" id="lineCount">۰ خط</span></div><p class="hint">متن واقعی ارسال‌شده به TTS را وارد کنید. هر جمله یا بخش باید در یک خط جدا باشد.</p><label class="tiny" for="txt">متن قابل ویرایش</label><textarea id="txt" spellcheck="false">اگه فکر می‌کنی مشکلت کمبود انگیزه‌ست، شاید دنبال جواب اشتباهی می‌گردی.
+<div class="card script-card" id="scriptCard"><div class="card-header"><h2>۱. متن نریشن</h2><span class="tiny" id="lineCount">۰ خط</span><button type="button" id="scriptToggle" class="btn small" aria-expanded="true" aria-controls="scriptContents">جمع‌کردن متن</button></div><div id="scriptContents"><p class="hint">متن واقعی ارسال‌شده به TTS را وارد کنید. هر جمله یا بخش باید در یک خط جدا باشد.</p><label class="tiny" for="txt">متن قابل ویرایش</label><textarea id="txt" spellcheck="false">اگه فکر می‌کنی مشکلت کمبود انگیزه‌ست، شاید دنبال جواب اشتباهی می‌گردی.
 پیام این پادکست ساده‌ست: به انگیزه‌ی بیشتر نیاز نداری؛ به عادت‌هایی نیاز داری که زندگیت رو بهتر کنن.
 این پنج عادت رو از پادکستِ د مایندست منتور برداشتم و امروز با هم مرورشون می‌کنیم.
 عادت اول: آماده‌سازی ذهن در صبح.
@@ -156,30 +202,32 @@ html[lang=en] .brand h1{letter-spacing:0}
 و یه حالت موقت رو به هویت همیشگی‌ت تبدیل نکن. به جای «من اضطراب دارم»، بگو «در گذشته اضطراب داشتم».
 و آخرش، واژه‌ی ابراکادابرا. طبق چیزی که گوینده می‌گه، یعنی «همون‌طور که می‌گم، خلق می‌کنم».
 پس این پنج عادت: ذهنِ آماده در صبح، مسئولیتِ صددرصدی، کارهای زیر پنج دقیقه، مرز با گوشی، و کلامِ آگاهانه.
-پس به جای منتظر موندن برای انگیزه‌ی بیشتر، از همین امروز یکی از این عادت‌ها رو شروع کن.</textarea><div class="row space" style="margin-top:12px"><span class="tiny" id="saveStatus" role="status">ذخیره محلی فعال است</span><span class="tiny">اعمال مجدد متن، زمان‌های فعلی را پاک می‌کند.</span><button class="btn primary" onclick="applyText()" type="button">اعمال متن</button></div></div>
-<div class="card output-card"><div class="card-header"><h2>خروجی JSON</h2><span class="pill">سازگار با V2</span></div><p class="hint">ساختار و نام فیلدهای خروجی بدون تغییر حفظ شده است.</p><textarea id="out" readonly aria-label="خروجی JSON"></textarea><div class="row" style="margin-top:10px"><button class="btn primary" onclick="copyOut()" type="button">⧉ کپی خروجی</button><button class="btn" id="downloadTimingBtn" type="button" onclick="downloadTimingJson()">↓ دانلود JSON</button><span class="tiny" id="outputInfo">خروجی آماده کپی است.</span></div></div>
+پس به جای منتظر موندن برای انگیزه‌ی بیشتر، از همین امروز یکی از این عادت‌ها رو شروع کن.</textarea><div class="row space" style="margin-top:12px"><span class="tiny" id="saveStatus" role="status">ذخیره محلی فعال است</span><span class="tiny">اعمال مجدد متن، زمان‌های فعلی را پاک می‌کند.</span><button class="btn primary" onclick="applyText()" type="button">اعمال متن</button></div></div></div>
+<div class="card output-card" id="outputCard"><div class="card-header"><h2>خروجی JSON</h2><span class="pill">سازگار با V2</span></div><p class="hint">ساختار و نام فیلدهای خروجی بدون تغییر حفظ شده است.</p><textarea id="out" readonly aria-label="خروجی JSON"></textarea><div class="row" style="margin-top:10px"><button class="btn primary" onclick="copyOut()" type="button">⧉ کپی خروجی</button><button class="btn" id="downloadTimingBtn" type="button" onclick="downloadTimingJson()">↓ دانلود JSON</button><span class="tiny" id="outputInfo">خروجی آماده کپی است.</span></div></div>
 </section>
 <section class="stack" aria-label="پخش و زمان‌بندی">
-<div class="card player-card"><div class="card-header"><h2>۲. فایل و کنترل صدا</h2><span class="tiny">WAV / MP3 / سایر فایل‌های صوتی مرورگر</span></div><div class="upload"><input type="file" id="f" accept="audio/*"><label class="file-label" for="f">♫ انتخاب فایل صوتی</label><span class="tiny" id="fileName">فایلی انتخاب نشده</span></div><div class="audio-box"><audio id="a" controls preload="metadata" aria-label="پخش نریشن"></audio><div class="wave-panel"><div class="row space wave-head"><strong>موج صوتی</strong><button type="button" class="btn small" id="waveBuild" disabled>نمایش موج واقعی</button></div><p id="waveStatus" class="tiny" role="status">ابتدا فایل صوتی را انتخاب کنید. برای حفظ سرعت موبایل، تحلیل موج اختیاری است.</p><div class="wave-wrap" id="waveWrap"><canvas id="waveCanvas" height="100" tabindex="0" role="slider" aria-label="جابه‌جایی در فایل صوتی" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="فایل صوتی انتخاب نشده" aria-disabled="true"></canvas></div><div class="row space wave-legend"><span>● نشانگر پخش</span><span>│ زمان‌های ثبت‌شده</span></div></div><div id="clock" aria-live="off">0.00</div><div class="transport-precision"><button class="btn small" type="button" id="backOne" onclick="seek(-1)">−۱ ثانیه</button><button class="btn small" type="button" id="playPause" onclick="togglePlayback()">▶ پخش / توقف</button><button class="btn small" type="button" id="forwardOne" onclick="seek(1)">+۱ ثانیه</button></div><div class="row" style="justify-content:center"><button class="btn small" onclick="seek(-3)">۳ ثانیه عقب</button><button class="btn small" onclick="seek(3)">۳ ثانیه جلو</button><button class="btn small" id="slow" onclick="rate(0.75)">سرعت ۰٫۷۵</button><button class="btn small" id="normal" onclick="rate(1)">سرعت ۱</button></div></div></div>
-<div class="card sync-card"><div class="card-header"><h2>۳. ثبت زمان جملات</h2><span class="tiny" id="progressLabel">۰٪ تکمیل</span></div><div class="stats"><div class="stat"><span class="tiny">کل جملات</span><strong id="totalCount">۰</strong></div><div class="stat"><span class="tiny">ثبت‌شده</span><strong id="doneCount">۰</strong></div><div class="stat"><span class="tiny">باقی‌مانده</span><strong id="remainingCount">۰</strong></div></div><div class="progress" role="progressbar" aria-label="پیشرفت زمان‌بندی" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div id="progressFill"></div></div><div class="current"><span class="eyebrow" id="hdr"></span><div id="cur"></div></div><button id="big" onclick="mark()">✓ همین‌جا شروع شد (Space)</button><div class="actions"><button class="btn" onclick="undo()" id="undoBtn">↶ برگرد و اصلاح (Backspace)</button><button class="btn" onclick="skip()" id="skipBtn">↷ این خط در صدا نیست</button></div><button class="btn small" type="button" id="v49ShortcutsOpen" onclick="openModal('shortcutDialog')">⌨ راهنمای میانبرها</button><div class="guide" aria-label="کلیدهای میانبر"><span>ثبت زمان <kbd>Space</kbd></span><span>بازگشت <kbd>Backspace</kbd></span><span>جابه‌جایی صدا <kbd>±3s</kbd></span></div><p class="hint" style="margin-bottom:0">کلیدهای میانبر هنگام تایپ در کادرها و هنگام فوکوس روی دکمه‌ها غیرفعال هستند.</p></div>
+<div class="card player-card" id="playerCard"><div class="card-header"><h2>۲. فایل و کنترل صدا</h2><span class="tiny">WAV / MP3 / سایر فایل‌های صوتی مرورگر</span></div><div class="upload"><input type="file" id="f"><label class="file-label" for="f" id="chooseAudioLabel">♫ انتخاب فایل از Files</label><button type="button" class="btn small" id="allAudioFilesBtn">فیلتر فقط فایل‌های صوتی</button><span class="tiny" id="fileName">فایلی انتخاب نشده</span><span class="tiny audio-help" id="audioFileHelp">فرمت‌های رایج: MP3، WAV، M4A، AAC، FLAC، OGG، OPUS، AIFF و سایر فرمت‌های قابل پخش مرورگر. انتخاب اصلی بدون فیلتر است تا فایل‌ها در iPhone Files غیرفعال نشوند. دکمه فیلتر صرفاً اختیاری است؛ پخش به پشتیبانی مرورگر بستگی دارد.</span><span class="tiny" id="audioFileError" role="alert" aria-live="polite"></span><span class="tiny" id="audioLoadState" role="status" aria-live="polite"></span></div><div class="audio-box"><audio id="a" controls preload="metadata" aria-label="پخش نریشن"></audio><div class="wave-panel"><div class="row space wave-head"><strong>موج صوتی</strong><button type="button" class="btn small" id="waveBuild" disabled>نمایش موج واقعی</button></div><p id="waveStatus" class="tiny" role="status">ابتدا فایل صوتی را انتخاب کنید. برای حفظ سرعت موبایل، تحلیل موج اختیاری است.</p><div class="wave-wrap" id="waveWrap"><canvas id="waveCanvas" height="100" tabindex="0" role="slider" aria-label="جابه‌جایی در فایل صوتی" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0" aria-valuetext="فایل صوتی انتخاب نشده" aria-disabled="true"></canvas></div><div class="row space wave-legend"><span>● نشانگر پخش</span><span>│ زمان‌های ثبت‌شده</span></div></div><div id="clock" aria-live="off">0.00</div><div class="transport-precision"><button class="btn small" type="button" id="backOne" onclick="seek(-1)">−۱ ثانیه</button><button class="btn small" type="button" id="playPause" onclick="togglePlayback()">▶ پخش / توقف</button><button class="btn small" type="button" id="forwardOne" onclick="seek(1)">+۱ ثانیه</button></div><div class="row" style="justify-content:center"><button class="btn small" onclick="seek(-3)">۳ ثانیه عقب</button><button class="btn small" onclick="seek(3)">۳ ثانیه جلو</button><button class="btn small" id="slow" onclick="rate(0.75)">سرعت ۰٫۷۵</button><button class="btn small" id="normal" onclick="rate(1)">سرعت ۱</button></div></div></div>
+<div class="card sync-card" id="syncCard"><div class="card-header"><h2>۳. ثبت زمان جملات</h2><span class="tiny" id="progressLabel">۰٪ تکمیل</span></div><div class="stats"><div class="stat"><span class="tiny">کل جملات</span><strong id="totalCount">۰</strong></div><div class="stat"><span class="tiny">ثبت‌شده</span><strong id="doneCount">۰</strong></div><div class="stat"><span class="tiny">باقی‌مانده</span><strong id="remainingCount">۰</strong></div></div><div class="progress" role="progressbar" aria-label="پیشرفت زمان‌بندی" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress"><div id="progressFill"></div></div><div class="current"><span class="eyebrow" id="hdr"></span><div id="cur"></div></div><button id="big" onclick="mark()">✓ همین‌جا شروع شد (Space)</button><div class="actions"><button class="btn" onclick="undo()" id="undoBtn">↶ برگرد و اصلاح (Backspace)</button><button class="btn" onclick="skip()" id="skipBtn">↷ این خط در صدا نیست</button></div><button class="btn small" type="button" id="v49ShortcutsOpen" onclick="openModal('shortcutDialog')">⌨ راهنمای میانبرها</button><div class="guide" aria-label="کلیدهای میانبر"><span>ثبت زمان <kbd>Space</kbd></span><span>بازگشت <kbd>Backspace</kbd></span><span>جابه‌جایی صدا <kbd>±3s</kbd></span></div><p class="hint" style="margin-bottom:0">کلیدهای میانبر هنگام تایپ در کادرها و هنگام فوکوس روی دکمه‌ها غیرفعال هستند.</p></div>
 <div class="card search-card"><div class="card-header"><h2 id="v49SearchTitle">جست‌وجوی جملات</h2><span class="tiny" id="v49SearchSummary"></span></div><label class="tiny" for="v49SearchInput" id="v49SearchLabel">جست‌وجو در متن نریشن</label><input class="search-input" id="v49SearchInput" type="search" autocomplete="off" maxlength="160" placeholder="بخشی از جمله را بنویسید…"><div id="v49SearchResults" class="search-results" aria-live="polite"></div><p class="hint" id="v49SearchHelp">انتخاب نتیجه فقط محل آن را در فهرست نشان می‌دهد؛ زمان‌های قبلی حفظ می‌شوند.</p></div>
 <div class="card timeline-card"><div class="card-header"><h2>فهرست زمان‌بندی</h2><span class="tiny" id="listSummary">۰ جمله</span></div><div id="list" class="list" aria-label="وضعیت ثبت جملات"></div><div class="note">سبز: زمان ثبت‌شده · نارنجی: جمله در صدا نیست · قاب مشخص: جمله فعلی</div>
 <div id="editPanel" class="note hidden" aria-label="اصلاح زمان"><label for="editTime">اصلاح زمان جمله <b id="editNumber"></b> (ثانیه، مانند 42.35)</label><div class="precise-controls"><label class="tiny" for="v49Step" id="v49StepLabel">گام اصلاح</label><select id="v49Step"><option value="0.1">0.10s</option><option value="0.01">0.01s</option></select><button class="btn" type="button" id="v49Minus">−</button><button class="btn" type="button" id="v49Plus">+</button><button class="btn" type="button" id="v49Replay">↻ بازپخش جمله</button></div><div class="edit-row"><input type="number" id="editTime" min="0" step="0.01" inputmode="decimal" aria-label="زمان جدید برحسب ثانیه"><button type="button" class="btn primary" id="editSave">ذخیره</button><button type="button" class="btn" id="editCancel">انصراف</button></div><p class="tiny">اصلاح زمان ترتیب جملات یا قالب خروجی را تغییر نمی‌دهد.</p></div>
 </div>
 <div class="card quality-card"><div class="quality-dashboard" id="v49QualityDashboard" aria-label="آمار کیفیت"><div class="quality-metric"><strong id="v49Timed">0</strong><span id="v49TimedLabel">زمان‌دار</span></div><div class="quality-metric"><strong id="v49Skipped">0</strong><span id="v49SkippedLabel">ردشده</span></div><div class="quality-metric"><strong id="v49Missing">0</strong><span id="v49MissingLabel">ناقص</span></div><div class="quality-metric"><strong id="v49Issues">0</strong><span id="v49IssuesLabel">خطاها</span></div></div><button class="btn small" id="v49FirstIssue" type="button" disabled>رفتن به اولین خطا</button><div class="card-header"><h2>بررسی کیفیت زمان‌بندی</h2><span class="tiny">بدون تغییر خودکار</span></div><div id="qualitySummary" class="tiny" role="status"></div><ul id="qualityList" class="quality-list"></ul></div>
 </section>
-</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V4.9 · <span lang="en">Local-first / No upload</span> · <button type="button" class="footer-link" onclick="openModal('aboutDialog')">About</button> · <button type="button" class="footer-link" onclick="openModal('donateDialog')">Donate ♡</button></footer>
+</div><footer class="footer">Designed &amp; Developed by <a href="https://github.com/LaneZero/synctap-studio" target="_blank" rel="noopener noreferrer" aria-label="LaneZero، صفحه برنامه‌نویس و مخزن SyncTap Studio در GitHub">LaneZero</a> · SyncTap Studio V5.0.0 · <span lang="en">Local-first / No upload</span> · <button type="button" class="footer-link" onclick="openModal('aboutDialog')">About</button> · <button type="button" class="footer-link" onclick="openModal('donateDialog')">Donate ♡</button></footer>
 </main>
 <nav class="mobile-dock" aria-label="کنترل‌های سریع ثبت زمان">
+  <div class="dock-status"><span id="dockLineStatus">شروع زمان‌بندی</span><span id="dockAudioStatus">00:00</span></div>
+  <button type="button" class="dock-play" id="dockPlay" onclick="togglePlayback()" aria-label="پخش یا توقف">▶ <span>پخش</span></button>
   <button type="button" class="dock-side" id="dockUndo" onclick="undo()" aria-label="بازگشت به جمله قبل">↶ <span>اصلاح</span></button>
   <button type="button" class="dock-mark" id="dockMark" onclick="mark()">✓ <span>ثبت زمان</span></button>
   <button type="button" class="dock-side" id="dockSkip" onclick="skip()" aria-label="ردکردن جمله فعلی">↷ <span>ردکردن</span></button>
 </nav>
 
 <dialog id="aboutDialog" class="info-dialog" aria-labelledby="aboutTitle">
- <div class="dialog-heading"><div><span class="dialog-kicker">SYNC TAP STUDIO · V4.9</span><h2 id="aboutTitle" data-t="aboutTitle">درباره SyncTap Studio</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('aboutDialog')">×</button></div>
+ <div class="dialog-heading"><div><span class="dialog-kicker">SYNC TAP STUDIO · V5.0.0</span><h2 id="aboutTitle" data-t="aboutTitle">درباره SyncTap Studio</h2></div><button class="dialog-close" type="button" data-t-aria="close" aria-label="بستن" onclick="closeModal('aboutDialog')">×</button></div>
  <p data-t="aboutLead">یک ابزار سبک و رایگان برای هماهنگ‌سازی دستی جملات متن با زمان شروع آن‌ها در فایل نریشن؛ مناسب تدوین و موشن‌گرافیک.</p>
- <div class="info-grid"><div><span data-t="version">نسخه</span><strong>4.9.0</strong></div><div><span data-t="developer">توسعه‌دهنده</span><strong>LaneZero</strong></div><div><span data-t="technology">فناوری</span><strong>HTML · CSS · JavaScript</strong></div><div><span data-t="privacy">حریم خصوصی</span><strong data-t="local">پردازش محلی</strong></div></div>
+ <div class="info-grid"><div><span data-t="version">نسخه</span><strong>5.0.0</strong></div><div><span data-t="developer">توسعه‌دهنده</span><strong>LaneZero</strong></div><div><span data-t="technology">فناوری</span><strong>HTML · CSS · JavaScript</strong></div><div><span data-t="privacy">حریم خصوصی</span><strong data-t="local">پردازش محلی</strong></div></div>
  <h3 data-t="featuresTitle">قابلیت‌ها</h3>
  <ul><li data-t="aboutFeat1">ثبت زمان با لمس یا Space و امکان ویرایش دستی زمان‌ها</li><li data-t="aboutFeat2">نمایش اختیاری شکل موج واقعی و کنترل سرعت پخش</li><li data-t="aboutFeat3">ذخیره خودکار پروژه در همان مرورگر و بازیابی پیشرفت</li><li data-t="aboutFeat4">کنترل کیفیت زمان‌بندی و خروجی JSON سازگار با نسخه‌های پیشین</li><li data-t="aboutFeat5">پشتیبانی از فارسی و انگلیسی، طراحی موبایل و نصب PWA</li></ul>
  <p class="privacy-note" data-t="privacyDetail">متن و زمان‌بندی در حافظه محلی مرورگر ذخیره می‌شوند. فایل صوتی به سرور برنامه ارسال نمی‌شود و برای حفظ حریم خصوصی یا محدودیت فضای ذخیره‌سازی به‌طور خودکار ذخیره نمی‌شود.</p>
@@ -215,7 +263,52 @@ html[lang=en] .brand h1{letter-spacing:0}
 let LINES=[];let i=0;const T=[];const a=document.getElementById('a');let audioUrl=null;
 const STORAGE_KEY='synctap-studio-v4';let saveTimer=null;let restoring=false;let editingIndex=-1;
 const $=id=>document.getElementById(id);
-$('f').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(audioUrl)URL.revokeObjectURL(audioUrl);audioUrl=URL.createObjectURL(f);a.src=audioUrl;$('fileName').textContent=f.name;resetWave();$('waveBuild').disabled=false;$('waveStatus').textContent='برای نمایش شکل موج واقعی، «نمایش موج واقعی» را بزنید. پخش صوت نیازی به تحلیل موج ندارد.';});
+// iOS WebKit can incorrectly classify accept="audio/*" as video.
+// Explicit extensions guide the native picker; the fallback opens Files without filtering.
+const AUDIO_EXTENSIONS=new Set(['mp3','mp2','mpga','mpeg','wav','wave','m4a','m4b','aac','flac','ogg','oga','opus','aif','aiff','caf','webm','mp4','3gp','amr','alac']);
+// Never restrict the primary picker: iOS Files may gray out legitimate WAV/MP3 files.
+const AUDIO_ACCEPT=Array.from(AUDIO_EXTENSIONS,v=>'.'+v).join(',');
+const audioFileError=$('audioFileError');
+function audioMessage(fa,en){return document.documentElement.lang==='en'?en:fa;}
+function restoreAudioFilter(){$('f').removeAttribute('accept');}
+$('allAudioFilesBtn').addEventListener('click',()=>{
+ // Optional filtered picker. Main picker remains unrestricted on all devices.
+ $('f').setAttribute('accept',AUDIO_ACCEPT);
+ $('f').click();
+});
+$('f').addEventListener('cancel',restoreAudioFilter);
+window.addEventListener('focus',()=>{ // Handles iOS versions without a reliable file-input cancel event.
+ setTimeout(restoreAudioFilter,300);
+});
+$('f').addEventListener('change',e=>{
+ restoreAudioFilter();
+ const f=e.target.files[0];if(!f)return;
+ const ext=(f.name.split('.').pop()||'').toLowerCase();
+ const mime=(f.type||'').toLowerCase();
+ // Picker filters are only hints. Reject unrelated files chosen via the fallback.
+ if(!AUDIO_EXTENSIONS.has(ext)&&!mime.startsWith('audio/')){
+  audioFileError.textContent=audioMessage('این فایل صوتی نیست یا پسوند شناخته‌شده‌ای ندارد.','This is not a recognized audio file.');
+  e.target.value='';return;
+ }
+ audioFileError.textContent='';
+ $('audioLoadState').textContent=audioMessage('در حال خواندن مشخصات فایل…','Reading audio metadata…');
+ a.pause();a.removeAttribute('src');a.load();
+ if(audioUrl)URL.revokeObjectURL(audioUrl);
+ audioUrl=URL.createObjectURL(f);
+ a.src=audioUrl;
+ a.load();
+ $('fileName').textContent=f.name;
+ $('audioLoadState').textContent=audioMessage('فایل انتخاب شد؛ در حال آماده‌سازی پخش…','File selected; preparing playback…');
+ resetWave();$('waveBuild').disabled=false;
+ $('waveStatus').textContent=audioMessage('برای نمایش شکل موج واقعی، «نمایش موج واقعی» را بزنید. پخش صوت نیازی به تحلیل موج ندارد.','Build the waveform if needed. Playback does not require waveform analysis.');
+});
+a.addEventListener('error',()=>{
+ if(!audioUrl)return;
+ audioFileError.textContent=audioMessage('مرورگر قادر به پخش یا رمزگشایی این فایل نیست. فایل MP3، WAV (PCM) یا M4A (AAC) را امتحان کنید.','This browser cannot play or decode the selected file. Try MP3, PCM WAV, or AAC M4A.');
+ $('waveBuild').disabled=true;
+ $('audioLoadState').textContent=audioMessage('این فایل در مرورگر فعلی قابل پخش نیست.','The selected codec is not supported by this browser.');
+});
+a.addEventListener('loadedmetadata',()=>{audioFileError.textContent='';$('audioLoadState').textContent=audioMessage('آماده پخش','Ready to play');});
 $('txt').addEventListener('input',()=>{$('lineCount').textContent=$('txt').value.split('\n').map(s=>s.trim()).filter(Boolean).length+' خط';scheduleSave();});
 function applyText(){listWindowManual=false;if(i>0&&!confirm('با اعمال مجدد متن، زمان‌بندی ثبت‌شده پاک می‌شود. ادامه می‌دهید؟'))return;LINES=$('txt').value.split('\n').map(s=>s.trim()).filter(Boolean);i=0;T.length=0;closeEdit();show();}
 // Playback helper never modifies any recorded timestamps.
@@ -371,6 +464,8 @@ if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.
 const LANGUAGE_KEY='synctap-studio-language';
 let uiLanguage='fa';
 const UI_TEXT={"همگام‌سازی دقیق متن و نریشن · ساخته‌شده توسط LaneZero": "Precise narration alignment · by LaneZero", "☀ تغییر تم": "☀ Theme", "☾ تغییر تم": "☾ Theme", "درباره": "About", "حمایت مالی": "Donate", "متن را آماده کنید، صدا را پخش کنید و شروع هر جمله را با یک ضربه ثبت کنید. بدون نصب، حساب کاربری یا ارسال فایل به سرور.": "Prepare the script, play the narration and mark each line as it starts. No account, installation or audio upload.", "۱. متن نریشن": "1. Narration script", "متن واقعی ارسال‌شده به TTS را وارد کنید. هر جمله یا بخش باید در یک خط جدا باشد.": "Paste the exact text used for TTS. Put each sentence or segment on its own line.", "متن قابل ویرایش": "Editable script", "ذخیره محلی فعال است": "Local autosave enabled", "اعمال مجدد متن، زمان‌های فعلی را پاک می‌کند.": "Reapplying the script clears current timestamps.", "اعمال متن": "Apply script", "خروجی JSON": "JSON output", "سازگار با V2": "V2 compatible", "ساختار و نام فیلدهای خروجی بدون تغییر حفظ شده است.": "Output field names and structure remain unchanged.", "⧉ کپی خروجی": "⧉ Copy JSON", "خروجی آماده کپی است.": "Output ready to copy.", "۲. فایل و کنترل صدا": "2. Audio & playback", "WAV / MP3 / سایر فایل‌های صوتی مرورگر": "WAV / MP3 / browser-supported audio", "♫ انتخاب فایل صوتی": "♫ Choose audio", "فایلی انتخاب نشده": "No audio selected", "موج صوتی": "Waveform", "نمایش موج واقعی": "Build waveform", "ابتدا فایل صوتی را انتخاب کنید. برای حفظ سرعت موبایل، تحلیل موج اختیاری است.": "Choose an audio file first. Waveform analysis is optional to save memory.", "● نشانگر پخش": "● Playhead", "│ زمان‌های ثبت‌شده": "│ Saved timestamps", "۳ ثانیه عقب": "Back 3 seconds", "۳ ثانیه جلو": "Forward 3 seconds", "سرعت ۰٫۷۵": "0.75× speed", "سرعت ۱": "1× speed", "۳. ثبت زمان جملات": "3. Mark line starts", "کل جملات": "Total lines", "ثبت‌شده": "Processed", "باقی‌مانده": "Remaining", "✓ همین‌جا شروع شد (Space)": "✓ Mark start (Space)", "↶ برگرد و اصلاح (Backspace)": "↶ Undo (Backspace)", "↷ این خط در صدا نیست": "↷ Skip line", "ثبت زمان": "Mark", "بازگشت": "Undo", "جابه‌جایی صدا": "Seek", "کلیدهای میانبر هنگام تایپ در کادرها و هنگام فوکوس روی دکمه‌ها غیرفعال هستند.": "Keyboard shortcuts are disabled while editing text or focusing buttons.", "فهرست زمان‌بندی": "Timing list", "سبز: زمان ثبت‌شده · نارنجی: جمله در صدا نیست · قاب مشخص: جمله فعلی": "Green: recorded · Orange: skipped · Highlight: current line", "اصلاح زمان جمله ": "Edit timestamp for line ", "ذخیره": "Save", "انصراف": "Cancel", "اصلاح زمان ترتیب جملات یا قالب خروجی را تغییر نمی‌دهد.": "Editing a timestamp does not change line order or JSON format.", "بررسی کیفیت زمان‌بندی": "Timing quality check", "بدون تغییر خودکار": "No auto changes", "↶ ": "↶ ", "↷ ": "↷ ", "اصلاح": "Undo", "ردکردن": "Skip", "ردکردن جمله فعلی": "Skip current line", "بازگشت به جمله قبل": "Return to previous line", "کپی آدرس": "Copy address", "Local-first / No upload": "Local-first / No upload"};
+UI_TEXT["انتخاب از همه فایل‌ها (آیفون)"]="Browse all files (iPhone)";
+UI_TEXT["فرمت‌های رایج: MP3، WAV، M4A، AAC، FLAC، OGG، OPUS، AIFF و سایر فرمت‌های قابل پخش مرورگر. انتخاب اصلی بدون فیلتر است تا فایل‌ها در iPhone Files غیرفعال نشوند. دکمه فیلتر صرفاً اختیاری است؛ پخش به پشتیبانی مرورگر بستگی دارد."]="Formats: MP3, WAV, M4A, AAC, FLAC, OGG, OPUS, AIFF and other browser-playable audio. If a file is disabled on iPhone, use Browse all files.";
 const INFO_TEXT={"aboutTitle": {"fa": "درباره SyncTap Studio", "en": "About SyncTap Studio"}, "aboutLead": {"fa": "یک ابزار سبک و رایگان برای هماهنگ‌سازی دستی جملات متن با زمان شروع آن‌ها در فایل نریشن؛ مناسب تدوین و موشن‌گرافیک.", "en": "A lightweight, free tool for manually aligning script lines with narration timestamps, built for video editing and motion graphics."}, "version": {"fa": "نسخه", "en": "Version"}, "developer": {"fa": "توسعه‌دهنده", "en": "Developer"}, "technology": {"fa": "فناوری", "en": "Technology"}, "privacy": {"fa": "حریم خصوصی", "en": "Privacy"}, "local": {"fa": "پردازش محلی", "en": "Local processing"}, "featuresTitle": {"fa": "قابلیت‌ها", "en": "Features"}, "aboutFeat1": {"fa": "ثبت زمان با لمس یا Space و امکان ویرایش دستی زمان‌ها", "en": "Mark with a tap or Space, and edit timestamps precisely"}, "aboutFeat2": {"fa": "نمایش اختیاری شکل موج واقعی و کنترل سرعت پخش", "en": "Optional real waveform and playback speed controls"}, "aboutFeat3": {"fa": "ذخیره خودکار پروژه در همان مرورگر و بازیابی پیشرفت", "en": "Local autosave and progress recovery in the same browser"}, "aboutFeat4": {"fa": "کنترل کیفیت زمان‌بندی و خروجی JSON سازگار با نسخه‌های پیشین", "en": "Timing validation and backward-compatible JSON export"}, "aboutFeat5": {"fa": "پشتیبانی از فارسی و انگلیسی، طراحی موبایل و نصب PWA", "en": "Persian and English, mobile-first layout and PWA install support"}, "privacyDetail": {"fa": "متن و زمان‌بندی در حافظه محلی مرورگر ذخیره می‌شوند. فایل صوتی به سرور برنامه ارسال نمی‌شود و برای حفظ حریم خصوصی یا محدودیت فضای ذخیره‌سازی به‌طور خودکار ذخیره نمی‌شود.", "en": "Script and timing data are saved in local browser storage. Audio is not uploaded or automatically saved, protecting privacy and device storage."}, "donateTitle": {"fa": "حمایت از توسعه", "en": "Support development"}, "donateLead": {"fa": "اگر SyncTap Studio برایتان مفید بوده، می‌توانید با کمک داوطلبانه از توسعه و نگهداری آن حمایت کنید. استفاده از برنامه کاملاً رایگان است.", "en": "If SyncTap Studio helps your workflow, you can voluntarily support its development and maintenance. The tool remains free for everyone."}, "copyAddress": {"fa": "کپی آدرس", "en": "Copy address"}, "networkWarning": {"fa": "پیش از ارسال، شبکه و آدرس مقصد را دوباره بررسی کنید. تراکنش‌های بلاک‌چین معمولاً برگشت‌پذیر نیستند. هیچ کیف پولی به برنامه متصل نمی‌شود.", "en": "Double-check the destination address and network before sending. Blockchain transfers are generally irreversible. No wallet connects to this app."}, "close": {"fa": "بستن", "en": "Close"}};
 const originals=new WeakMap();
 function translateString(fa){
@@ -391,7 +486,7 @@ function translateUI(){
  document.documentElement.lang=uiLanguage;
  document.documentElement.dir=uiLanguage==='fa'?'rtl':'ltr';
  $('langButton').textContent=uiLanguage==='fa'?'English':'فارسی';
- document.title='SyncTap Studio V4.9 | LaneZero';
+ document.title='SyncTap Studio V5.0.0 | LaneZero';
  document.querySelectorAll('[data-t]').forEach(el=>{const entry=INFO_TEXT[el.dataset.t];if(entry)el.textContent=entry[uiLanguage];});
  document.querySelectorAll('[data-t-aria]').forEach(el=>{const entry=INFO_TEXT[el.dataset.tAria];if(entry)el.setAttribute('aria-label',entry[uiLanguage]);});
  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
@@ -496,7 +591,7 @@ function downloadProjectJson(data,filename){
 function exportAllProjects(){
  flushProjectSave();const projects=getProjects();
  if(!projects.length){notify(languageText('پروژه‌ای برای پشتیبان‌گیری وجود ندارد','No projects to back up'));return;}
- const data={format:'synctap-project-collection',schemaVersion:1,appVersion:'4.9.0',exportedAt:new Date().toISOString(),projects:projects.map(p=>({name:p.name,state:p.state}))};
+ const data={format:'synctap-project-collection',schemaVersion:1,appVersion:'5.0.0',exportedAt:new Date().toISOString(),projects:projects.map(p=>({name:p.name,state:p.state}))};
  downloadProjectJson(data,'synctap-all-projects-'+new Date().toISOString().slice(0,10)+'.json');
  notify(languageText('نسخه پشتیبان همه پروژه‌ها دانلود شد','All projects backup downloaded'));
 }
@@ -534,7 +629,7 @@ function removeProject(id){
  try{storeProjects(remaining);if(id===activeProjectId)switchToProject(remaining[0]);else renderProjects();}catch(e){notify(languageText('حذف پروژه انجام نشد','Could not delete project'));}
 }
 function exportProject(){
- saveState();const name=projectLabel();const data={format:'synctap-project',schemaVersion:1,appVersion:'4.9.0',name,exportedAt:new Date().toISOString(),state:projectSnapshot()};
+ saveState();const name=projectLabel();const data={format:'synctap-project',schemaVersion:1,appVersion:'5.0.0',name,exportedAt:new Date().toISOString(),state:projectSnapshot()};
  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);
  const link=document.createElement('a');link.href=url;link.download='synctap-project-'+new Date().toISOString().slice(0,10)+'.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
  notify(languageText('فایل پشتیبان پروژه آماده شد','Project backup exported'));
@@ -656,6 +751,45 @@ translateUI=function(){v49PreviousTranslate();const x=V49_STRINGS[uiLanguage];
  if($('v49SearchInput').value)v49Search();
 };
 translateUI();v49Quality();
+
+/* V5 mobile presentation helpers. These do not change recorded timestamps or serialization. */
+const V5_WORDS={
+ fa:{player:'◉ صدا',sync:'✓ ثبت زمان',script:'✎ متن',output:'↓ خروجی',collapse:'جمع‌کردن متن',expand:'نمایش و ویرایش متن',choose:'♫ انتخاب فایل از Files',filter:'فیلتر فایل صوتی (اختیاری)',play:'پخش',pause:'توقف',line:'جمله',complete:'پایان زمان‌بندی',start:'شروع زمان‌بندی'},
+ en:{player:'◉ Audio',sync:'✓ Mark',script:'✎ Script',output:'↓ Export',collapse:'Collapse script',expand:'Edit script',choose:'♫ Choose from Files',filter:'Filter audio (optional)',play:'Play',pause:'Pause',line:'Line',complete:'All lines complete',start:'Start timing'}
+};
+let v5ScriptCollapsed=false;
+function v5UpdateMobile(){
+ const x=V5_WORDS[uiLanguage];
+ $('dockLineStatus').textContent=!LINES.length?x.start:i>=LINES.length?x.complete:`${x.line} ${i+1} / ${LINES.length}`;
+ $('dockAudioStatus').textContent=Number.isFinite(a.currentTime)?`${Math.floor(a.currentTime/60).toString().padStart(2,'0')}:${Math.floor(a.currentTime%60).toString().padStart(2,'0')}`:'00:00';
+ $('dockPlay').innerHTML=(a.paused?'▶ ':'Ⅱ ')+`<span>${a.paused?x.play:x.pause}</span>`;
+ $('dockPlay').setAttribute('aria-label',a.paused?x.play:x.pause);
+}
+function v5UpdateLabels(){
+ const x=V5_WORDS[uiLanguage];
+ for(const [id,k] of [['quickPlayer','player'],['quickSync','sync'],['quickScript','script'],['quickOutput','output'],['chooseAudioLabel','choose'],['allAudioFilesBtn','filter']])$(id).textContent=x[k];
+ $('scriptToggle').textContent=v5ScriptCollapsed?x.expand:x.collapse;
+ v5UpdateMobile();
+}
+function v5SetScriptCollapsed(value){
+ v5ScriptCollapsed=value;
+ $('scriptContents').hidden=value;
+ $('scriptToggle').setAttribute('aria-expanded',String(!value));
+ v5UpdateLabels();
+}
+$('scriptToggle').addEventListener('click',()=>v5SetScriptCollapsed(!v5ScriptCollapsed));
+$('quickScript').addEventListener('click',()=>v5SetScriptCollapsed(false));
+a.addEventListener('play',v5UpdateMobile);
+a.addEventListener('pause',v5UpdateMobile);
+a.addEventListener('timeupdate',v5UpdateMobile);
+a.addEventListener('loadedmetadata',v5UpdateMobile);
+const v5PrevShow=show;
+show=function(...args){const result=v5PrevShow(...args);v5UpdateMobile();return result;};
+const v5PrevTranslate=translateUI;
+translateUI=function(...args){const result=v5PrevTranslate(...args);v5UpdateLabels();return result;};
+// Start compact only on phone; the script remains one tap away and stays editable.
+if(window.matchMedia('(max-width:600px)').matches) v5SetScriptCollapsed(true);
+else v5UpdateLabels();
 
 </script>
 </body></html>
